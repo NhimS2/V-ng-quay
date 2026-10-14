@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CS2 Control Deck - Bảng Điều Khiển & Cài Đặt Riêng Cho Streamer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Rajdhani:wght@600;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <link rel="stylesheet" href="styles.css?v=20261014_v13">
+  <link rel="stylesheet" href="control.css?v=20261014_v13">
+</head>
+<body class="cs2-theme control-body">
+  <div class="control-layout">
+    <!-- Top Bar -->
+    <header class="control-header-bar">
+      <div class="chb-left">
+        <div class="chb-logo">
+          <span>★</span>
+          <span>CS2 DECK</span>
+        </div>
+        <div class="chb-title">
+          <h1>BẢNG ĐIỀU KHIỂN & CÀI ĐẶT RIÊNG</h1>
+          <p>DÀNH CHO STREAMER / CREATOR • ẨN HOÀN TOÀN KHỎI MÀN HÌNH QUAY VIEWER</p>
+        </div>
+      </div>
+      <div class="chb-right">
+        <div class="sync-badge disconnected" id="syncStatusBadge">
+          <span class="sync-dot"></span>
+          <span id="syncStatusText">Đang tìm trang Vòng Quay...</span>
+        </div>
+        <button id="openViewerBtn" class="cs-btn cs-btn-sm cs-btn-gold" title="Mở trang Vòng quay trên màn hình ghi hình">
+          🔗 Mở Trang Vòng Quay (Viewer)
+        </button>
+      </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="control-nav-strip">
+      <button class="c-nav-tab active" data-tab="pane-deck">
+        <span>🎮</span> ĐIỀU KHIỂN TRỰC TIẾP
+      </button>
+      <button class="c-nav-tab" data-tab="pane-settings">
+        <span>⚙️</span> CÀI ĐẶT HỆ THỐNG
+      </button>
+      <button class="c-nav-tab" data-tab="pane-knives">
+        <span>🗡️</span> QUẢN LÝ KHO DAO (<span id="ctrlKnivesCount">20</span>)
+      </button>
+      <button class="c-nav-tab" data-tab="pane-collection">
+        <span>🏆</span> BỘ SƯU TẬP DAO (<span id="ctrlCollCount">0</span>)
+      </button>
+    </nav>
+
+    <!-- ====================================================================
+         TAB 1: DIRECTOR DECK (ĐIỀU KHIỂN TỪ XA TRỰC TIẾP)
+         ==================================================================== -->
+    <section class="c-pane active" id="pane-deck">
+      <div class="deck-monitor-card">
+        <div class="dm-header">
+          <div class="dm-title">
+            <span>📡</span> TRẠNG THÁI HIỂN THỊ TRÊN MÀN HÌNH VIEWER
+          </div>
+          <div class="dm-stage-pill" id="deckStagePill">VÒNG 1: CHỌN LOẠI DAO</div>
+        </div>
+
+        <!-- 3 Slots Live Summary -->
+        <div class="dm-slots-summary">
+          <!-- Slot 1 -->
+          <div class="dms-box active-slot" id="dmsSlot1">
+            <div class="dms-label">VÒNG 1 • LOẠI DAO</div>
+            <div class="dms-val" id="dmsVal1">Đang chờ quay...</div>
+            <div class="dms-sub" id="dmsSub1">20 Dòng Dao CS2</div>
+          </div>
+          <!-- Slot 2 -->
+          <div class="dms-box" id="dmsSlot2">
+            <div class="dms-label">VÒNG 2 • LỚP ÁO / SKIN</div>
+            <div class="dms-val" id="dmsVal2">Khóa</div>
+            <div class="dms-sub" id="dmsSub2">Chờ Vòng 1</div>
+          </div>
+          <!-- Slot 3 -->
+          <div class="dms-box" id="dmsSlot3">
+            <div class="dms-label">VÒNG 3 • HÒM & SỐ LƯỢNG</div>
+            <div class="dms-val" id="dmsVal3">Khóa</div>
+            <div class="dms-sub" id="dmsSub3">Chờ Vòng 2</div>
+          </div>
+        </div>
+
+        <!-- Remote Action Buttons -->
+        <div class="remote-triggers-grid">
+          <button id="remoteMainActionBtn" class="cs-btn remote-btn-giant remote-btn-start">
+            <span class="btn-shine"></span>
+            <span id="remoteBtnIcon">⚡</span>
+            <span id="remoteBtnText">KÍCH HOẠT QUAY VÒNG 1 (TRÊN MÀN VIEWER)</span>
+          </button>
+          <button id="remoteResetBtn" class="cs-btn remote-btn-giant remote-btn-reset">
+            <span>↺</span>
+            <span>THIẾT LẬP LẠI KÈO MỚI</span>
+          </button>
+        </div>
+
+        <!-- Quick Switchers -->
+        <div class="quick-deck-switches">
+          <!-- Broadcast Switch -->
+          <div class="qds-group">
+            <span class="qds-label">ĐỊNH DẠNG TẬP (BROADCAST MODE):</span>
+            <div class="qds-btn-pair">
+              <button class="qds-btn active" id="btnModeVideo" data-mode="video">🎬 Video Series (1 - 15 Hòm)</button>
+              <button class="qds-btn" id="btnModeStream" data-mode="stream">🔴 Livestream (5 - 50 Hòm)</button>
+            </div>
+          </div>
+          <!-- Spinner Switch -->
+          <div class="qds-group">
+            <span class="qds-label">KIỂU HIỂN THỊ VÒNG QUAY:</span>
+            <div class="qds-btn-pair">
+              <button class="qds-btn active" id="btnSpinRoller" data-spin="roller">🎞️ Băng Chuyền CS2</button>
+              <button class="qds-btn" id="btnSpinWheel" data-spin="wheel">🎡 Bánh Xe 3D</button>
+            </div>
+          </div>
+        <!-- Live Session Stats Strip for Streamer -->
+        <div class="stats-strip" style="margin-top: 16px; width: 100%; border-radius: 8px;">
+          <div class="stat-cell">
+            <span class="stat-label">ĐÃ MỞ HÒM:</span>
+            <span class="stat-value" id="deckStatCount">0</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-cell">
+            <span class="stat-label">TỔNG GIÁ TRỊ RƠI:</span>
+            <span class="stat-value gold-text" id="deckStatTotalValue">0 đ</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-cell">
+            <span class="stat-label">DAO ĐỈNH NHẤT:</span>
+            <span class="stat-value special-text" id="deckStatTopKnife">Chưa có</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-cell">
+            <span class="stat-label">TIẾN ĐỘ BỘ SƯU TẬP:</span>
+            <span class="stat-value gold-text" id="deckStatProgress">0 / 20</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         TAB 2: CÀI ĐẶT HỆ THỐNG (SETTINGS)
+         ==================================================================== -->
+    <section class="c-pane" id="pane-settings">
+      <div class="settings-deck-card">
+        <h2 style="font-family: var(--font-heading); color: #ffd700; margin-top: 0; margin-bottom: 24px;">⚙️ TÙY CHỈNH HỆ THỐNG VÒNG QUAY</h2>
+
+        <!-- Suspense Level -->
+        <div class="sd-form-group">
+          <div class="sd-label-row">
+            <span class="sd-label">ĐỘ HỒI HỘP & TẠO KỊCH TÍNH (SUSPENSE LEVEL)</span>
+          </div>
+          <p class="sd-desc">Điều chỉnh nhịp điệu quay chậm dần và hiệu ứng suýt trúng hàng khủng (Near-Miss) để tăng cảm xúc cho người xem.</p>
+          <div class="sd-radios">
+            <label class="sd-radio-card">
+              <input type="radio" name="suspenseOpt" value="normal">
+              <span class="sd-radio-text">Tiêu chuẩn (4.8s)</span>
+            </label>
+            <label class="sd-radio-card">
+              <input type="radio" name="suspenseOpt" value="high" checked>
+              <span class="sd-radio-text">🔥 Cực hồi hộp (6.5s)</span>
+            </label>
+            <label class="sd-radio-card">
+              <input type="radio" name="suspenseOpt" value="ultra">
+              <span class="sd-radio-text">⚡ Thót tim (8.8s + Suýt trúng)</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Odds Mode -->
+        <div class="sd-form-group">
+          <div class="sd-label-row">
+            <span class="sd-label">CƠ CHẾ TỶ LỆ RƠI (ODDS MODE)</span>
+          </div>
+          <p class="sd-desc">Tùy biến xác suất trúng dao hiếm / dao bình dân.</p>
+          <div class="sd-radios">
+            <label class="sd-radio-card">
+              <input type="radio" name="oddsOpt" value="realistic" checked>
+              <span class="sd-radio-text">🎲 Chuẩn CS2 thực tế (Dao xịn hiếm hơn)</span>
+            </label>
+            <label class="sd-radio-card">
+              <input type="radio" name="oddsOpt" value="equal">
+              <span class="sd-radio-text">⚖️ Đồng đều (1 / 20 cho mỗi loại dao)</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Audio Settings -->
+        <div class="sd-form-group" style="border-bottom: none;">
+          <div class="sd-label-row">
+            <span class="sd-label">ÂM THANH HIỆU ỨNG (AUDIO)</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 16px; margin-top: 12px;">
+            <button id="toggleMuteBtn" class="cs-btn cs-btn-sm cs-btn-dark">🔊 Đang Bật Âm Thanh</button>
+            <label style="display: flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 13px;">
+              <span>Âm lượng:</span>
+              <input type="range" id="volumeSlider" min="0" max="1" step="0.05" value="0.8" style="accent-color: #ffd700;" />
+            </label>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         TAB 3: QUẢN LÝ KHO DAO (20 LOẠI DAO CS2)
+         ==================================================================== -->
+    <section class="c-pane" id="pane-knives">
+      <div class="settings-deck-card">
+        <div class="km-header-bar">
+          <div>
+            <h2 style="font-family: var(--font-heading); color: #ffd700; margin: 0;">🗡️ DANH SÁCH 20 LOẠI DAO TRONG VÒNG QUAY</h2>
+            <p style="margin: 4px 0 0; font-size: 13px; color: #94a3b8;">Bỏ chọn dao nếu bạn không muốn loại dao đó xuất hiện trong vòng quay của tập hôm nay.</p>
+          </div>
+          <div style="display: flex; gap: 10px;">
+            <button id="btnSelectAllKnives" class="cs-btn cs-btn-sm cs-btn-gold">✔ Bật Tất Cả (20)</button>
+            <button id="btnDeselectAllKnives" class="cs-btn cs-btn-sm cs-btn-dark">✖ Tắt Tất Cả</button>
+          </div>
+        </div>
+
+        <div class="km-grid" id="controlKnivesGrid">
+          <!-- Dynamically populated via control.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         TAB 4: BỘ SƯU TẬP DAO (COLLECTION TRACKER)
+         ==================================================================== -->
+    <section class="c-pane" id="pane-collection">
+      <div class="collection-section" id="collectionSection" style="margin-top: 0; background: transparent; border: none; padding: 0; box-shadow: none;">
+        <div class="collection-header-card">
+          <div class="chc-left">
+            <div class="chc-badge">
+              <span class="chc-icon">🏆</span>
+              <span>SERIES VIDEO MỞ HÒM CS2</span>
+            </div>
+            <h2 class="chc-title">BỘ SƯU TẬP DAO CS2 CỦA BẠN</h2>
+            <p class="chc-subtitle">Quản lý kho dao cá nhân, thông số Float và tiến độ sưu tập</p>
+          </div>
+          <div class="chc-stats">
+            <div class="chc-stat-box">
+              <span class="csb-label">TIẾN ĐỘ LOẠI DAO:</span>
+              <span class="csb-value gold-text" id="collDistinctCount">0 / 20</span>
+              <div class="chc-progress-track">
+                <div class="chc-progress-bar" id="collProgressBar" style="width: 0%;"></div>
+              </div>
+            </div>
+            <div class="chc-stat-box">
+              <span class="csb-label">TỔNG DAO ĐÃ MỞ:</span>
+              <span class="csb-value" id="collTotalKnives">0 con</span>
+              <span class="csb-sub" id="collStatTrakCount">0 StatTrak™</span>
+            </div>
+            <div class="chc-stat-box">
+              <span class="csb-label">TỔNG GIÁ TRỊ BST:</span>
+              <span class="csb-value gold-text" id="collTotalValue">0 đ</span>
+              <span class="csb-sub" id="collTotalUSD">$0</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 20 Knives Checklist -->
+        <div class="knives-checklist-card">
+          <div class="kcc-header">
+            <span class="kcc-title">🎯 TIẾN ĐỘ 20 LOẠI DAO CS2:</span>
+            <span class="kcc-hint">(Loại dao đã sở hữu sẽ sáng đèn vàng rực rỡ + dấu tích xanh ✔)</span>
+          </div>
+          <div class="kcc-grid" id="knivesChecklistGrid">
+            <!-- Populated via control.js -->
+          </div>
+        </div>
+
+        <!-- Collection Toolbar -->
+        <div class="collection-toolbar">
+          <div class="ct-left">
+            <button id="openManualAddBtn" class="cs-btn cs-btn-gold">
+              ➕ Thêm Dao Đã Mở Vào BST
+            </button>
+            <div class="view-mode-toggle">
+              <button class="view-btn active" data-view="cards" id="viewCardsBtn">🎴 Dạng Thẻ</button>
+              <button class="view-btn" data-view="table" id="viewTableBtn">📋 Dạng Bảng</button>
+            </div>
+          </div>
+          <div class="ct-right">
+            <button id="exportCollBtn" class="cs-btn cs-btn-sm cs-btn-dark" title="Tải file sao lưu JSON về máy tính">
+              📥 Xuất Backup (JSON)
+            </button>
+            <label class="cs-btn cs-btn-sm cs-btn-dark import-label" title="Khôi phục dữ liệu từ file sao lưu">
+              📤 Nhập Backup
+              <input type="file" id="importCollFile" accept=".json" style="display: none;" />
+            </label>
+            <button id="clearCollBtn" class="cs-btn cs-btn-sm cs-btn-dark" title="Xóa toàn bộ dao trong BST">
+              🗑️ Xóa Tất Cả
+            </button>
+          </div>
+        </div>
+
+        <!-- Collection Items Container -->
+        <div id="collectionItemsContainer" class="collection-items-wrap view-cards">
+          <!-- Populated dynamically via control.js -->
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Manual Add Modal inside Control Deck -->
+  <div id="manualAddModal" class="manual-add-modal">
+    <div class="manual-add-backdrop"></div>
+    <div class="manual-add-window">
+      <div class="settings-header">
+        <div class="sh-title-group">
+          <div class="sh-icon" style="background: rgba(255, 215, 0, 0.15); color: #ffd700;">➕</div>
+          <div>
+            <h2 class="sh-title">THÊM DAO MỚI MỞ VÀO BỘ SƯU TẬP</h2>
+            <p class="sh-subtitle">Nhập thông tin dao bạn vừa mở được trong tập video hôm nay</p>
+          </div>
+        </div>
+        <button id="closeManualAddBtn" class="settings-close-btn" title="Đóng">&times;</button>
+      </div>
+      <div class="manual-add-body">
+        <form id="manualAddForm">
+          <div class="sd-form-group">
+            <label class="sd-label">1. Chọn Loại Dao:</label>
+            <select id="manualKnifeSelect" class="cs-input" style="width: 100%; margin-top: 6px;"></select>
+          </div>
+          <div class="sd-form-group">
+            <label class="sd-label">2. Chọn Skin / Finish:</label>
+            <select id="manualSkinSelect" class="cs-input" style="width: 100%; margin-top: 6px;"></select>
+          </div>
+          <div class="sd-form-group">
+            <label class="sd-label">3. Thông số Float Value (0.0000 - 1.0000):</label>
+            <input type="number" id="manualFloatInput" class="cs-input" step="0.0001" min="0" max="1" value="0.0150" style="width: 100%; margin-top: 6px;" />
+          </div>
+          <div class="sd-form-group">
+            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+              <input type="checkbox" id="manualStatTrakChk" style="width: 18px; height: 18px; accent-color: #fb923c;" />
+              <span style="font-weight: 800; color: #fb923c;">★ Phiên bản StatTrak™</span>
+            </label>
+          </div>
+          <div class="sd-form-group">
+            <label class="sd-label">4. Ghi chú tập video (Tùy chọn):</label>
+            <input type="text" id="manualNotesInput" class="cs-input" placeholder="Ví dụ: Tập 1 mở hòm Revolution..." style="width: 100%; margin-top: 6px;" />
+          </div>
+          <div style="margin-top: 20px;">
+            <button type="submit" class="cs-btn cs-btn-gold" style="width: 100%; padding: 14px; font-weight: 800;">
+              ✔ XÁC NHẬN THÊM VÀO BỘ SƯU TẬP
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="knives_data.js?v=20261014_v13"></script>
+  <script src="audio.js?v=20261014_v13"></script>
+  <script src="control.js?v=20261014_v13"></script>
+</body>
+</html>

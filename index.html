@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vòng Quay Dao CS2 - Counter-Strike 2 Knife Spinner & Case Collection Deluxe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Rajdhani:wght@600;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <link rel="stylesheet" href="styles.css?v=20261014_v13">
+</head>
+<body class="cs2-theme">
+  <!-- Dynamic Background Atmosphere -->
+  <div class="bg-fx">
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+    <div class="grid-overlay"></div>
+  </div>
+
+  <!-- Explosion Flash Shockwave FX Overlay -->
+  <div id="explosionFlashOverlay" class="explosion-flash-overlay" style="display: none;"></div>
+
+  <!-- App Wrapper -->
+  <div class="app-layout">
+    <!-- Header: Streamlined & Clean -->
+    <header class="cs-header">
+      <div class="header-brand">
+        <div class="cs-logo-badge">
+          <span class="star-icon">★</span>
+          <span class="brand-text">CS2</span>
+        </div>
+        <div class="brand-title-group">
+          <h1 class="main-title">VÒNG QUAY DAO CS2</h1>
+          <span class="subtitle">★ SPECIAL RARE ITEM CASE OPENING & COLLECTION ★</span>
+        </div>
+      </div>
+
+      <!-- Header Controls (Ẩn khỏi màn hình Viewer - Streamer điều khiển tại control.html) -->
+      <div class="header-actions" id="mainHeaderActions" style="display: none;">
+        <!-- Broadcast Mode Switcher (Video vs Stream) -->
+        <button id="broadcastModeToggleBtn" class="live-pill mode-video" title="Bấm để chuyển đổi giữa Chế độ Video và Chế độ Stream">
+          <span class="live-dot" id="broadcastDot"></span>
+          <span id="broadcastPillText">🎬 VIDEO READY</span>
+        </button>
+
+        <!-- Mode Tabs -->
+        <div class="mode-tabs">
+          <button class="mode-tab active" data-mode="roller">
+            <span class="tab-icon">🎞️</span> BĂNG CHUYỀN CS2
+          </button>
+          <button class="mode-tab" data-mode="wheel">
+            <span class="tab-icon">🎡</span> BÁNH XE 3D
+          </button>
+        </div>
+
+        <!-- Fullscreen -->
+        <button id="fullscreenBtn" class="cs-btn cs-btn-sm" title="Toàn màn hình">
+          <i class="icon">⛶</i> Toàn màn hình
+        </button>
+
+        <!-- Dedicated Collection Button (Toggle like Settings) -->
+        <button id="openCollectionBtn" class="cs-btn cs-btn-sm cs-btn-purple" title="Mở Bộ sưu tập dao CS2">
+          <i class="icon">🏆</i> BỘ SƯU TẬP (<span id="headerCollCount">0</span>)
+        </button>
+
+        <!-- Dedicated Settings Button -->
+        <button id="openSettingsBtn" class="cs-btn cs-btn-sm cs-btn-gold">
+          <i class="icon">⚙️</i> CÀI ĐẶT (<span id="activeCountBadge">20</span>)
+        </button>
+      </div>
+    </header>
+
+    <!-- Stats Bar (Ẩn khỏi màn hình Viewer - Streamer theo dõi tại control.html) -->
+    <section class="stats-strip" id="mainStatsStrip" style="display: none;">
+      <div class="stat-cell">
+        <span class="stat-label">ĐÃ MỞ HÒM:</span>
+        <span class="stat-value" id="statCount">0</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-cell">
+        <span class="stat-label">TỔNG GIÁ TRỊ RƠI:</span>
+        <span class="stat-value gold-text" id="statTotalValue">0 đ</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-cell">
+        <span class="stat-label">DAO ĐỈNH NHẤT PHIÊN:</span>
+        <span class="stat-value special-text" id="statTopKnife">Chưa có</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-cell" id="statCollectionCell" style="cursor: pointer;" title="Bấm để mở Bộ sưu tập dao CS2">
+        <span class="stat-label">TIẾN ĐỘ BỘ SƯU TẬP:</span>
+        <span class="stat-value gold-text" id="statCollectionProgress">0 / 20</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="quick-status-cell">
+        <span class="stat-label">CHẾ ĐỘ:</span>
+        <span id="quickBroadcastLabel" class="quick-tag">🎬 Video Series</span>
+        <span id="quickSuspenseLabel" class="quick-tag">🔥 Cực Hồi Hộp</span>
+        <span id="quickOddsLabel" class="quick-tag">🎲 Chuẩn CS2</span>
+      </div>
+    </section>
+
+    <!-- Main Spinner Arena -->
+    <main class="arena-section">
+      <!-- ======================================================================
+           3-SLOT HUNT DASHBOARD (THE LOADOUT SETUP)
+           ====================================================================== -->
+      <section class="hunt-dashboard" id="huntDashboard">
+        <div class="hunt-dashboard-header">
+          <div class="hdh-left">
+            <div class="hdh-badge">
+              <span class="hdh-dot"></span>
+              <span id="hdhBadgeText">🎬 KỊCH BẢN TẬP VIDEO: THE LOADOUT SETUP</span>
+            </div>
+            <h2 class="hdh-title">3 VÒNG QUAY "SĂN MỤC TIÊU"</h2>
+            <p class="hdh-desc" id="huntStatusText">Bấm "QUAY VÒNG 1" để chọn Loại Dao tâm điểm cho tập video hôm nay!</p>
+          </div>
+          <div class="hdh-right">
+            <button id="resetHuntBtn" class="cs-btn cs-btn-sm cs-btn-dark" title="Thiết lập lại kèo từ vòng 1">
+              ↺ Thiết Lập Lại Kèo
+            </button>
+          </div>
+        </div>
+
+        <div class="hunt-slots-grid">
+          <!-- Slot 1: Loại Dao -->
+          <div class="hunt-slot active slot-golden-glow" id="slotKnife" data-stage="1">
+            <div class="slot-header">
+              <span class="slot-badge">VÒNG 1</span>
+              <span class="slot-status-pill active" id="slotKnifeStatus">ĐANG CHỜ QUAY</span>
+            </div>
+            <div class="slot-body">
+              <div class="slot-mystery-mark" id="slotKnifeMystery">?</div>
+              <div class="slot-img-wrap" id="slotKnifeImgWrap" style="display: none;">
+                <img id="slotKnifeImg" src="" alt="Loại Dao" />
+              </div>
+            </div>
+            <div class="slot-footer">
+              <span class="slot-category">VŨ KHÍ CỐT LÕI</span>
+              <span class="slot-title" id="slotKnifeTitle">Chưa Chọn Loại Dao</span>
+              <span class="slot-sub" id="slotKnifeSub">20 Dòng Dao CS2 (Vanilla)</span>
+            </div>
+          </div>
+
+          <div class="hunt-slot-arrow">➔</div>
+
+          <!-- Slot 2: Skin Vũ Khí -->
+          <div class="hunt-slot locked" id="slotSkin" data-stage="2">
+            <div class="slot-header">
+              <span class="slot-badge">VÒNG 2</span>
+              <span class="slot-status-pill locked" id="slotSkinStatus">KHÓA</span>
+            </div>
+            <div class="slot-body">
+              <div class="slot-mystery-mark" id="slotSkinMystery">?</div>
+              <div class="slot-img-wrap" id="slotSkinImgWrap" style="display: none;">
+                <img id="slotSkinImg" src="" alt="Skin Vũ Khí" />
+              </div>
+            </div>
+            <div class="slot-footer">
+              <span class="slot-category">LỚP ÁO / FINISH</span>
+              <span class="slot-title" id="slotSkinTitle">Chưa Chọn Skin</span>
+              <span class="slot-sub" id="slotSkinSub">Mở khóa sau Vòng 1</span>
+            </div>
+          </div>
+
+          <div class="hunt-slot-arrow">➔</div>
+
+          <!-- Slot 3: Số Lượng Hòm -->
+          <div class="hunt-slot locked" id="slotQuantity" data-stage="3">
+            <div class="slot-header">
+              <span class="slot-badge">VÒNG 3</span>
+              <span class="slot-status-pill locked" id="slotQuantityStatus">KHÓA</span>
+            </div>
+            <div class="slot-body">
+              <div class="slot-mystery-mark" id="slotQuantityMystery">?</div>
+              <div class="slot-img-wrap" id="slotQuantityImgWrap" style="display: none;">
+                <img id="slotQuantityImg" src="" alt="Số Lượng Hòm" />
+              </div>
+            </div>
+            <div class="slot-footer">
+              <span class="slot-category">ÁP LỰC NGÂN SÁCH</span>
+              <span class="slot-title" id="slotQuantityTitle">Chưa Có Số Lượng</span>
+              <span class="slot-sub" id="slotQuantitySub">Mở khóa sau Vòng 2</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Centered Action Start Bar -->
+        <div class="hunt-start-bar" id="huntStartBar">
+          <button id="startSpinFlowBtn" class="cs-btn cs-btn-giant cs-btn-spin-gold">
+            <span class="btn-shine"></span>
+            <span class="spin-btn-icon">⚡</span>
+            <span class="spin-btn-text" id="startBtnText">BẮT ĐẦU SĂN MỤC TIÊU</span>
+          </button>
+        </div>
+
+        <!-- Target Banner Display When Ready -->
+        <div class="hunt-summary-banner" id="huntSummaryBanner" style="display: none;">
+          <div class="hsb-icon">🎯</div>
+          <div class="hsb-content">
+            <span class="hsb-label" id="hsbLabelText">MỤC TIÊU TẬP VIDEO NÀY:</span>
+            <span class="hsb-value" id="huntSummaryText">Đang thiết lập kịch bản 3 vòng quay...</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================================================================
+           TODAY'S MISSION SHOWCASE (KẾT THÚC VÒNG 3)
+           ====================================================================== -->
+      <section class="today-mission-section" id="todayMissionSection" style="display: none;">
+        <div class="tms-card">
+          <div class="tms-header">
+            <div class="tms-header-left">
+              <div class="tms-badge">
+                <span class="live-dot"></span>
+                <span id="tmsBadgeText">🎯 NHIỆM VỤ TẬP VIDEO HÔM NAY</span>
+              </div>
+              <div class="tms-sub">KÈO MỞ HÒM ĐÃ KHÓA • SĂN DAO MỤC TIÊU!</div>
+            </div>
+            <div class="tms-header-right">
+              <button id="tmsNewHuntBtn" class="cs-btn cs-btn-sm cs-btn-dark" title="Thiết lập lại kèo mới từ Vòng 1">
+                ↺ Thiết Lập Lại Kèo Mới
+              </button>
+            </div>
+          </div>
+
+          <div class="tms-mission-banner">
+            <span class="tms-mission-label">MỤC TIÊU CẦN ĐẠT ĐƯỢC:</span>
+            <h2 class="tms-mission-target" id="tmsMissionText">SĂN MỤC TIÊU TRONG HÒM!</h2>
+          </div>
+
+          <div class="tms-duo-showcase">
+            <!-- Left: Weapon Target -->
+            <div class="tms-col tms-col-weapon">
+              <div class="tms-box-title">VŨ KHÍ MỤC TIÊU</div>
+              <div class="tms-img-halo">
+                <img id="tmsTargetWeaponImg" src="" alt="Target Weapon" />
+              </div>
+              <h3 class="tms-item-name" id="tmsTargetWeaponName">Tên Dao | Skin</h3>
+              <div class="tms-cases-drop" id="tmsDropCasesList">
+                <!-- Cases chips -->
+              </div>
+            </div>
+
+            <!-- Center: VS / IN indicator -->
+            <div class="tms-col-vs">
+              <span class="vs-text">TRONG</span>
+              <span class="vs-arrow">➔</span>
+            </div>
+
+            <!-- Right: Case & Quantity -->
+            <div class="tms-col tms-col-cases">
+              <div class="tms-box-title">NGÂN SÁCH MỞ HÒM</div>
+              <div class="tms-img-halo">
+                <img id="tmsTargetCaseImg" src="" alt="Target Case" />
+              </div>
+              <h3 class="tms-item-name" id="tmsTargetCaseName">Số Lượng Hòm</h3>
+              <div class="tms-tag-badge" id="tmsPressureTag">⚡ ÁP LỰC CĂNG THẲNG</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3-STAGE SPIN STEPPER NAVIGATION -->
+      <div class="stage-stepper-wrap" style="display: none;">
+        <div class="stage-step active" id="step1Indicator">
+          <span class="step-num">①</span>
+          <div class="step-text">
+            <span class="step-title">VÒNG 1: QUAY LOẠI DAO</span>
+            <span class="step-desc" id="step1Desc">20 Loại Dao CS2 (Hiển thị con dao Vanilla)</span>
+          </div>
+        </div>
+        <div class="step-arrow">➔</div>
+        <div class="stage-step" id="step2Indicator">
+          <span class="step-num">②</span>
+          <div class="step-text">
+            <span class="step-title">VÒNG 2: QUAY SKIN MỤC TIÊU</span>
+            <span class="step-desc" id="step2Desc">Chờ quay Vòng 1 để chọn dao...</span>
+          </div>
+        </div>
+        <div class="step-arrow">➔</div>
+        <div class="stage-step" id="step3Indicator">
+          <span class="step-num">③</span>
+          <div class="step-text">
+            <span class="step-title">VÒNG 3: QUAY SỐ LƯỢNG HÒM</span>
+            <span class="step-desc" id="step3Desc">Chờ quay Vòng 2 để chốt skin...</span>
+          </div>
+        </div>
+        <div class="step-reset-wrap" id="stepResetWrap" style="display: none;">
+          <button id="resetStageBtn" class="cs-btn cs-btn-sm cs-btn-dark" title="Quay lại chọn loại dao khác">
+            ↺ Chọn Lại Vòng 1
+          </button>
+        </div>
+      </div>
+
+      <!-- Action Spin Bar (Hidden in normal flow, accessed via Spotlight) -->
+      <div class="action-panel" style="display: none;">
+        <button id="spinBtn" class="cs-btn cs-btn-giant cs-btn-spin">
+          <span class="btn-shine"></span>
+          <span class="spin-btn-icon" id="spinBtnIcon">⚡</span>
+          <span class="spin-btn-text" id="spinBtnText">QUAY CHỌN LOẠI DAO (VÒNG 1/3)</span>
+        </button>
+      </div>
+
+      <!-- ======================================================================
+           CINEMATIC SPOTLIGHT MODAL (TỐI NỀN & SÂN KHẤU VÒNG QUAY)
+           ====================================================================== -->
+      <div id="spinSpotlightModal" class="spotlight-modal" style="display: none;">
+        <div class="spotlight-backdrop"></div>
+        <div class="spotlight-stage-box">
+          <!-- Spotlight Stage Header -->
+          <div class="spotlight-header">
+            <div class="spotlight-badge" id="spotlightStageBadge">VÒNG 1 / 3</div>
+            <h2 class="spotlight-title" id="spotlightStageTitle">QUAY CHỌN LOẠI DAO CS2</h2>
+            <p class="spotlight-desc" id="spotlightStageDesc">Đang quay tìm vũ khí tâm điểm cho buổi mở hòm...</p>
+          </div>
+
+          <!-- Spinner Area (Active during spin) -->
+          <div id="spotlightSpinnerArea" class="spotlight-spinner-area">
+            <!-- MODE 1: HORIZONTAL ROLLER -->
+            <div id="rollerContainer" class="roller-stage">
+              <div class="roller-viewport-frame">
+                <!-- Top Needle Marker -->
+                <div class="tape-needle top-needle">
+                  <div class="needle-triangle"></div>
+                  <div class="needle-beam"></div>
+                </div>
+
+                <!-- Bottom Needle Marker -->
+                <div class="tape-needle bottom-needle">
+                  <div class="needle-triangle"></div>
+                </div>
+
+                <!-- Vertical Guide Line -->
+                <div class="center-target-line"></div>
+
+                <!-- The Running Tape -->
+                <div class="tape-track">
+                  <div id="tapeItems" class="tape-items-strip">
+                    <!-- Dynamically populated knife cards -->
+                  </div>
+                </div>
+
+                <!-- Edge Gradient Masks -->
+                <div class="vignette-mask left-mask"></div>
+                <div class="vignette-mask right-mask"></div>
+              </div>
+            </div>
+
+            <!-- MODE 2: ROTARY WHEEL -->
+            <div id="wheelContainer" class="wheel-stage" style="display: none;">
+              <div class="wheel-wrapper">
+                <!-- Top Flapper Needle -->
+                <div id="wheelFlapper" class="wheel-pointer">
+                  <div class="pointer-arrow"></div>
+                </div>
+
+                <!-- Canvas Wheel -->
+                <canvas id="wheelCanvas" width="560" height="560"></canvas>
+
+                <!-- Center Spin Trigger -->
+                <button id="wheelCenterBtn" class="wheel-center-disc" title="Bấm để quay">
+                  <div class="disc-inner">
+                    <span class="disc-star">★</span>
+                    <span class="disc-text" id="wheelCenterText">SPIN 1</span>
+                  </div>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Winner Reveal Showcase Card (Active when spin stops) -->
+          <div id="winnerRevealCardArea" class="winner-reveal-area" style="display: none;">
+            <div class="reveal-card" id="revealCard">
+              <div class="reveal-rarity-bar" id="revealRarityBar"></div>
+              <div class="reveal-badge" id="revealBadge">★ ĐÃ CHỌN</div>
+              
+              <div class="reveal-img-container">
+                <div class="reveal-glow-ring"></div>
+                <img id="revealCardImg" class="reveal-card-img" src="" alt="Winner" />
+              </div>
+
+              <div class="reveal-details">
+                <h3 class="reveal-title" id="revealTitle">Survival Knife</h3>
+                <p class="reveal-subtitle" id="revealSubtitle">Dao Sinh Tồn Survival</p>
+                
+                <!-- Related Cases Container (for Stage 2) -->
+                <div class="reveal-cases-wrap" id="revealCasesWrap" style="display: none;">
+                  <span class="rc-label">📦 HÒM CÓ THỂ MỞ RA:</span>
+                  <div class="rc-badges" id="revealCasesBadges"></div>
+                </div>
+
+                <div class="reveal-action-wrap">
+                  <button id="revealContinueBtn" class="cs-btn cs-btn-gold reveal-btn">
+                    <span id="revealBtnText">TIẾP TỤC</span>
+                    <span class="reveal-btn-arrow">➔</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ======================================================================
+           LIVE HUNT MISSION TRACKER ("ÁP LỰC MỤC TIÊU" - DÀNH CHO VIDEO / STREAM)
+           ====================================================================== -->
+      <section class="hunt-mission-tracker" id="huntMissionTracker" style="display: none;">
+        <div class="hmt-card">
+          <div class="hmt-header">
+            <div class="hmt-badge">
+              <span class="live-dot" id="hmtLiveDot"></span>
+              <span id="hmtBadgeText">🎬 NHIỆM VỤ SĂN TRONG TẬP VIDEO</span>
+            </div>
+            <div class="hmt-pressure-pill" id="hmtPressurePill">
+              ⚡ ÁP LỰC CỰC ĐẠI
+            </div>
+          </div>
+
+          <div class="hmt-main">
+            <!-- Left: Target Weapon & Cases Info -->
+            <div class="hmt-target-preview">
+              <div class="hmt-target-img-box">
+                <img id="hmtTargetImg" src="" alt="Mục tiêu dao" />
+              </div>
+              <div class="hmt-target-info">
+                <span class="hmt-target-sub" id="hmtTargetSubText">VŨ KHÍ MỤC TIÊU CỦA TẬP VIDEO HÔM NAY:</span>
+                <h3 class="hmt-target-name" id="hmtTargetName">Butterfly Knife | Doppler</h3>
+                <div class="hmt-cases-wrapper">
+                  <span class="hmt-cases-title">📦 Các loại hòm có thể rơi ra:</span>
+                  <div class="hmt-cases-badges" id="hmtCasesBadges">
+                    <!-- Populated dynamically -->
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right: Interactive Live Counter & Progress -->
+            <div class="hmt-counter-zone">
+              <div class="hmt-counter-bar">
+                <button id="hmtMinusBtn" class="hmt-btn-counter" title="Giảm 1 hòm">-</button>
+                <div class="hmt-counter-display">
+                  <div class="hmt-count-numbers">
+                    <span class="hmt-count-curr" id="hmtCountCurr">0</span>
+                    <span class="hmt-count-slash">/</span>
+                    <span class="hmt-count-max" id="hmtCountMax">30</span>
+                  </div>
+                  <span class="hmt-count-caption" id="hmtCountCaption">SỐ HÒM ĐÃ MỞ TRONG TẬP NÀY</span>
+                </div>
+                <button id="hmtPlusBtn" class="hmt-btn-counter hmt-btn-plus" title="Mở thêm 1 hòm">+</button>
+              </div>
+
+              <!-- Dynamic Progress Bar -->
+              <div class="hmt-progress-container">
+                <div class="hmt-progress-track">
+                  <div class="hmt-progress-fill" id="hmtProgressFill" style="width: 0%;"></div>
+                </div>
+                <div class="hmt-progress-meta">
+                  <span id="hmtRemainingText">Còn lại: 30 hòm</span>
+                  <span id="hmtPercentText">0% ĐÃ MỞ</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Action Buttons -->
+          <div class="hmt-actions">
+            <button id="hmtWinBtn" class="cs-btn cs-btn-gold hmt-action-btn">
+              🎉 ĐÃ TRÚNG DAO THÀNH CÔNG! (WIN)
+            </button>
+            <button id="hmtFailBtn" class="cs-btn cs-btn-dark hmt-action-btn hmt-btn-fail">
+              💀 THẤT BẠI (HẾT HÒM - TẠCH KÈO)
+            </button>
+            <button id="hmtNewHuntBtn" class="cs-btn cs-btn-dark hmt-action-btn">
+              🔄 THIẾT LẬP KÈO MỚI
+            </button>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ======================================================================
+           20 KNIFE TYPES SHOWCASE / BỘ KHO DAO CS2
+           ====================================================================== -->
+      <section class="main-knives-section" id="mainKnivesSection" style="margin-top: 24px; display: none;">
+        <div class="mks-header">
+          <div class="mks-title-wrap">
+            <h3 class="mks-title">🗡️ 20 LOẠI DAO CS2 TRONG VÒNG QUAY</h3>
+            <span class="mks-subtitle">Mỗi loại dao hiển thị con dao Vanilla nguyên bản của nó. Bấm vào dao để xem nhanh các skin và hòm rơi!</span>
+          </div>
+        </div>
+
+        <div id="mainKnivesGrid" class="main-knives-grid">
+          <!-- Populated dynamically via app.js -->
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- ========================================================================
+       DEDICATED COLLECTION MODAL (BẬT TẮT GIỐNG SETTING)
+       ======================================================================== -->
+  <div id="collectionModal" class="settings-modal collection-modal">
+    <div class="settings-backdrop collection-backdrop"></div>
+    <div class="settings-window collection-window">
+      <!-- Collection Header -->
+      <div class="settings-header">
+        <div class="sh-title-group">
+          <div class="sh-icon" style="background: rgba(168, 85, 247, 0.15); border-color: rgba(168, 85, 247, 0.4); color: #c084fc;">🏆</div>
+          <div>
+            <h2 class="sh-title">BỘ SƯU TẬP DAO CS2</h2>
+            <p class="sh-subtitle">Quản lý kho dao cá nhân, thông số Float và tiến độ sưu tập</p>
+          </div>
+        </div>
+        <button id="closeCollectionBtn" class="settings-close-btn" title="Đóng">&times;</button>
+      </div>
+
+      <!-- Collection Content Body -->
+      <div class="collection-modal-body">
+<!-- ======================================================================
+           KNIFE COLLECTION TRACKER (BỘ SƯU TẬP DAO CS2 - PHỤC VỤ VIDEO SERIES)
+           ====================================================================== -->
+      <section class="collection-section" id="collectionSection">
+        <div class="collection-header-card">
+          <div class="chc-left">
+            <div class="chc-badge">
+              <span class="chc-icon">🏆</span>
+              <span>SERIES VIDEO MỞ HÒM CS2</span>
+            </div>
+            <h2 class="chc-title">BỘ SƯU TẬP DAO CS2 CỦA BẠN</h2>
+            <p class="chc-subtitle">Theo dõi hành trình mở hòm, quản lý danh sách dao và thông số Float chính xác</p>
+          </div>
+          <div class="chc-stats">
+            <div class="chc-stat-box">
+              <span class="csb-label">TIẾN ĐỘ LOẠI DAO:</span>
+              <span class="csb-value gold-text" id="collDistinctCount">0 / 20</span>
+              <div class="chc-progress-track">
+                <div class="chc-progress-bar" id="collProgressBar" style="width: 0%;"></div>
+              </div>
+            </div>
+            <div class="chc-stat-box">
+              <span class="csb-label">TỔNG DAO ĐÃ MỞ:</span>
+              <span class="csb-value" id="collTotalKnives">0 con</span>
+              <span class="csb-sub" id="collStatTrakCount">0 StatTrak™</span>
+            </div>
+            <div class="chc-stat-box">
+              <span class="csb-label">TỔNG GIÁ TRỊ BST:</span>
+              <span class="csb-value gold-text" id="collTotalValue">0 đ</span>
+              <span class="csb-sub" id="collTotalUSD">$0</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 20 Knives Checklist (Sáng đèn khi đã có con dao thuộc loại đó) -->
+        <div class="knives-checklist-card">
+          <div class="kcc-header">
+            <span class="kcc-title">🎯 TIẾN ĐỘ 20 LOẠI DAO CS2:</span>
+            <span class="kcc-hint">(Loại dao đã sở hữu sẽ sáng đèn vàng rực rỡ + dấu tích xanh ✔)</span>
+          </div>
+          <div class="kcc-grid" id="knivesChecklistGrid">
+            <!-- 20 knife badges populated dynamically -->
+          </div>
+        </div>
+
+        <!-- Collection Toolbar -->
+        <div class="collection-toolbar">
+          <div class="ct-left">
+            <button id="openManualAddBtn" class="cs-btn cs-btn-gold">
+              ➕ Thêm Dao Đã Mở Vào BST
+            </button>
+            <div class="view-mode-toggle">
+              <button class="view-btn active" data-view="cards" id="viewCardsBtn">🎴 Dạng Thẻ</button>
+              <button class="view-btn" data-view="table" id="viewTableBtn">📋 Dạng Bảng</button>
+            </div>
+          </div>
+          <div class="ct-right">
+            <button id="exportCollBtn" class="cs-btn cs-btn-sm cs-btn-dark" title="Tải file sao lưu JSON về máy tính">
+              📥 Xuất Backup (JSON)
+            </button>
+            <label class="cs-btn cs-btn-sm cs-btn-dark import-label" title="Khôi phục dữ liệu từ file sao lưu">
+              📤 Nhập Backup
+              <input type="file" id="importCollFile" accept=".json" style="display: none;" />
+            </label>
+            <button id="clearCollBtn" class="cs-btn cs-btn-sm cs-btn-dark" title="Xóa toàn bộ dao trong BST">
+              🗑️ Xóa Tất Cả
+            </button>
+          </div>
+        </div>
+
+        <!-- Collection Items Container -->
+        <div id="collectionItemsContainer" class="collection-items-wrap view-cards">
+          <!-- Populated dynamically via app.js -->
+        </div>
+      </section>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       DEDICATED SETTINGS MODAL
+       ======================================================================== -->
+  <div id="settingsModal" class="settings-modal">
+    <div class="settings-backdrop"></div>
+    <div class="settings-window">
+      <!-- Settings Header -->
+      <div class="settings-header">
+        <div class="sh-title-group">
+          <div class="sh-icon">⚙️</div>
+          <div>
+            <h2 class="sh-title">BẢNG CÀI ĐẶT HỆ THỐNG</h2>
+            <p class="sh-subtitle">Tùy chỉnh vòng quay, âm thanh, tỉ lệ rơi & kho dao</p>
+          </div>
+        </div>
+        <button id="closeSettingsBtn" class="settings-close-btn" title="Đóng">&times;</button>
+      </div>
+
+      <!-- Settings Navigation Tabs -->
+      <div class="settings-nav">
+        <button class="set-nav-tab active" data-tab="tab-general">
+          <span class="nav-icon">🎛️</span> Cài Đặt Chung
+        </button>
+        <button class="set-nav-tab" data-tab="tab-knives">
+          <span class="nav-icon">🗡️</span> Quản Lý Kho Dao (<span id="modalActiveCount">20</span>)
+        </button>
+      </div>
+
+      <!-- Settings Tab Content Area -->
+      <div class="settings-content">
+        <!-- TAB 1: CÀI ĐẶT CHUNG -->
+        <div id="tab-general" class="set-tab-pane active">
+          <!-- Section 0: Định Dạng Sản Xuất (Video vs Stream) -->
+          <div class="setting-block">
+            <div class="sb-header">
+              <h3 class="sb-title">🎬 Định Dạng Sản Xuất (Video Series / Livestream)</h3>
+              <p class="sb-desc">Chọn chế độ quay. Chế độ Video sẽ tự động giảm số lượng hòm xuống mức vừa vặn cho 1 tập video (1 - 15 hòm)!</p>
+            </div>
+            <div class="option-cards-grid">
+              <label class="option-card">
+                <input type="radio" name="broadcastRadio" value="video" checked />
+                <div class="card-box">
+                  <div class="card-icon">🎬</div>
+                  <div class="card-text">
+                    <strong>Chế Độ Video (YouTube / TikTok) - Số hòm ít & gọn</strong>
+                    <span>Số lượng hòm vừa vặn cho 1 tập video (1, 3, 5, 7, 10, 15 hòm), dồn dập, hồi hộp, không kéo dài lê thê.</span>
+                  </div>
+                </div>
+              </label>
+              <label class="option-card">
+                <input type="radio" name="broadcastRadio" value="stream" />
+                <div class="card-box">
+                  <div class="card-icon">🔴</div>
+                  <div class="card-text">
+                    <strong>Chế Độ Livestream - Số hòm lớn cho buổi live dài</strong>
+                    <span>Dành cho các buổi live nhiều tiếng (10, 20, 30, 40, 50 hòm + x2), mở thả ga cùng người xem trên live.</span>
+                  </div>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Section 1: Độ kịch tính -->
+          <div class="setting-block">
+            <div class="sb-header">
+              <h3 class="sb-title">🔥 Độ Kịch Tính (Thuật toán Suýt Trúng)</h3>
+              <p class="sb-desc">Điều chỉnh tốc độ và hiệu ứng lướt chậm qua dao xịn để kích thích người xem</p>
+            </div>
+            <div class="option-cards-grid">
+              <label class="option-card">
+                <input type="radio" name="suspenseRadio" value="ultra" checked />
+                <div class="card-box">
+                  <div class="card-icon">🔥</div>
+                  <div class="card-text">
+                    <strong>Cực Hồi Hộp (Khuyên dùng)</strong>
+                    <span>Lướt sát mép siêu phẩm (Butterfly Emerald, Karambit) rồi dừng, cực kịch tính!</span>
+                  </div>
+                </div>
+              </label>
+              <label class="option-card">
+                <input type="radio" name="suspenseRadio" value="high" />
+                <div class="card-box">
+                  <div class="card-icon">⚡</div>
+                  <div class="card-text">
+                    <strong>Chuẩn CS2 (6 giây)</strong>
+                    <span>Thời gian quay và gia tốc mở hòm chuẩn game CS2 gốc.</span>
+                  </div>
+                </div>
+              </label>
+              <label class="option-card">
+                <input type="radio" name="suspenseRadio" value="normal" />
+                <div class="card-box">
+                  <div class="card-icon">⏱️</div>
+                  <div class="card-text">
+                    <strong>Mở Siêu Tốc (4.5 giây)</strong>
+                    <span>Giảm thời gian quay để mở liên tục nhiều lượt cho nhanh.</span>
+                  </div>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Section 2: Cơ chế tỉ lệ -->
+          <div class="setting-block">
+            <div class="sb-header">
+              <h3 class="sb-title">🎲 Cơ Chế Tỉ Lệ Rơi</h3>
+              <p class="sb-desc">Chọn cách tính xác suất nhận từng loại dao trong vòng quay</p>
+            </div>
+            <div class="option-cards-grid">
+              <label class="option-card">
+                <input type="radio" name="oddsRadio" value="realistic" checked />
+                <div class="card-box">
+                  <div class="card-icon">👑</div>
+                  <div class="card-text">
+                    <strong>Chuẩn CS2 Thực Tế</strong>
+                    <span>Dao S+ (Butterfly/Karambit/M9) tỉ lệ cực hiếm, dao tier C phổ biến hơn.</span>
+                  </div>
+                </div>
+              </label>
+              <label class="option-card">
+                <input type="radio" name="oddsRadio" value="equal" />
+                <div class="card-box">
+                  <div class="card-icon">⚖️</div>
+                  <div class="card-text">
+                    <strong>Đồng Đều (5% mỗi dao)</strong>
+                    <span>Tất cả dao có cơ hội trúng ngang nhau như vòng quay may mắn thông thường.</span>
+                  </div>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Section 3: Âm thanh -->
+          <div class="setting-block">
+            <div class="sb-header">
+              <h3 class="sb-title">🔊 Âm Thanh & Hiệu Ứng Gõ Kim</h3>
+              <p class="sb-desc">Âm thanh gõ bánh răng cơ học, tiếng phóng và nhạc chiến thắng vang dội</p>
+            </div>
+            <div class="audio-setting-row">
+              <div class="audio-toggle-wrap">
+                <button id="modalMuteBtn" class="cs-btn cs-btn-gold">
+                  <i class="icon">🔊</i> Âm Thanh: ĐANG BẬT
+                </button>
+                <button id="testSoundBtn" class="cs-btn cs-btn-dark">
+                  🎵 Thử Âm Thanh Thắng
+                </button>
+              </div>
+              <div class="volume-slider-box">
+                <span class="vol-label">Âm lượng: <strong id="volPercent">80%</strong></span>
+                <input type="range" id="modalVolumeSlider" min="0" max="1" step="0.05" value="0.8" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 2: QUẢN LÝ KHO DAO -->
+        <div id="tab-knives" class="set-tab-pane">
+          <div class="knife-toolbar">
+            <div class="kt-text">
+              <strong>Danh Sách 20 Loại Dao Đang Kích Hoạt</strong>
+              <p>Tích chọn các loại dao sẽ xuất hiện trong vòng quay. Tỉ lệ % tự động tính lại ngay lập tức.</p>
+            </div>
+            <div class="kt-actions">
+              <button id="selectAllBtn" class="cs-btn cs-btn-sm cs-btn-dark">Chọn tất cả</button>
+              <button id="deselectAllBtn" class="cs-btn cs-btn-sm cs-btn-dark">Bỏ chọn</button>
+            </div>
+          </div>
+
+          <!-- Dynamic Knives List -->
+          <div id="knivesManagerList" class="knife-manage-list">
+            <!-- Populated via app.js -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Settings Footer -->
+      <div class="settings-footer">
+        <span class="sf-tip">💡 Mẹo: Bấm phím [Space] hoặc nút "QUAY NGAY" trên màn hình chính để mở</span>
+        <button id="saveSettingsBtn" class="cs-btn cs-btn-gold">
+          ✔ Xong & Quay Lại Vòng Quay
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       WINNER INSPECT WEAPON MODAL (VỚI HÒM RƠI & Ô ĐIỀN FLOAT LƯU BST)
+       ======================================================================== -->
+  <div id="winnerModal" class="inspect-modal">
+    <div class="modal-backdrop"></div>
+    <div class="inspect-container">
+      <div id="inspectCard" class="inspect-weapon-card">
+        <!-- Light burst background -->
+        <div class="card-light-burst"></div>
+
+        <!-- Top Rarity Header -->
+        <div class="card-header-bar" style="justify-content: center;">
+          <div class="rarity-badge-gold">
+            <span class="star-gold">★</span> SPECIAL RARE ITEM
+          </div>
+        </div>
+
+        <!-- Floating Knife Display -->
+        <div class="inspect-showcase">
+          <img id="modalKnifeImg" src="" alt="Knife" class="floating-knife" />
+        </div>
+
+        <!-- Knife Specs -->
+        <div class="inspect-meta">
+          <div id="modalTierBadge" class="tier-pill">Tier S+</div>
+          <h2 id="modalKnifeName" class="inspect-name">Butterfly Knife | Gamma Doppler</h2>
+
+          <!-- Market Value -->
+          <div class="inspect-pricing">
+            <span class="price-title">Ước tính giá trị thị trường:</span>
+            <div class="price-numbers">
+              <span id="modalPriceVND" class="price-vnd">1.627.624 đ</span>
+              <span id="modalPriceUSD" class="price-usd">($64)</span>
+            </div>
+            <div id="modalPriceWearCondition" class="price-condition-pill">Field-Tested (FT)</div>
+          </div>
+        </div>
+
+        <!-- STEAM MARKET LISTINGS (CHUẨN STASH.CLASH.GG) - ĐÃ ẨN THEO YÊU CẦU -->
+        <div class="modal-market-widget" id="modalMarketWidget" style="display: none;">
+          <div class="mmw-header">
+            <span class="mmw-title">📊 BẢNG GIÁ THỊ TRƯỜNG STEAM (STASH.CLASH.GG)</span>
+            <span class="mmw-sub" id="mmwSummaryText">Bấm dòng giá hoặc chọn độ mòn bên dưới để cập nhật</span>
+          </div>
+          <div class="mmw-table-wrap">
+            <table class="mmw-table" id="modalMarketTable">
+              <!-- Dynamically populated via app.js -->
+            </table>
+          </div>
+        </div>
+
+        <!-- FOUND IN CASES SECTION (CHUẨN STASH.CLASH.GG) -->
+        <div class="modal-cases-section" id="modalCasesSection">
+          <div class="cases-header">
+            <span class="cases-icon">📦</span>
+            <span class="cases-title" id="modalCasesTitle">Found in 2 cases</span>
+          </div>
+          <div class="cases-grid" id="modalCasesGrid">
+            <!-- Populated dynamically via app.js -->
+          </div>
+        </div>
+
+        <!-- SAVE TO COLLECTION FORM (ĐIỀN FLOAT & GHI CHÚ SERIES) - ĐÃ ẨN THEO YÊU CẦU -->
+        <div class="modal-collection-box" id="modalCollectionBox" style="display: none;">
+          <div class="mcb-header">
+            <span class="mcb-title">📋 LƯU VÀO BỘ SƯU TẬP DAO CS2</span>
+            <span class="mcb-sub">Ghi lại thông số Float & Tập video series mở hòm</span>
+          </div>
+          <div class="mcb-form">
+            <div class="mcb-row">
+              <div class="mcb-field">
+                <div class="float-label-row">
+                  <label for="modalFloatInput">Float Value (Độ mòn):</label>
+                  <span class="float-range-tag" id="modalFloatRangeLabel">Range: 0.06 - 0.80</span>
+                </div>
+                <div class="float-input-wrap">
+                  <input type="number" id="modalFloatInput" class="cs-input float-input" step="0.0001" min="0" max="1" placeholder="VD: 0.1540" value="0.1540" />
+                  <span id="modalWearTag" class="wear-tag ft">Field-Tested</span>
+                </div>
+
+                <!-- Quick Wear Condition Selector Buttons (FN, MW, FT, WW, BS) -->
+                <div class="modal-wear-buttons" id="modalWearButtons">
+                  <button type="button" class="mwb-btn" data-wear="fn">FN</button>
+                  <button type="button" class="mwb-btn" data-wear="mw">MW</button>
+                  <button type="button" class="mwb-btn active" data-wear="ft">FT</button>
+                  <button type="button" class="mwb-btn" data-wear="ww">WW</button>
+                  <button type="button" class="mwb-btn" data-wear="bs">BS</button>
+                </div>
+
+                <!-- Visual CS2 Wear Bar -->
+                <div class="wear-bar-container">
+                  <div class="wear-bar-fill">
+                    <div class="wb-segment wb-fn" title="Factory New (0.00 - 0.07)"></div>
+                    <div class="wb-segment wb-mw" title="Minimal Wear (0.07 - 0.15)"></div>
+                    <div class="wb-segment wb-ft" title="Field-Tested (0.15 - 0.38)"></div>
+                    <div class="wb-segment wb-ww" title="Well-Worn (0.38 - 0.45)"></div>
+                    <div class="wb-segment wb-bs" title="Battle-Scarred (0.45 - 1.00)"></div>
+                  </div>
+                  <div class="wear-indicator-pin" id="modalWearPin" style="left: 20%;"></div>
+                </div>
+              </div>
+            </div>
+            <div class="mcb-row mcb-row-flex">
+              <label class="mcb-checkbox-label">
+                <input type="checkbox" id="modalStatTrakChk" />
+                <span class="stattrak-check-text">★ StatTrak™ Available</span>
+              </label>
+              <div class="mcb-field notes-field">
+                <input type="text" id="modalEpisodeNotes" class="cs-input notes-input" placeholder="Ghi chú tập video (VD: Tập 1)" />
+              </div>
+            </div>
+            <div class="mcb-actions">
+              <button id="saveToCollectionBtn" class="cs-btn cs-btn-gold mcb-save-btn">
+                ➕ LƯU VÀO BỘ SƯU TẬP NGAY
+              </button>
+              <span id="saveSuccessMsg" class="save-success-msg" style="display: none;">✔ Đã lưu vào bộ sưu tập!</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal Actions -->
+        <div class="modal-buttons" style="display: flex; margin-top: 20px;">
+          <button id="modalNextRollBtn" class="cs-btn cs-btn-gold" style="display: none;">
+            🔄 QUAY LƯỢT MỚI (VỀ BƯỚC 1)
+          </button>
+          <button id="closeModalBtn" class="cs-btn cs-btn-gold" style="width: 100%; padding: 14px 20px; font-weight: 800; font-size: 15px; letter-spacing: 1px;">
+            ✖ ĐÓNG
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MODAL: MANUAL ADD KNIFE TO COLLECTION
+       ======================================================================== -->
+  <div id="manualAddModal" class="settings-modal">
+    <div class="settings-backdrop" id="manualAddBackdrop"></div>
+    <div class="settings-window" style="max-width: 560px;">
+      <div class="settings-header">
+        <div class="sh-title-group">
+          <div class="sh-icon">🗡️</div>
+          <div>
+            <h2 class="sh-title">THÊM DAO ĐÃ MỞ VÀO BỘ SƯU TẬP</h2>
+            <p class="sh-subtitle">Chọn loại dao, skin và điền thông số float thực tế trong game</p>
+          </div>
+        </div>
+        <button id="closeManualAddBtn" class="settings-close-btn">&times;</button>
+      </div>
+
+      <div class="settings-content" style="padding: 24px;">
+        <form id="manualAddForm">
+          <div class="form-row">
+            <div class="input-field" style="width: 100%;">
+              <label>1. Chọn Loại Dao (Knife Type):</label>
+              <select id="manualKnifeSelect" class="cs-select" style="width: 100%;">
+                <!-- Populated dynamically -->
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row" style="margin-top: 14px;">
+            <div class="input-field" style="width: 100%;">
+              <label>2. Chọn Skin:</label>
+              <select id="manualSkinSelect" class="cs-select" style="width: 100%;">
+                <!-- Populated dynamically based on knife -->
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row" style="margin-top: 14px;">
+            <div class="input-field" style="width: 100%;">
+              <label>3. Float Value (Độ mòn):</label>
+              <div class="float-input-wrap">
+                <input type="number" id="manualFloatInput" class="cs-input" step="0.0001" min="0" max="1" value="0.0250" style="width: 130px;" />
+                <span id="manualWearTag" class="wear-tag fn">Factory New</span>
+              </div>
+              <div class="wear-bar-container" style="margin-top: 8px;">
+                <div class="wear-bar-fill">
+                  <div class="wb-segment wb-fn"></div>
+                  <div class="wb-segment wb-mw"></div>
+                  <div class="wb-segment wb-ft"></div>
+                  <div class="wb-segment wb-ww"></div>
+                  <div class="wb-segment wb-bs"></div>
+                </div>
+                <div class="wear-indicator-pin" id="manualWearPin" style="left: 2.5%;"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row" style="margin-top: 14px; display: flex; align-items: center; justify-content: space-between;">
+            <label class="mcb-checkbox-label">
+              <input type="checkbox" id="manualStatTrakChk" />
+              <span class="stattrak-check-text">StatTrak™ Available</span>
+            </label>
+            <div class="input-field">
+              <input type="text" id="manualNotesInput" class="cs-input" placeholder="Ghi chú (VD: Tập 1)" style="width: 200px;" />
+            </div>
+          </div>
+
+          <div style="margin-top: 24px;">
+            <button type="submit" class="cs-btn cs-btn-gold" style="width: 100%; padding: 14px; font-weight: 800;">
+              ✔ XÁC NHẬN THÊM VÀO BỘ SƯU TẬP
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Particle FX Canvas (Screen Confetti & Sparkles) -->
+  <canvas id="fxCanvas" class="fx-canvas"></canvas>
+
+  <!-- Scripts -->
+  <script src="knives_data.js?v=20261014_v13"></script>
+  <script src="audio.js?v=20261014_v13"></script>
+  <script src="spinner.js?v=20261014_v13"></script>
+  <script src="app.js?v=20261014_v13"></script>
+</body>
+</html>
