@@ -7,9 +7,25 @@
 class CS2SoundSystem {
   constructor() {
     this.ctx = null;
-    this.muted = false;
-    this.volume = 0.8;
+    let savedMuted = false;
+    let savedVol = 0.8;
+    try {
+      savedMuted = localStorage.getItem('cs2_audio_muted') === 'true';
+      const v = localStorage.getItem('cs2_audio_volume');
+      if (v !== null) savedVol = Math.max(0, Math.min(1, parseFloat(v)));
+    } catch (e) {}
+
+    this.muted = savedMuted;
+    this.volume = savedVol;
     this.lastTickTime = 0;
+  }
+
+  get isMuted() {
+    return this.muted;
+  }
+
+  get masterVolume() {
+    return this.volume;
   }
 
   init() {
@@ -24,10 +40,16 @@ class CS2SoundSystem {
 
   setVolume(vol) {
     this.volume = Math.max(0, Math.min(1, vol));
+    try {
+      localStorage.setItem('cs2_audio_volume', this.volume.toString());
+    } catch (e) {}
   }
 
   toggleMute() {
     this.muted = !this.muted;
+    try {
+      localStorage.setItem('cs2_audio_muted', this.muted ? 'true' : 'false');
+    } catch (e) {}
     return this.muted;
   }
 

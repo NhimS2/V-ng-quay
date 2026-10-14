@@ -20,7 +20,7 @@ new_slots_end = '''        </div>
           <button id="startSpinFlowBtn" class="cs-btn cs-btn-giant cs-btn-spin-gold">
             <span class="btn-shine"></span>
             <span class="spin-btn-icon">⚡</span>
-            <span class="spin-btn-text" id="startBtnText">BẮT ĐẦU SĂN MỤC TIÊU</span>
+            <span class="spin-btn-text" id="startBtnText">SĂN MỤC TIÊU</span>
           </button>
         </div>
 

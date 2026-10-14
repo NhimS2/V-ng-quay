@@ -13,26 +13,26 @@ class CS2ControlDeck {
     // Fallback if window.CS2_KNIVES_DATA hasn't loaded yet
     if (this.knives.length === 0) {
       this.knives = [
-        { id: "butterfly", folder: "Butterfly", name: "Butterfly Knife", vnName: "Dao Bướm", tier: "S+", skinsCount: 25 },
+        { id: "butterfly", folder: "Butterfly", name: "Butterfly Knife", vnName: "Dao Butterfly", tier: "S+", skinsCount: 25 },
         { id: "karambit", folder: "Karambit", name: "Karambit", vnName: "Dao Karambit", tier: "S+", skinsCount: 25 },
         { id: "m9_bayonet", folder: "M9 Bayonet", name: "M9 Bayonet", vnName: "Dao M9 Bayonet", tier: "S+", skinsCount: 25 },
         { id: "skeleton", folder: "Skeleton", name: "Skeleton Knife", vnName: "Dao Skeleton", tier: "S", skinsCount: 19 },
         { id: "talon", folder: "Talon", name: "Talon Knife", vnName: "Dao Talon", tier: "S", skinsCount: 19 },
         { id: "kukri", folder: "Kukri", name: "Kukri Knife", vnName: "Dao Kukri", tier: "A", skinsCount: 13 },
-        { id: "stiletto", folder: "Stiletto", name: "Stiletto Knife", vnName: "Dao Bấm Stiletto", tier: "A", skinsCount: 19 },
+        { id: "stiletto", folder: "Stiletto", name: "Stiletto Knife", vnName: "Dao Stiletto", tier: "A", skinsCount: 19 },
         { id: "nomad", folder: "Nomad", name: "Nomad Knife", vnName: "Dao Nomad", tier: "A", skinsCount: 19 },
         { id: "ursus", folder: "Ursus", name: "Ursus Knife", vnName: "Dao Ursus", tier: "A", skinsCount: 19 },
         { id: "bayonet", folder: "Bayonet", name: "Bayonet", vnName: "Dao Bayonet", tier: "A", skinsCount: 25 },
-        { id: "classic", folder: "Classic", name: "Classic Knife", vnName: "Dao Cổ Điển", tier: "B", skinsCount: 13 },
-        { id: "flip", folder: "Flip", name: "Flip Knife", vnName: "Dao Gập Flip", tier: "B", skinsCount: 25 },
+        { id: "classic", folder: "Classic", name: "Classic Knife", vnName: "Dao Classic", tier: "B", skinsCount: 13 },
+        { id: "flip", folder: "Flip", name: "Flip Knife", vnName: "Dao Flip", tier: "B", skinsCount: 25 },
         { id: "paracord", folder: "Paracord", name: "Paracord Knife", vnName: "Dao Paracord", tier: "B", skinsCount: 19 },
         { id: "bowie", folder: "Bowie", name: "Bowie Knife", vnName: "Dao Bowie", tier: "B", skinsCount: 25 },
         { id: "huntsman", folder: "Huntsman", name: "Huntsman Knife", vnName: "Dao Huntsman", tier: "B", skinsCount: 25 },
         { id: "falchion", folder: "Falchion", name: "Falchion Knife", vnName: "Dao Falchion", tier: "B", skinsCount: 25 },
-        { id: "survival", folder: "Survival", name: "Survival Knife", vnName: "Dao Sinh Tồn", tier: "C", skinsCount: 19 },
-        { id: "gut", folder: "Gut", name: "Gut Knife", vnName: "Dao Móc Gut", tier: "C", skinsCount: 25 },
+        { id: "survival", folder: "Survival", name: "Survival Knife", vnName: "Dao Survival", tier: "C", skinsCount: 19 },
+        { id: "gut", folder: "Gut", name: "Gut Knife", vnName: "Dao Gut", tier: "C", skinsCount: 25 },
         { id: "navaja", folder: "Navaja", name: "Navaja Knife", vnName: "Dao Navaja", tier: "C", skinsCount: 19 },
-        { id: "shadow_daggers", folder: "Shadow Daggers", name: "Shadow Daggers", vnName: "Dao Găm Kép", tier: "C", skinsCount: 25 }
+        { id: "shadow_daggers", folder: "Shadow Daggers", name: "Shadow Daggers", vnName: "Dao Shadow Daggers", tier: "C", skinsCount: 25 }
       ];
     }
 
@@ -56,10 +56,10 @@ class CS2ControlDeck {
       revealActive: false,
       broadcastMode: localStorage.getItem('cs2_broadcast_mode') || 'video',
       spinnerMode: localStorage.getItem('cs2_spinner_mode') || 'roller',
-      suspenseLevel: 'high',
-      oddsMode: 'realistic',
-      volume: 0.8,
-      isMuted: false,
+      suspenseLevel: localStorage.getItem('cs2_suspense_level') || 'ultra',
+      oddsMode: localStorage.getItem('cs2_odds_mode') || 'equal',
+      volume: localStorage.getItem('cs2_audio_volume') !== null ? parseFloat(localStorage.getItem('cs2_audio_volume')) : 0.8,
+      isMuted: localStorage.getItem('cs2_audio_muted') === 'true',
       selectedKnife: null,
       selectedSkin: null,
       selectedQuantity: null,
@@ -422,12 +422,32 @@ class CS2ControlDeck {
   // =========================================================================
 
   bindSettingsControls() {
+    // Restore saved settings values to UI on load
+    const savedSuspense = this.viewerState.suspenseLevel;
+    const radSuspense = document.querySelector(`input[name="suspenseOpt"][value="${savedSuspense}"]`);
+    if (radSuspense) radSuspense.checked = true;
+
+    const savedOdds = this.viewerState.oddsMode;
+    const radOdds = document.querySelector(`input[name="oddsOpt"][value="${savedOdds}"]`);
+    if (radOdds) radOdds.checked = true;
+
+    const volumeSlider = document.getElementById('volumeSlider');
+    if (volumeSlider) {
+      volumeSlider.value = this.viewerState.volume;
+    }
+
+    const muteBtn = document.getElementById('toggleMuteBtn');
+    if (muteBtn) {
+      muteBtn.textContent = this.viewerState.isMuted ? '🔇 Đã Tắt Âm Thanh' : '🔊 Đang Bật Âm Thanh';
+    }
+
     // Suspense radios
     document.querySelectorAll('input[name="suspenseOpt"]').forEach(radio => {
       radio.addEventListener('change', (e) => {
         const level = e.target.value;
+        this.viewerState.suspenseLevel = level;
         this.send('SET_SUSPENSE', { level });
-        localStorage.setItem('cs2_suspense_level', level);
+        try { localStorage.setItem('cs2_suspense_level', level); } catch(err){}
       });
     });
 
@@ -435,17 +455,18 @@ class CS2ControlDeck {
     document.querySelectorAll('input[name="oddsOpt"]').forEach(radio => {
       radio.addEventListener('change', (e) => {
         const mode = e.target.value;
+        this.viewerState.oddsMode = mode;
         this.send('SET_ODDS', { mode });
-        localStorage.setItem('cs2_odds_mode', mode);
+        try { localStorage.setItem('cs2_odds_mode', mode); } catch(err){}
       });
     });
 
     // Audio Mute toggle
-    const muteBtn = document.getElementById('toggleMuteBtn');
     if (muteBtn) {
       muteBtn.addEventListener('click', () => {
         this.viewerState.isMuted = !this.viewerState.isMuted;
         muteBtn.textContent = this.viewerState.isMuted ? '🔇 Đã Tắt Âm Thanh' : '🔊 Đang Bật Âm Thanh';
+        try { localStorage.setItem('cs2_audio_muted', this.viewerState.isMuted ? 'true' : 'false'); } catch(err){}
         this.send('SET_AUDIO', {
           isMuted: this.viewerState.isMuted,
           volume: this.viewerState.volume
@@ -454,17 +475,63 @@ class CS2ControlDeck {
     }
 
     // Audio Volume Slider
-    const volumeSlider = document.getElementById('volumeSlider');
     if (volumeSlider) {
       volumeSlider.addEventListener('input', (e) => {
         const vol = parseFloat(e.target.value);
         this.viewerState.volume = vol;
+        try { localStorage.setItem('cs2_audio_volume', vol.toString()); } catch(err){}
         this.send('SET_AUDIO', {
           isMuted: this.viewerState.isMuted,
           volume: vol
         });
       });
     }
+
+    // Save All Settings Button
+    const saveBtn = document.getElementById('deckSaveSettingsBtn');
+    if (saveBtn) {
+      saveBtn.addEventListener('click', () => {
+        const checkedSuspense = document.querySelector('input[name="suspenseOpt"]:checked')?.value || this.viewerState.suspenseLevel;
+        const checkedOdds = document.querySelector('input[name="oddsOpt"]:checked')?.value || this.viewerState.oddsMode;
+        const currentVol = volumeSlider ? parseFloat(volumeSlider.value) : this.viewerState.volume;
+        const currentMuted = this.viewerState.isMuted;
+
+        try {
+          localStorage.setItem('cs2_suspense_level', checkedSuspense);
+          localStorage.setItem('cs2_odds_mode', checkedOdds);
+          localStorage.setItem('cs2_audio_volume', currentVol.toString());
+          localStorage.setItem('cs2_audio_muted', currentMuted ? 'true' : 'false');
+          localStorage.setItem('cs2_knife_collection', JSON.stringify(this.collection));
+          localStorage.setItem('cs2_enabled_knives', JSON.stringify(Array.from(this.enabledKnifeIds)));
+        } catch (e) {
+          console.warn('Storage save error:', e);
+        }
+
+        this.send('SET_SUSPENSE', { level: checkedSuspense });
+        this.send('SET_ODDS', { mode: checkedOdds });
+        this.send('SET_AUDIO', { isMuted: currentMuted, volume: currentVol });
+        this.send('SET_ENABLED_KNIVES', { enabledIds: Array.from(this.enabledKnifeIds) });
+        this.send('COLLECTION_UPDATED');
+
+        this.showToast('✔ ĐÃ LƯU TOÀN BỘ CÀI ĐẶT & BỘ SƯU TẬP VÀO TRÌNH DUYỆT!');
+      });
+    }
+  }
+
+  showToast(message, duration = 3000) {
+    let toast = document.getElementById('deckToastNotification');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'deckToastNotification';
+      toast.className = 'cs-toast';
+      document.body.appendChild(toast);
+    }
+    toast.textContent = message;
+    toast.classList.add('show');
+    if (this.toastTimer) clearTimeout(this.toastTimer);
+    this.toastTimer = setTimeout(() => {
+      toast.classList.remove('show');
+    }, duration);
   }
 
   renderSettingsSync(payload) {
@@ -528,14 +595,14 @@ class CS2ControlDeck {
       const tierClass = `tier-${(knife.tier || 'a').toLowerCase().replace('+', '-plus')}`;
 
       return `
-        <div class="km-card ${isChecked ? 'active' : 'disabled'}">
+        <label class="km-card ${isChecked ? 'active' : 'disabled'}">
           <input type="checkbox" class="km-checkbox" data-id="${knife.id}" ${isChecked ? 'checked' : ''} />
           <img class="km-thumb" src="${vanillaImg}" alt="${knife.name}" onerror="this.src='assets/Karambit/Vanilla.png'" />
           <div class="km-info">
             <div class="km-name">${knife.name} <span class="km-tier-badge ${tierClass}">${knife.tier}</span></div>
             <div class="km-sub">${knife.vnName || '★ Vanilla'} • ${knife.skinsCount || 13} Skins</div>
           </div>
-        </div>
+        </label>
       `;
     }).join('');
 
@@ -855,7 +922,7 @@ class CS2ControlDeck {
 
       return `
         <div class="kcc-item ${isOwned ? 'owned' : 'unowned'}" title="${knife.name}: ${isOwned ? 'ĐÃ SỞ HỮU ✔' : 'Chưa sở hữu'}">
-          <img class="kcc-img" src="${vanillaImg}" alt="${knife.name}" onerror="this.src='assets/Karambit/Vanilla.png'" />
+          <img class="kcc-thumb" src="${vanillaImg}" alt="${knife.name}" onerror="this.src='assets/Karambit/Vanilla.png'" />
           <div class="kcc-name">${knife.name}</div>
           <div class="kcc-status">${isOwned ? '✔ ĐÃ CÓ' : '🔒 KHÓA'}</div>
         </div>

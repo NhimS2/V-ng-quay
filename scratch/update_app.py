@@ -52,7 +52,7 @@ methods_to_insert = '''
       const knifeName = this.selectedKnife?.name || 'Dao';
       if (stageBadge) stageBadge.textContent = 'VÒNG 2 / 3';
       if (stageTitle) stageTitle.textContent = `QUAY SKIN CHO ${knifeName.toUpperCase()}`;
-      if (stageDesc) stageDesc.textContent = `Đang quay chọn lớp áo / họa tiết finish cho ${knifeName}...`;
+      if (stageDesc) stageDesc.textContent = `Đang quay chọn SKIN cho ${knifeName}...`;
       const skins = this.getSkinsForSelectedKnife(this.selectedKnife);
       this.engine.setItems(skins, 2);
     } else if (stage === 3) {
@@ -136,7 +136,7 @@ methods_to_insert = '''
       if (revealTitle) revealTitle.textContent = item.name;
       if (revealSubtitle) revealSubtitle.textContent = item.vnName || '20 Dòng Dao CS2 (Vanilla)';
       if (revealCasesWrap) revealCasesWrap.style.display = 'none';
-      if (revealBtnText) revealBtnText.textContent = 'TIẾP TỤC (CHỌN SKIN) ➔';
+      if (revealBtnText) revealBtnText.textContent = 'TIẾP TỤC ';
 
     } else if (stage === 2) {
       const knife = this.selectedKnife;
@@ -153,16 +153,18 @@ methods_to_insert = '''
       if (revealCasesWrap && revealCasesBadges) {
         revealCasesWrap.style.display = 'block';
         revealCasesBadges.innerHTML = validCases.map(c => `
-          <span class="rc-case-chip">
-            <img src="${c.imageSrc}" alt="${c.name}" />
-            <span>${c.name}</span>
-          </span>
+          <div class="rc-case-card">
+            <div class="rc-case-img-wrap">
+              <img src="${c.imageSrc}" alt="${c.name}" onerror="this.src='assets/Case/Dreams & Nightmares.png'" />
+            </div>
+            <div class="rc-case-name">${c.name}</div>
+          </div>
         `).join('');
       }
-      if (revealBtnText) revealBtnText.textContent = 'TIẾP TỤC (CHỌN HÒM) ➔';
+      if (revealBtnText) revealBtnText.textContent = 'TIẾP TỤC  ';
 
     } else if (stage === 3) {
-      if (revealBadge) revealBadge.textContent = '★ ÁP LỰC NGÂN SÁCH (VÒNG 3)';
+      if (revealBadge) revealBadge.textContent = '★ NGÂN SÁCH (VÒNG 3)';
       if (revealCardImg) {
         revealCardImg.src = item.imageSrc || 'assets/Case/Dreams & Nightmares.png';
         revealCardImg.alt = item.name;
@@ -170,7 +172,7 @@ methods_to_insert = '''
       if (revealTitle) revealTitle.textContent = item.name;
       if (revealSubtitle) revealSubtitle.textContent = item.caseName ? `Hòm ${item.caseName}` : (item.subtitle || 'Số Lượng Hòm');
       if (revealCasesWrap) revealCasesWrap.style.display = 'none';
-      if (revealBtnText) revealBtnText.textContent = 'XEM NHIỆM VỤ NGÀY HÔM NAY ➔';
+      if (revealBtnText) revealBtnText.textContent = 'XEM NHIỆM VỤ NGÀY HÔM NAY';
     }
   }
 
@@ -624,7 +626,7 @@ methods_to_insert = '''
     const huntStartBar = document.getElementById('huntStartBar');
     const startBtnText = document.getElementById('startBtnText');
     if (huntStartBar) huntStartBar.style.display = 'flex';
-    if (startBtnText) startBtnText.textContent = 'BẮT ĐẦU SĂN MỤC TIÊU';
+    if (startBtnText) startBtnText.textContent = 'SĂN MỤC TIÊU';
 
     const todayMissionSection = document.getElementById('todayMissionSection');
     if (todayMissionSection) todayMissionSection.style.display = 'none';

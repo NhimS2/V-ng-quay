@@ -7,7 +7,7 @@ KNIFE_DEFINITIONS = [
         "id": "butterfly",
         "folder": "Butterfly",
         "name": "Butterfly Knife",
-        "vnName": "Dao Bướm (Butterfly Knife)",
+        "vnName": "Dao Butterfly",
         "tier": "S+",
         "accent": "#00ff88",
         "weight": 3
@@ -28,13 +28,14 @@ KNIFE_DEFINITIONS = [
         "vnName": "Dao M9 Bayonet",
         "tier": "S+",
         "accent": "#ffc83b",
+        
         "weight": 5
     },
     {
         "id": "skeleton",
         "folder": "Skeleton",
         "name": "Skeleton Knife",
-        "vnName": "Dao Skeleton (Khung Xương)",
+        "vnName": "Dao Skeleton",
         "tier": "S",
         "accent": "#d946ef",
         "weight": 6
@@ -43,7 +44,7 @@ KNIFE_DEFINITIONS = [
         "id": "talon",
         "folder": "Talon",
         "name": "Talon Knife",
-        "vnName": "Dao Talon (Móng Vuốt)",
+        "vnName": "Dao Talon",
         "tier": "S",
         "accent": "#00f0ff",
         "weight": 7
@@ -52,7 +53,7 @@ KNIFE_DEFINITIONS = [
         "id": "stiletto",
         "folder": "Stiletto",
         "name": "Stiletto Knife",
-        "vnName": "Dao Bấm Stiletto",
+        "vnName": "Dao Stiletto",
         "tier": "A",
         "accent": "#06b6d4",
         "weight": 10
@@ -61,7 +62,7 @@ KNIFE_DEFINITIONS = [
         "id": "bayonet",
         "folder": "Bayonet",
         "name": "Bayonet",
-        "vnName": "Dao Lưỡi Lê Bayonet",
+        "vnName": "Dao Bayonet",
         "tier": "A",
         "accent": "#a855f7",
         "weight": 11
@@ -79,7 +80,7 @@ KNIFE_DEFINITIONS = [
         "id": "flip",
         "folder": "Flip",
         "name": "Flip Knife",
-        "vnName": "Dao Gập Flip Knife",
+        "vnName": "Dao Flip",
         "tier": "A",
         "accent": "#eab308",
         "weight": 13
@@ -88,7 +89,7 @@ KNIFE_DEFINITIONS = [
         "id": "classic",
         "folder": "Classic",
         "name": "Classic Knife",
-        "vnName": "Dao Cổ Điển (Classic)",
+        "vnName": "Dao Classic",
         "tier": "A",
         "accent": "#ef4444",
         "weight": 14
@@ -97,7 +98,7 @@ KNIFE_DEFINITIONS = [
         "id": "huntsman",
         "folder": "Huntsman",
         "name": "Huntsman Knife",
-        "vnName": "Dao Đi Rừng Huntsman",
+        "vnName": "Dao Huntsman",
         "tier": "B",
         "accent": "#e11d48",
         "weight": 15
@@ -151,7 +152,7 @@ KNIFE_DEFINITIONS = [
         "id": "survival",
         "folder": "Survival",
         "name": "Survival Knife",
-        "vnName": "Dao Sinh Tồn Survival",
+        "vnName": "Dao Survival",
         "tier": "C",
         "accent": "#84cc16",
         "weight": 20
@@ -160,7 +161,7 @@ KNIFE_DEFINITIONS = [
         "id": "gut",
         "folder": "Gut",
         "name": "Gut Knife",
-        "vnName": "Dao Móc Gut Knife",
+        "vnName": "Dao Gut",
         "tier": "C",
         "accent": "#64748b",
         "weight": 22
@@ -169,7 +170,7 @@ KNIFE_DEFINITIONS = [
         "id": "shadow_daggers",
         "folder": "Shadow Daggers",
         "name": "Shadow Daggers",
-        "vnName": "Dao Găm Kép (Shadow Daggers)",
+        "vnName": "Dao Shadow Daggers",
         "tier": "C",
         "accent": "#6b7280",
         "weight": 25

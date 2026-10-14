@@ -13,7 +13,7 @@ class CS2SpinnerEngine {
     this.isSpinning = false;
     this.mode = 'roller'; // 'roller' or 'wheel'
     this.suspenseLevel = 'high'; // 'normal', 'high', 'ultra'
-    this.oddsMode = 'realistic'; // 'realistic', 'equal', 'custom'
+    this.oddsMode = 'equal'; // default: 'equal' (pure random), 'realistic', 'custom'
 
     // Tape Roller properties
     this.tapeContainer = document.getElementById('tapeItems');
@@ -86,6 +86,17 @@ class CS2SpinnerEngine {
     this.oddsMode = oddsMode;
   }
 
+  getTierColor(tier) {
+    if (!tier) return '#ffd700';
+    const t = String(tier).toUpperCase().trim();
+    if (t === 'S+' || t === 'S-PLUS') return '#00ff88'; // var(--accent-splus)
+    if (t === 'S') return '#d946ef';                    // var(--accent-s)
+    if (t === 'A') return '#3b82f6';                    // var(--accent-a)
+    if (t === 'B') return '#f59e0b';                    // var(--accent-b)
+    if (t === 'C') return '#ef4444';                    // var(--accent-c)
+    return '#ffd700';                                   // Gold default
+  }
+
   setActiveKnives(activeList) {
     this.activeKnives = activeList.length > 0 ? activeList : [...this.knives];
     this.preloadImages();
@@ -93,6 +104,18 @@ class CS2SpinnerEngine {
       this.drawWheel();
     } else if (this.activeKnives.length > 0) {
       this.prepareRoller(this.activeKnives[0]);
+    }
+  }
+
+  // Map tier to exact accent color for top bar, badge, and bottom border
+  getTierColor(tier) {
+    switch (tier) {
+      case 'S+': return '#00ff88'; // Neon Green
+      case 'S':  return '#d946ef'; // Magenta / Pink
+      case 'A':  return '#3b82f6'; // Bright Blue
+      case 'B':  return '#f59e0b'; // Amber / Orange
+      case 'C':  return '#ef4444'; // Red
+      default:   return '#ffd700'; // Gold
     }
   }
 
@@ -175,9 +198,11 @@ class CS2SpinnerEngine {
       this.rollerItems.push(item);
 
       const card = document.createElement('div');
+      const tierColor = this.getTierColor(item.tier);
       const tierClass = (item.tier || 'a').toLowerCase().replace('+', '-plus');
       card.className = `knife-card tier-${tierClass}`;
       card.dataset.index = i;
+      card.style.borderBottomColor = tierColor;
       
       const imgPath = this.getItemImage(item);
       
@@ -199,15 +224,15 @@ class CS2SpinnerEngine {
       }
 
       card.innerHTML = `
-        <div class="card-rarity-bar" style="background: ${item.accent || '#ffd700'}"></div>
-        <div class="card-badge">${badgeText}</div>
+        <div class="card-rarity-bar" style="background: ${tierColor}; box-shadow: 0 0 10px ${tierColor};"></div>
+        <div class="card-badge" style="color: ${tierColor}; border-color: ${tierColor};">${badgeText}</div>
         <div class="card-img-wrap">
           <img src="${imgPath}" alt="${title}" loading="lazy" />
         </div>
         <div class="card-info">
           <div class="card-knife-name" title="${title}">${title}</div>
           <div class="card-skin-name">${subtitle}</div>
-          <div class="card-price">${priceText}</div>
+          <div class="card-price" style="color: ${tierColor};">${priceText}</div>
         </div>
       `;
       this.tapeContainer.appendChild(card);
@@ -380,10 +405,12 @@ class CS2SpinnerEngine {
       ctx.lineWidth = 2;
       ctx.stroke();
 
+      const tierColor = this.getTierColor(item.tier);
+
       // Outer Rarity Arc Edge
       ctx.beginPath();
       ctx.arc(centerX, centerY, radius - 2, startAngle, endAngle);
-      ctx.strokeStyle = item.accent || '#ffd700';
+      ctx.strokeStyle = tierColor;
       ctx.lineWidth = 5;
       ctx.stroke();
 
@@ -423,7 +450,7 @@ class CS2SpinnerEngine {
       }
 
       // Tier Star / Tag Icon
-      ctx.fillStyle = item.accent || '#ffd700';
+      ctx.fillStyle = tierColor;
       ctx.font = 'bold 10px sans-serif';
       const badgeText = (this.stage === 3 && item.tag) ? item.tag : (item.tier || '★');
       ctx.fillText(badgeText, radius * 0.90, -14);

@@ -10,8 +10,8 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
-  <link rel="stylesheet" href="styles.css?v=20261014_v13">
-  <link rel="stylesheet" href="control.css?v=20261014_v13">
+  <link rel="stylesheet" href="styles.css?v=20261014_v19">
+  <link rel="stylesheet" href="control.css?v=20261014_v19">
 </head>
 <body class="cs2-theme control-body">
   <div class="control-layout">
@@ -76,7 +76,7 @@
           </div>
           <!-- Slot 2 -->
           <div class="dms-box" id="dmsSlot2">
-            <div class="dms-label">VÒNG 2 • LỚP ÁO / SKIN</div>
+            <div class="dms-label">VÒNG 2 • SKIN</div>
             <div class="dms-val" id="dmsVal2">Khóa</div>
             <div class="dms-sub" id="dmsSub2">Chờ Vòng 1</div>
           </div>
@@ -181,11 +181,11 @@
           <p class="sd-desc">Tùy biến xác suất trúng dao hiếm / dao bình dân.</p>
           <div class="sd-radios">
             <label class="sd-radio-card">
-              <input type="radio" name="oddsOpt" value="realistic" checked>
+              <input type="radio" name="oddsOpt" value="realistic">
               <span class="sd-radio-text">🎲 Chuẩn CS2 thực tế (Dao xịn hiếm hơn)</span>
             </label>
             <label class="sd-radio-card">
-              <input type="radio" name="oddsOpt" value="equal">
+              <input type="radio" name="oddsOpt" value="equal" checked>
               <span class="sd-radio-text">⚖️ Đồng đều (1 / 20 cho mỗi loại dao)</span>
             </label>
           </div>
@@ -203,6 +203,11 @@
               <input type="range" id="volumeSlider" min="0" max="1" step="0.05" value="0.8" style="accent-color: #ffd700;" />
             </label>
           </div>
+        </div>
+        <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid rgba(255, 215, 0, 0.15);">
+          <button id="deckSaveSettingsBtn" class="cs-btn cs-btn-gold" style="width: 100%; padding: 14px; font-weight: 800; font-size: 15px;">
+            💾 LƯU CÀI ĐẶT HỆ THỐNG VÀO TRÌNH DUYỆT
+          </button>
         </div>
       </div>
     </section>
@@ -357,8 +362,8 @@
   </div>
 
   <!-- Scripts -->
-  <script src="knives_data.js?v=20261014_v13"></script>
-  <script src="audio.js?v=20261014_v13"></script>
-  <script src="control.js?v=20261014_v13"></script>
+  <script src="knives_data.js?v=20261014_v19"></script>
+  <script src="audio.js?v=20261014_v19"></script>
+  <script src="control.js?v=20261014_v19"></script>
 </body>
 </html>

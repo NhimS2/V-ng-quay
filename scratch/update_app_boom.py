@@ -7,7 +7,7 @@ old_stage1_reset = '''      // Reset Start Bar & Mission Section
       const huntStartBar = document.getElementById('huntStartBar');
       const startBtnText = document.getElementById('startBtnText');
       if (huntStartBar) huntStartBar.style.display = 'flex';
-      if (startBtnText) startBtnText.textContent = 'BẮT ĐẦU SĂN MỤC TIÊU';
+      if (startBtnText) startBtnText.textContent = 'SĂN MỤC TIÊU';
       const todayMissionSection = document.getElementById('todayMissionSection');
       if (todayMissionSection) todayMissionSection.style.display = 'none';'''
 
@@ -20,7 +20,7 @@ new_stage1_reset = '''      // Reset Start Bar & Dashboard & Mission Section
       const huntStartBar = document.getElementById('huntStartBar');
       const startBtnText = document.getElementById('startBtnText');
       if (huntStartBar) huntStartBar.style.display = 'flex';
-      if (startBtnText) startBtnText.textContent = 'BẮT ĐẦU SĂN MỤC TIÊU';
+      if (startBtnText) startBtnText.textContent = 'SĂN MỤC TIÊU';
       const todayMissionSection = document.getElementById('todayMissionSection');
       if (todayMissionSection) {
         todayMissionSection.style.display = 'none';
@@ -135,7 +135,7 @@ code = code.replace(old_mission_display, new_mission_display, 1)
 old_reset_hunt_flow = '''    const huntStartBar = document.getElementById('huntStartBar');
     const startBtnText = document.getElementById('startBtnText');
     if (huntStartBar) huntStartBar.style.display = 'flex';
-    if (startBtnText) startBtnText.textContent = 'BẮT ĐẦU SĂN MỤC TIÊU';
+    if (startBtnText) startBtnText.textContent = 'SĂN MỤC TIÊU';
 
     const todayMissionSection = document.getElementById('todayMissionSection');
     if (todayMissionSection) todayMissionSection.style.display = 'none';'''
@@ -150,7 +150,7 @@ new_reset_hunt_flow = '''    // Restore 3-slot hunt dashboard
     const huntStartBar = document.getElementById('huntStartBar');
     const startBtnText = document.getElementById('startBtnText');
     if (huntStartBar) huntStartBar.style.display = 'flex';
-    if (startBtnText) startBtnText.textContent = 'BẮT ĐẦU SĂN MỤC TIÊU';
+    if (startBtnText) startBtnText.textContent = 'SĂN MỤC TIÊU';
 
     const todayMissionSection = document.getElementById('todayMissionSection');
     if (todayMissionSection) {

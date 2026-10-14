@@ -5,63 +5,59 @@
 
 // Fallback knife catalog for offline / file:// protocol
 const FALLBACK_KNIVES = [
-  { id: "butterfly", folder: "Butterfly", name: "Butterfly Knife", vnName: "Dao Bướm (Butterfly Knife)", tier: "S+", accent: "#00ff88", weight: 3, skinsCount: 25, vanillaImage: "assets/Butterfly/Vanilla.png" },
+  { id: "butterfly", folder: "Butterfly", name: "Butterfly Knife", vnName: "Dao Butterfly", tier: "S+", accent: "#00ff88", weight: 3, skinsCount: 25, vanillaImage: "assets/Butterfly/Vanilla.png" },
   { id: "karambit", folder: "Karambit", name: "Karambit", vnName: "Dao Karambit", tier: "S+", accent: "#ff2a85", weight: 4, skinsCount: 25, vanillaImage: "assets/Karambit/Vanilla.png" },
   { id: "m9_bayonet", folder: "M9 Bayonet", name: "M9 Bayonet", vnName: "Dao M9 Bayonet", tier: "S+", accent: "#ffc83b", weight: 5, skinsCount: 25, vanillaImage: "assets/M9 Bayonet/Vanilla.png" },
-  { id: "skeleton", folder: "Skeleton", name: "Skeleton Knife", vnName: "Dao Skeleton (Khung Xương)", tier: "S", accent: "#d946ef", weight: 6, skinsCount: 19, vanillaImage: "assets/Skeleton/Vanilla.png" },
-  { id: "talon", folder: "Talon", name: "Talon Knife", vnName: "Dao Talon (Móng Vuốt)", tier: "S", accent: "#00f0ff", weight: 7, skinsCount: 19, vanillaImage: "assets/Talon/Vanilla.png" },
+  { id: "skeleton", folder: "Skeleton", name: "Skeleton Knife", vnName: "Dao Skeleton", tier: "S", accent: "#d946ef", weight: 6, skinsCount: 19, vanillaImage: "assets/Skeleton/Vanilla.png" },
+  { id: "talon", folder: "Talon", name: "Talon Knife", vnName: "Dao Talon", tier: "S", accent: "#00f0ff", weight: 7, skinsCount: 19, vanillaImage: "assets/Talon/Vanilla.png" },
   { id: "kukri", folder: "Kukri", name: "Kukri Knife", vnName: "Dao Kukri", tier: "A", accent: "#f59e0b", weight: 10, skinsCount: 13, vanillaImage: "assets/Kukri/Vanilla.png" },
-  { id: "stiletto", folder: "Stiletto", name: "Stiletto Knife", vnName: "Dao Bấm Stiletto", tier: "A", accent: "#06b6d4", weight: 10, skinsCount: 19, vanillaImage: "assets/Stiletto/Vanilla.png" },
+  { id: "stiletto", folder: "Stiletto", name: "Stiletto Knife", vnName: "Dao Stiletto", tier: "A", accent: "#06b6d4", weight: 10, skinsCount: 19, vanillaImage: "assets/Stiletto/Vanilla.png" },
   { id: "nomad", folder: "Nomad", name: "Nomad Knife", vnName: "Dao Nomad", tier: "A", accent: "#ec4899", weight: 10, skinsCount: 19, vanillaImage: "assets/Nomad/Vanilla.png" },
   { id: "ursus", folder: "Ursus", name: "Ursus Knife", vnName: "Dao Ursus", tier: "A", accent: "#3b82f6", weight: 10, skinsCount: 19, vanillaImage: "assets/Ursus/Vanilla.png" },
-  { id: "bayonet", folder: "Bayonet", name: "Bayonet", vnName: "Dao Lưỡi Lê Bayonet", tier: "A", accent: "#a855f7", weight: 12, skinsCount: 25, vanillaImage: "assets/Bayonet/Vanilla.png" },
-  { id: "classic", folder: "Classic", name: "Classic Knife", vnName: "Dao Cổ Điển (Classic)", tier: "B", accent: "#ef4444", weight: 15, skinsCount: 13, vanillaImage: "assets/Classic/Vanilla.png" },
-  { id: "flip", folder: "Flip", name: "Flip Knife", vnName: "Dao Gập Flip Knife", tier: "B", accent: "#eab308", weight: 15, skinsCount: 25, vanillaImage: "assets/Flip/Vanilla.png" },
+  { id: "bayonet", folder: "Bayonet", name: "Bayonet", vnName: "Dao Bayonet", tier: "A", accent: "#a855f7", weight: 12, skinsCount: 25, vanillaImage: "assets/Bayonet/Vanilla.png" },
+  { id: "classic", folder: "Classic", name: "Classic Knife", vnName: "Dao Classic", tier: "B", accent: "#ef4444", weight: 15, skinsCount: 13, vanillaImage: "assets/Classic/Vanilla.png" },
+  { id: "flip", folder: "Flip", name: "Flip Knife", vnName: "Dao Flip", tier: "B", accent: "#eab308", weight: 15, skinsCount: 25, vanillaImage: "assets/Flip/Vanilla.png" },
   { id: "paracord", folder: "Paracord", name: "Paracord Knife", vnName: "Dao Paracord", tier: "B", accent: "#dc2626", weight: 15, skinsCount: 19, vanillaImage: "assets/Paracord/Vanilla.png" },
   { id: "bowie", folder: "Bowie", name: "Bowie Knife", vnName: "Dao Bowie", tier: "B", accent: "#f43f5e", weight: 15, skinsCount: 25, vanillaImage: "assets/Bowie/Vanilla.png" },
-  { id: "huntsman", folder: "Huntsman", name: "Huntsman Knife", vnName: "Dao Đi Rừng Huntsman", tier: "B", accent: "#e11d48", weight: 15, skinsCount: 25, vanillaImage: "assets/Huntsman/Vanilla.png" },
+  { id: "huntsman", folder: "Huntsman", name: "Huntsman Knife", vnName: "Dao Huntsman", tier: "B", accent: "#e11d48", weight: 15, skinsCount: 25, vanillaImage: "assets/Huntsman/Vanilla.png" },
   { id: "falchion", folder: "Falchion", name: "Falchion Knife", vnName: "Dao Falchion", tier: "B", accent: "#10b981", weight: 15, skinsCount: 25, vanillaImage: "assets/Falchion/Vanilla.png" },
-  { id: "survival", folder: "Survival", name: "Survival Knife", vnName: "Dao Sinh Tồn Survival", tier: "C", accent: "#84cc16", weight: 22, skinsCount: 19, vanillaImage: "assets/Survival/Vanilla.png" },
-  { id: "gut", folder: "Gut", name: "Gut Knife", vnName: "Dao Móc Gut Knife", tier: "C", accent: "#64748b", weight: 25, skinsCount: 25, vanillaImage: "assets/Gut/Vanilla.png" },
+  { id: "survival", folder: "Survival", name: "Survival Knife", vnName: "Dao Survival", tier: "C", accent: "#84cc16", weight: 22, skinsCount: 19, vanillaImage: "assets/Survival/Vanilla.png" },
+  { id: "gut", folder: "Gut", name: "Gut Knife", vnName: "Dao Gut", tier: "C", accent: "#64748b", weight: 25, skinsCount: 25, vanillaImage: "assets/Gut/Vanilla.png" },
   { id: "navaja", folder: "Navaja", name: "Navaja Knife", vnName: "Dao Navaja", tier: "C", accent: "#78716c", weight: 25, skinsCount: 19, vanillaImage: "assets/Navaja/Vanilla.png" },
-  { id: "shadow_daggers", folder: "Shadow Daggers", name: "Shadow Daggers", vnName: "Dao Găm Kép (Shadow Daggers)", tier: "C", accent: "#6b7280", weight: 25, skinsCount: 25, vanillaImage: "assets/Shadow Daggers/Vanilla.png" }
+  { id: "shadow_daggers", folder: "Shadow Daggers", name: "Shadow Daggers", vnName: "Dao Shadow Daggers", tier: "C", accent: "#6b7280", weight: 25, skinsCount: 25, vanillaImage: "assets/Shadow Daggers/Vanilla.png" }
 ];
 
 // =========================================================================
-// VÒNG 3: MẪU THỬ THÁCH SỐ LƯỢNG HÒM (SẼ ĐƯỢC GHÉP VÀO CÁC HÒM RƠI RA DAO ĐÓ)
+// VÒNG 3: MẪU THỬ THÁCH SỐ LƯỢNG HÒM (TỪ 5 - 20 HÒM)
 // =========================================================================
 
-// Mẫu thử thách Chế Độ Video (YouTube / TikTok - Gọn nhẹ, hồi hộp, 1 - 15 hòm)
+// Mẫu thử thách Chế Độ Video (YouTube / TikTok - Dải số lượng từ 5 - 20 hòm + Ô Hiệu Ứng)
 const VIDEO_QTY_TEMPLATES = [
-  { id: "v1", count: 1, name: "1 Hòm Duy Nhất!", tag: "1 SHOT 1 KILL", tier: "S+", accent: "#ec4899", desc: "1 phát ăn ngay hoặc ăn chửi! Cực hút view video" },
-  { id: "v3", count: 3, name: "3 Hòm", tag: "SIÊU GỌN", tier: "S", accent: "#ef4444", desc: "3 Hòm nhịp điệu nhanh dồn dập, cực căng thẳng" },
-  { id: "v5", count: 5, name: "5 Hòm", tag: "CHUẨN VIDEO", tier: "A", accent: "#f97316", desc: "5 Hòm - Thời lượng lý tưởng cho 1 tập video" },
-  { id: "v7", count: 7, name: "7 Hòm", tag: "CĂNG THẲNG", tier: "A", accent: "#f59e0b", desc: "7 Hòm cân não, kịch tính vừa đủ cho người xem" },
-  { id: "v10", count: 10, name: "10 Hòm", tag: "TẬP DÀI", tier: "B", accent: "#eab308", desc: "10 Hòm - Tập dài kịch tính, nhiều cơ hội nổ dao" },
-  { id: "v12", count: 12, name: "12 Hòm", tag: "THỬ THÁCH", tier: "B", accent: "#84cc16", desc: "12 Hòm - Thử thách sức chịu đựng tới phút chót" },
-  { id: "v15", count: 15, name: "15 Hòm", tag: "KHÔ MÁU", tier: "A", accent: "#10b981", desc: "15 Hòm - Tập khô máu hết mức cho series video!" },
-  { id: "vx2", count: 10, name: "5 Hòm (x2 = 10)", tag: "NHÂN ĐÔI", tier: "S", accent: "#8b5cf6", desc: "Kèo x2 bất ngờ nhân đôi lên 10 hòm!" },
-  { id: "vins", count: 7, name: "5 Hòm (+2 Bảo Hiểm)", tag: "BẢO HIỂM", tier: "A", accent: "#d946ef", desc: "5 hòm + 2 hòm cứu cánh nếu chưa ra dao" },
-  { id: "vcom", count: 7, name: "Do Khán Giả Bình Luận", tag: "COMMENT VOTE", tier: "S+", accent: "#ffd700", desc: "Lấy số hòm theo bình luận khán giả tập trước!", isSpecial: true },
-  { id: "vinf", count: 999, name: "Mở Đến Khi Ra Dao!", tag: "TẬP ĐẶC BIỆT", tier: "S+", accent: "#00ff88", desc: "Tập đặc biệt: Mở liên tục không nghỉ tới khi nổ dao!" }
+  { id: "v5", count: 5, name: "5 Hòm", tag: "KHỞI ĐỘNG", tier: "A", accent: "#ef4444", desc: "5 Hòm - Căng thẳng từng phát mở, nhịp điệu hồi hộp" },
+  { id: "v7", count: 7, name: "7 Hòm", tag: "CÂN NÃO", tier: "A", accent: "#f97316", desc: "7 Hòm - Thời lượng lý tưởng cho 1 tập video ngắn" },
+  { id: "v8", count: 8, name: "8 Hòm", tag: "THỬ THÁCH", tier: "B", accent: "#f59e0b", desc: "8 Hòm - Nhịp điệu dồn dập, thử tài may mắn" },
+  { id: "v10", count: 10, name: "10 Hòm", tag: "TIÊU CHUẨN", tier: "B", accent: "#eab308", desc: "10 Hòm - Mốc chuẩn mực, nhiều cơ hội nổ dao vàng" },
+  { id: "v12", count: 12, name: "12 Hòm", tag: "HẤP DẪN", tier: "B", accent: "#84cc16", desc: "12 Hòm - Thử thách sức chịu đựng tới phút chót" },
+  { id: "v15", count: 15, name: "15 Hòm", tag: "TẬP DÀI", tier: "A", accent: "#10b981", desc: "15 Hòm - Tập dài kịch tính, cơ hội nổ dao cực cao" },
+  { id: "v18", count: 18, name: "18 Hòm", tag: "ĐẠI CHIẾN", tier: "S", accent: "#06b6d4", desc: "18 Hòm - Đại chiến mở hòm nặn dao căng thẳng" },
+  { id: "v20", count: 20, name: "20 Hòm (MAX)", tag: "KHÔ MÁU", tier: "S+", accent: "#3b82f6", desc: "20 Hòm - Kịch khung tối đa, khô máu tới cùng!" },
+  { id: "vx2", isModifier: true, modifierType: "multiply", modifierValue: 2, name: "x2", fullName: "Ô Nhân Đôi (x2)", tag: "NHÂN ĐÔI", tier: "S+", accent: "#8b5cf6", desc: "Trúng ô Nhân Đôi (x2)! Quay tiếp để nhân đôi số hòm!" },
+  { id: "vins3", isModifier: true, modifierType: "add", modifierValue: 3, name: "+3 Bảo Hiểm", fullName: "Ô Bảo Hiểm (+3 Hòm)", tag: "BẢO HIỂM", tier: "A", accent: "#d946ef", desc: "Trúng ô Bảo Hiểm (+3)! Quay tiếp để cộng thêm 3 hòm!" },
+  { id: "vins5", isModifier: true, modifierType: "add", modifierValue: 5, name: "+5 Bảo Hiểm", fullName: "Ô Bảo Hiểm (+5 Hòm)", tag: "BẢO HIỂM", tier: "S", accent: "#ec4899", desc: "Trúng ô Bảo Hiểm (+5)! Quay tiếp để cộng thêm 5 hòm!" }
 ];
 
-// Mẫu thử thách Chế Độ Stream (Dành cho livestream nhiều tiếng - 5 - 50 hòm)
+// Mẫu thử thách Chế Độ Stream (Dành cho livestream - 5 - 20 hòm + Ô Hiệu Ứng)
 const STREAM_QTY_TEMPLATES = [
-  { id: "s5", count: 5, name: "5 Hòm", tag: "CỰC KHÓ", tier: "S+", accent: "#ef4444", desc: "5 Hòm Cực Căng! Liệu có phép màu?" },
-  { id: "s10", count: 10, name: "10 Hòm", tag: "CĂNG THẲNG", tier: "S", accent: "#f97316", desc: "10 Hòm cân não, áp lực vừa phải" },
-  { id: "s15", count: 15, name: "15 Hòm", tag: "THỬ THÁCH", tier: "A", accent: "#f59e0b", desc: "15 Hòm mở đều tay, cơ hội trúng dao" },
-  { id: "s20", count: 20, name: "20 Hòm", tag: "TIÊU CHUẨN", tier: "A", accent: "#eab308", desc: "20 Hòm chuẩn mực streamer" },
-  { id: "s25", count: 25, name: "25 Hòm", tag: "THOẢI MÁI", tier: "B", accent: "#84cc16", desc: "25 Hòm tự tin ra dao vàng" },
-  { id: "s30", count: 30, name: "30 Hòm", tag: "ĐẠI CHIẾN", tier: "B", accent: "#10b981", desc: "30 Hòm đại tiệc unbox bùng nổ" },
-  { id: "s40", count: 40, name: "40 Hòm", tag: "KHÔ MÁU", tier: "B", accent: "#06b6d4", desc: "40 Hòm khô máu cùng khán giả" },
-  { id: "s50", count: 50, name: "50 Hòm", tag: "ĐẠI TIỆC", tier: "A", accent: "#3b82f6", desc: "50 Hòm nặn dao không nghỉ tay" },
-  { id: "sx2_1", count: 20, name: "10 Hòm (x2 = 20)", tag: "NHÂN ĐÔI", tier: "S", accent: "#8b5cf6", desc: "Kèo x2 bất ngờ đẩy hòm lên 20!" },
-  { id: "sx2_2", count: 40, name: "20 Hòm (x2 = 40)", tag: "NHÂN ĐÔI x2", tier: "S", accent: "#a855f7", desc: "Gấp đôi số lượng, 40 hòm đại chiến!" },
-  { id: "sins", count: 25, name: "20 Hòm (+5 Bảo Hiểm)", tag: "BẢO HIỂM", tier: "A", accent: "#d946ef", desc: "20 hòm + 5 hòm bảo hiểm nếu chưa ra" },
-  { id: "s1", count: 1, name: "1 Hòm Duy Nhất!", tag: "SIÊU TROLL", tier: "S+", accent: "#ec4899", desc: "1 phát ăn ngay hoặc ăn chửi! Cực hài" },
-  { id: "schat", count: 30, name: "Do Chat Quyết Định", tag: "CHAT VOTE", tier: "S+", accent: "#ffd700", desc: "Khán giả bình luận quyết định số hòm!", isSpecial: true },
-  { id: "sinf", count: 999, name: "Mở Đến Khi Ra Dao!", tag: "VÔ CỰC", tier: "S+", accent: "#00ff88", desc: "Không giới hạn, mở tới khi trúng dao!" }
+  { id: "s5", count: 5, name: "5 Hòm", tag: "KHỞI ĐỘNG", tier: "A", accent: "#ef4444", desc: "5 Hòm - Cực căng! Liệu có phép màu?" },
+  { id: "s8", count: 8, name: "8 Hòm", tag: "THỬ THÁCH", tier: "A", accent: "#f97316", desc: "8 Hòm mở nhanh kịch tính" },
+  { id: "s10", count: 10, name: "10 Hòm", tag: "TIÊU CHUẨN", tier: "B", accent: "#f59e0b", desc: "10 Hòm cân não, áp lực vừa phải" },
+  { id: "s12", count: 12, name: "12 Hòm", tag: "HẤP DẪN", tier: "B", accent: "#84cc16", desc: "12 Hòm mở đều tay, cơ hội trúng dao" },
+  { id: "s15", count: 15, name: "15 Hòm", tag: "TẬP DÀI", tier: "A", accent: "#10b981", desc: "15 Hòm chuẩn mực streamer" },
+  { id: "s18", count: 18, name: "18 Hòm", tag: "ĐẠI CHIẾN", tier: "S", accent: "#06b6d4", desc: "18 Hòm tự tin ra dao vàng" },
+  { id: "s20", count: 20, name: "20 Hòm (MAX)", tag: "KHÔ MÁU", tier: "S+", accent: "#3b82f6", desc: "20 Hòm - Mức kịch khung, khô máu cùng khán giả" },
+  { id: "sx2", isModifier: true, modifierType: "multiply", modifierValue: 2, name: "x2", fullName: "Ô Nhân Đôi (x2)", tag: "NHÂN ĐÔI", tier: "S+", accent: "#8b5cf6", desc: "Kèo x2 nhân đôi số hòm! Quay tiếp để xác định số hòm!" },
+  { id: "sins3", isModifier: true, modifierType: "add", modifierValue: 3, name: "+3 Bảo Hiểm", fullName: "Ô Bảo Hiểm (+3 Hòm)", tag: "BẢO HIỂM", tier: "A", accent: "#d946ef", desc: "Bảo hiểm +3 hòm! Quay tiếp để cộng dồn!" },
+  { id: "sins5", isModifier: true, modifierType: "add", modifierValue: 5, name: "+5 Bảo Hiểm", fullName: "Ô Bảo Hiểm (+5 Hòm)", tag: "BẢO HIỂM", tier: "S", accent: "#ec4899", desc: "Bảo hiểm +5 hòm! Quay tiếp để cộng dồn!" }
 ];
 
 class CS2App {
@@ -91,6 +87,11 @@ class CS2App {
     // Collection inventory state
     this.collection = this.loadCollection();
     this.collectionView = 'cards'; // 'cards' or 'table'
+
+    // Stage 3 Modifiers Accumulator state
+    this.stage3Modifiers = [];
+    this.stage3IsShowingModifier = false;
+    this.stage3AutoContinueTimer = null;
 
     // Session stats
     this.stats = {
@@ -149,6 +150,51 @@ class CS2App {
       } catch (e) {}
     }
 
+    // Restore Spinner Mode (roller vs wheel)
+    const savedSpinnerMode = localStorage.getItem('cs2_spinner_mode');
+    if (savedSpinnerMode && (savedSpinnerMode === 'roller' || savedSpinnerMode === 'wheel')) {
+      this.engine.setMode(savedSpinnerMode);
+      const rollerEl = document.getElementById('rollerContainer');
+      const wheelEl = document.getElementById('wheelContainer');
+      if (rollerEl) rollerEl.style.display = savedSpinnerMode === 'roller' ? 'block' : 'none';
+      if (wheelEl) wheelEl.style.display = savedSpinnerMode === 'wheel' ? 'flex' : 'none';
+      document.querySelectorAll('.mode-tab').forEach(tab => {
+        tab.classList.toggle('active', tab.dataset.mode === savedSpinnerMode);
+      });
+    }
+
+    // Restore Suspense Level
+    const savedSuspense = localStorage.getItem('cs2_suspense_level') || 'high';
+    this.engine.setSuspenseLevel(savedSuspense);
+    const suspRadio = document.querySelector(`input[name="suspenseRadio"][value="${savedSuspense}"]`);
+    if (suspRadio) suspRadio.checked = true;
+    const suspLabels = { 'ultra': '🔥 Cực Hồi Hộp', 'high': '⚡ Chuẩn CS2', 'normal': '⏱️ Mở Siêu Tốc' };
+    const quickSuspEl = document.getElementById('quickSuspenseLabel');
+    if (quickSuspEl) quickSuspEl.textContent = suspLabels[savedSuspense] || savedSuspense;
+
+    // Restore Odds Mode
+    const savedOdds = localStorage.getItem('cs2_odds_mode') || 'equal';
+    this.engine.setOddsMode(savedOdds);
+    const oddsRadio = document.querySelector(`input[name="oddsRadio"][value="${savedOdds}"]`);
+    if (oddsRadio) oddsRadio.checked = true;
+    const oddsLabels = { 'realistic': '🎲 Chuẩn CS2', 'equal': '⚖️ Đồng Đều' };
+    const quickOddsEl = document.getElementById('quickOddsLabel');
+    if (quickOddsEl) quickOddsEl.textContent = oddsLabels[savedOdds] || savedOdds;
+
+    // Restore Audio Settings UI
+    const volSlider = document.getElementById('modalVolumeSlider');
+    const volPercent = document.getElementById('volPercent');
+    const modalMuteBtn = document.getElementById('modalMuteBtn');
+    if (volSlider && window.cs2Sound) {
+      volSlider.value = window.cs2Sound.masterVolume ?? 0.8;
+      if (volPercent) volPercent.textContent = `${Math.round(volSlider.value * 100)}%`;
+    }
+    if (modalMuteBtn && window.cs2Sound) {
+      const isMuted = window.cs2Sound.isMuted;
+      modalMuteBtn.innerHTML = isMuted ? '<i class="icon">🔇</i> Âm Thanh: ĐANG TẮT' : '<i class="icon">🔊</i> Âm Thanh: ĐANG BẬT';
+      modalMuteBtn.className = isMuted ? 'cs-btn cs-btn-dark' : 'cs-btn cs-btn-gold';
+    }
+
     // Initialize Streamer Control Deck sync channel
     this.initSyncChannel();
 
@@ -191,7 +237,7 @@ class CS2App {
         broadcastMode: this.broadcastMode || 'video',
         spinnerMode: this.engine?.mode || 'roller',
         suspenseLevel: this.engine?.suspenseLevel || 'high',
-        oddsMode: this.engine?.oddsMode || 'realistic',
+        oddsMode: this.engine?.oddsMode || 'equal',
         volume: window.cs2Sound?.masterVolume ?? 0.8,
         isMuted: !!window.cs2Sound?.isMuted,
         enabledKnifeIds: Array.from(this.enabledKnifeIds || []),
@@ -364,89 +410,53 @@ class CS2App {
       { id: 'fracture', name: 'Fracture Case', shortName: 'Fracture', file: 'Fracture.png', imageSrc: 'assets/Case/Fracture.png' }
     ];
 
+    const createItem = (c, tmpl, keySuffix) => {
+      const isMod = !!tmpl.isModifier;
+      return {
+        id: `${c.id}_${tmpl.id}_${keySuffix}`,
+        name: tmpl.name,
+        fullName: isMod ? (tmpl.fullName || tmpl.name) : `${tmpl.name} (${c.name})`,
+        casesCount: tmpl.count || 0,
+        tag: tmpl.tag,
+        tier: tmpl.tier,
+        accent: tmpl.accent,
+        imageSrc: c.imageSrc,
+        caseName: c.name,
+        caseShortName: c.shortName,
+        subtitle: isMod ? (tmpl.desc || 'Ô Hiệu Ứng') : `Hòm ${c.name}`,
+        desc: tmpl.desc,
+        isModifier: isMod,
+        modifierType: tmpl.modifierType || null,
+        modifierValue: tmpl.modifierValue || 0
+      };
+    };
+
     const items = [];
 
     if (safeCases.length === 1) {
-      // Chỉ có ĐÚNG 1 loại hòm mở được dao này (VD: Classic Knife -> chỉ CS20 Case; Butterfly Vanilla -> chỉ Operation Breakout)
       const c = safeCases[0];
       templates.forEach((tmpl, idx) => {
-        items.push({
-          id: `${c.id}_${tmpl.id}_${idx}`,
-          name: tmpl.name,
-          fullName: `${tmpl.name} (${c.name})`,
-          casesCount: tmpl.count,
-          tag: tmpl.tag,
-          tier: tmpl.tier,
-          accent: tmpl.accent,
-          imageSrc: c.imageSrc,
-          caseName: c.name,
-          caseShortName: c.shortName,
-          subtitle: `Hòm ${c.name}`,
-          desc: `${tmpl.name} ${c.name}`
-        });
+        items.push(createItem(c, tmpl, idx));
       });
     } else if (safeCases.length === 2) {
-      // Có ĐÚNG 2 loại hòm (VD: Survival Crimson Web -> Fracture Case & Shattered Web Case)
       templates.forEach((tmpl, idx) => {
-        if (tmpl.isSpecial) {
+        if (tmpl.isModifier) {
           const c = safeCases[idx % safeCases.length];
-          items.push({
-            id: `special_${tmpl.id}_${idx}`,
-            name: tmpl.name,
-            fullName: `${tmpl.name} (Chọn 1 trong 2 hòm)`,
-            casesCount: tmpl.count,
-            tag: tmpl.tag,
-            tier: tmpl.tier,
-            accent: tmpl.accent,
-            imageSrc: c.imageSrc,
-            caseName: c.name,
-            caseShortName: c.shortName,
-            subtitle: `Chọn giữa ${safeCases[0].shortName} & ${safeCases[1].shortName}`,
-            desc: tmpl.desc
-          });
+          items.push(createItem(c, tmpl, idx));
         } else {
-          // Tạo luân phiên cho cả 2 loại hòm để trên vòng quay có đầy đủ cả 2 hòm
-          safeCases.forEach(c => {
-            items.push({
-              id: `${c.id}_${tmpl.id}`,
-              name: tmpl.name,
-              fullName: `${tmpl.name} (${c.name})`,
-              casesCount: tmpl.count,
-              tag: tmpl.tag,
-              tier: tmpl.tier,
-              accent: tmpl.accent,
-              imageSrc: c.imageSrc,
-              caseName: c.name,
-              caseShortName: c.shortName,
-              subtitle: `Hòm ${c.name}`,
-              desc: `${tmpl.name} ${c.name}`
-            });
+          safeCases.forEach((c, cIdx) => {
+            items.push(createItem(c, tmpl, `${idx}_${cIdx}`));
           });
         }
       });
     } else {
-      // Có từ 3 loại hòm trở lên: phân bổ các mốc số lượng vào các hòm hợp lệ
       templates.forEach((tmpl, idx) => {
         const c = safeCases[idx % safeCases.length];
-        items.push({
-          id: `${c.id}_${tmpl.id}_${idx}`,
-          name: tmpl.name,
-          fullName: `${tmpl.name} (${c.name})`,
-          casesCount: tmpl.count,
-          tag: tmpl.tag,
-          tier: tmpl.tier,
-          accent: tmpl.accent,
-          imageSrc: c.imageSrc,
-          caseName: c.name,
-          caseShortName: c.shortName,
-          subtitle: `Hòm ${c.name}`,
-          desc: `${tmpl.name} ${c.name}`
-        });
+        items.push(createItem(c, tmpl, idx));
       });
 
-      // Đảm bảo mọi hòm hợp lệ đều có mặt ít nhất 1 lần trên vòng quay
       safeCases.forEach(c => {
-        const hasCard = items.some(it => it.caseName === c.name);
+        const hasCard = items.some(it => it.caseName === c.name && !it.isModifier);
         if (!hasCard) {
           items.push({
             id: `${c.id}_featured_5`,
@@ -460,7 +470,10 @@ class CS2App {
             caseName: c.name,
             caseShortName: c.shortName,
             subtitle: `Hòm ${c.name}`,
-            desc: `Mở ${c.name}`
+            desc: `Mở ${c.name}`,
+            isModifier: false,
+            modifierType: null,
+            modifierValue: 0
           });
         }
       });
@@ -506,10 +519,9 @@ class CS2App {
     const hdhBadgeText = document.getElementById('hdhBadgeText');
     if (hdhBadgeText) {
       hdhBadgeText.textContent = isVideo
-        ? '🎬 KỊCH BẢN TẬP VIDEO: THE LOADOUT SETUP'
-        : '🔴 KỊCH BẢN LIVESTREAM: THE LOADOUT SETUP';
+        ? 'DAILY GOALS'
+        : ' DAILY GOALS';
     }
-
     // 5. Hunt Summary Banner Label
     const hsbLabelText = document.getElementById('hsbLabelText');
     if (hsbLabelText) {
@@ -586,7 +598,7 @@ class CS2App {
       fullName: `${knife.name} | Ra Gì Lấy Đó`,
       vnName: 'Bất kỳ loại nào ra trước lấy loại đó!',
       tier: 'S+',
-      accent: '#ffd700',
+      accent: '#00ff88',
       imageSrc: knife.vanillaImage,
       priceVND: 'Tùy Ý Ra Gì Lấy Đó',
       priceUSD: 'Special',
@@ -601,7 +613,7 @@ class CS2App {
       fullName: `${knife.name} | ${isVideo ? 'Do Khán Giả Bình Luận' : 'Do Chat Quyết Định'}`,
       vnName: isVideo ? 'Khán giả comment vote chọn skin cho tập này!' : 'Khán giả chat live vote chọn skin!',
       tier: 'S+',
-      accent: '#a855f7',
+      accent: '#00ff88',
       imageSrc: knife.vanillaImage,
       priceVND: isVideo ? 'Khán Giả Comment' : 'Chat Vote',
       priceUSD: isVideo ? 'Audience Choice' : 'Chat Choice',
@@ -677,7 +689,7 @@ class CS2App {
       if (slotKnifeMystery) slotKnifeMystery.style.display = 'block';
       if (slotKnifeImgWrap) slotKnifeImgWrap.style.display = 'none';
       if (slotKnifeTitle) slotKnifeTitle.textContent = 'Chưa Chọn Loại Dao';
-      if (slotKnifeSub) slotKnifeSub.textContent = '20 Dòng Dao CS2 (Vanilla)';
+      if (slotKnifeSub) slotKnifeSub.textContent = '20 Dòng Dao CS2';
 
       // Slot 2: Locked
       if (slotSkin) {
@@ -710,7 +722,7 @@ class CS2App {
       const huntStartBar = document.getElementById('huntStartBar');
       const startBtnText = document.getElementById('startBtnText');
       if (huntStartBar) huntStartBar.style.display = 'flex';
-      if (startBtnText) startBtnText.textContent = 'BẮT ĐẦU SĂN MỤC TIÊU';
+      if (startBtnText) startBtnText.textContent = 'SĂN MỤC TIÊU';
       const todayMissionSection = document.getElementById('todayMissionSection');
       if (todayMissionSection) {
         todayMissionSection.style.display = 'none';
@@ -721,7 +733,7 @@ class CS2App {
       const isVideo = this.broadcastMode === 'video';
       if (huntStatusText) {
         huntStatusText.textContent = isVideo
-          ? 'Bấm "QUAY VÒNG 1" để chọn Loại Dao tâm điểm cho tập video hôm nay!'
+          ? 'Quay để chọn Loại Dao tâm điểm cho tập video hôm nay!'
           : 'Bấm "QUAY VÒNG 1" để chọn Loại Dao tâm điểm cho buổi stream hôm nay!';
       }
       if (huntSummaryText) {
@@ -776,7 +788,7 @@ class CS2App {
 
       // Headers & Button
       if (huntStatusText) huntStatusText.textContent = `Đã chọn: ${knife.name}! Tiếp tục quay Vòng 2 để chốt Skin họa tiết!`;
-      if (huntSummaryText) huntSummaryText.textContent = `Đã chọn [${knife.name}]! Quay Vòng 2 để chọn lớp áo (Doppler, Fade, v.v...)`;
+      if (huntSummaryText) huntSummaryText.textContent = `Đã chọn [${knife.name}]! Quay Vòng 2 để chọn SKIN`;
       if (spinBtnText) spinBtnText.textContent = `✨ QUAY SKIN CHO ${knife.name.toUpperCase()} (VÒNG 2/3)`;
       if (spinBtnIcon) spinBtnIcon.textContent = '✨';
       if (wheelCenterText) wheelCenterText.textContent = 'VÒNG 2';
@@ -1748,21 +1760,22 @@ class CS2App {
     if (stage === 1) {
       if (stageBadge) stageBadge.textContent = 'VÒNG 1 / 3';
       if (stageTitle) stageTitle.textContent = 'QUAY CHỌN LOẠI DAO CS2';
-      if (stageDesc) stageDesc.textContent = '20 Dòng Dao CS2 (Hiển thị con dao Vanilla tâm điểm)...';
+      if (stageDesc) stageDesc.textContent = '20 Dòng Dao CS2...';
       this.engine.setItems(this.getActiveKnivesList(), 1);
     } else if (stage === 2) {
       const knifeName = this.selectedKnife?.name || 'Dao';
       if (stageBadge) stageBadge.textContent = 'VÒNG 2 / 3';
       if (stageTitle) stageTitle.textContent = `QUAY SKIN CHO ${knifeName.toUpperCase()}`;
-      if (stageDesc) stageDesc.textContent = `Đang quay chọn lớp áo / họa tiết finish cho ${knifeName}...`;
+      if (stageDesc) stageDesc.textContent = `Đang quay SKIN cho ${knifeName}...`;
       const skins = this.getSkinsForSelectedKnife(this.selectedKnife);
       this.engine.setItems(skins, 2);
     } else if (stage === 3) {
       const validCases = this.getValidCasesForSelection(this.selectedKnife, this.selectedSkin);
       const caseNames = validCases.map(c => c.name).join(', ');
+      const comboText = this.getStage3ComboText();
       if (stageBadge) stageBadge.textContent = 'VÒNG 3 / 3';
-      if (stageTitle) stageTitle.textContent = 'QUAY HÒM & SỐ LƯỢNG MỞ';
-      if (stageDesc) stageDesc.textContent = `Chỉ các hòm có thể rơi ra dao: ${caseNames}`;
+      if (stageTitle) stageTitle.textContent = comboText ? `QUAY HÒM & SỐ LƯỢNG [Đang tích lũy: ${comboText}]` : 'QUAY HÒM & SỐ LƯỢNG MỞ';
+      if (stageDesc) stageDesc.textContent = comboText ? `Chuỗi bổ trợ: ${comboText} • Đang quay tiếp để chốt số lượng hòm!` : `Chỉ các hòm có thể rơi ra dao: ${caseNames}`;
       const items = this.getCaseQuantityItems(this.selectedKnife, this.selectedSkin);
       this.engine.setItems(items, 3);
     }
@@ -1802,10 +1815,20 @@ class CS2App {
       }
     } else if (stage === 3) {
       const onCompleteStage3 = (winnerQty) => {
-        this.lastWinnerStage3 = winnerQty;
-        window.cs2Sound.playGoldUnbox();
-        window.cs2Sound.playCheer();
-        this.showWinnerReveal(3, winnerQty);
+        if (winnerQty.isModifier) {
+          this.stage3Modifiers.push(winnerQty);
+          window.cs2Sound.playGoldUnbox();
+          window.cs2Sound.playCheer();
+          this.showStage3ModifierReveal(winnerQty);
+        } else {
+          const finalWinner = this.computeFinalStage3Result(winnerQty, this.stage3Modifiers);
+          this.lastWinnerStage3 = finalWinner;
+          this.stage3Modifiers = [];
+          this.stage3IsShowingModifier = false;
+          window.cs2Sound.playGoldUnbox();
+          window.cs2Sound.playCheer();
+          this.showWinnerReveal(3, finalWinner);
+        }
       };
       if (this.engine.mode === 'roller') {
         this.engine.spinRoller(onCompleteStage3);
@@ -1820,6 +1843,7 @@ class CS2App {
     const revealArea = document.getElementById('winnerRevealCardArea');
     const revealCard = document.getElementById('revealCard');
     const revealBadge = document.getElementById('revealBadge');
+    const revealRarityBar = document.getElementById('revealRarityBar');
     const revealCardImg = document.getElementById('revealCardImg');
     const revealTitle = document.getElementById('revealTitle');
     const revealSubtitle = document.getElementById('revealSubtitle');
@@ -1829,7 +1853,22 @@ class CS2App {
 
     if (spinnerArea) spinnerArea.style.display = 'none';
     if (revealArea) revealArea.style.display = 'flex';
-    if (revealCard) revealCard.style.opacity = '1';
+    if (revealCard) {
+      revealCard.style.opacity = '1';
+      if (stage !== 2) {
+        revealCard.classList.remove('wide-cases', 'multi-row-cases');
+      }
+    }
+    if (stage !== 2 && revealCasesBadges) {
+      revealCasesBadges.style.gridTemplateColumns = '';
+      revealCasesBadges.style.display = 'flex';
+    }
+
+    // Sync reveal card top rarity bar with tier color
+    if (revealRarityBar) {
+      const tierColor = this.engine?.getTierColor(item.tier) || '#ffd700';
+      revealRarityBar.style.background = `linear-gradient(90deg, ${tierColor}, #ffffff, ${tierColor})`;
+    }
 
     if (stage === 1) {
       if (revealBadge) revealBadge.textContent = '★ LOẠI DAO ĐÃ CHỌN (VÒNG 1)';
@@ -1838,13 +1877,13 @@ class CS2App {
         revealCardImg.alt = item.name;
       }
       if (revealTitle) revealTitle.textContent = item.name;
-      if (revealSubtitle) revealSubtitle.textContent = item.vnName || '20 Dòng Dao CS2 (Vanilla)';
+      if (revealSubtitle) revealSubtitle.textContent = item.vnName || '20 Dòng Dao CS2';
       if (revealCasesWrap) revealCasesWrap.style.display = 'none';
-      if (revealBtnText) revealBtnText.textContent = 'TIẾP TỤC (CHỌN SKIN) ➔';
+      if (revealBtnText) revealBtnText.textContent = 'TIẾP TỤC  ';
 
     } else if (stage === 2) {
       const knife = this.selectedKnife;
-      if (revealBadge) revealBadge.textContent = '★ LỚP ÁO ĐÃ CHỌN (VÒNG 2)';
+      if (revealBadge) revealBadge.textContent = '★ SKIN ĐÃ CHỌN (VÒNG 2)';
       if (revealCardImg) {
         revealCardImg.src = item.imageSrc || knife?.vanillaImage || '';
         revealCardImg.alt = item.name;
@@ -1856,30 +1895,64 @@ class CS2App {
       const validCases = this.getValidCasesForSelection(knife, item);
       if (revealCasesWrap && revealCasesBadges) {
         revealCasesWrap.style.display = 'block';
+        const caseCount = validCases.length;
+
+        // Widen the frame horizontally and arrange into at most 2 rows
+        if (revealCard) {
+          if (caseCount > 2) {
+            revealCard.classList.add('wide-cases');
+            if (caseCount > 4) {
+              revealCard.classList.add('multi-row-cases');
+              // Exactly at most 2 rows: cols = ceil(caseCount / 2)
+              const cols = Math.min(6, Math.ceil(caseCount / 2));
+              revealCasesBadges.style.display = 'grid';
+              revealCasesBadges.style.gridTemplateColumns = `repeat(${cols}, minmax(100px, 1fr))`;
+            } else {
+              revealCard.classList.remove('multi-row-cases');
+              revealCasesBadges.style.display = 'grid';
+              revealCasesBadges.style.gridTemplateColumns = `repeat(${caseCount}, minmax(120px, 1fr))`;
+            }
+          } else {
+            revealCard.classList.remove('wide-cases', 'multi-row-cases');
+            revealCasesBadges.style.display = 'flex';
+            revealCasesBadges.style.gridTemplateColumns = '';
+          }
+        }
+
         revealCasesBadges.innerHTML = validCases.map(c => `
-          <span class="rc-case-chip">
-            <img src="${c.imageSrc}" alt="${c.name}" />
-            <span>${c.name}</span>
-          </span>
+          <div class="rc-case-card">
+            <div class="rc-case-img-wrap">
+              <img src="${c.imageSrc}" alt="${c.name}" onerror="this.src='assets/Case/Dreams & Nightmares.png'" />
+            </div>
+            <div class="rc-case-name">${c.name}</div>
+          </div>
         `).join('');
       }
-      if (revealBtnText) revealBtnText.textContent = 'TIẾP TỤC (CHỌN HÒM) ➔';
+      if (revealBtnText) revealBtnText.textContent = 'TIẾP TỤC  ';
 
     } else if (stage === 3) {
-      if (revealBadge) revealBadge.textContent = '★ ÁP LỰC NGÂN SÁCH (VÒNG 3)';
+      if (revealBadge) revealBadge.textContent = '★ NGÂN SÁCH ĐÃ CHỐT (VÒNG 3)';
       if (revealCardImg) {
         revealCardImg.src = item.imageSrc || 'assets/Case/Dreams & Nightmares.png';
         revealCardImg.alt = item.name;
       }
-      if (revealTitle) revealTitle.textContent = item.name;
-      if (revealSubtitle) revealSubtitle.textContent = item.caseName ? `Hòm ${item.caseName}` : (item.subtitle || 'Số Lượng Hòm');
+      if (revealTitle) {
+        revealTitle.textContent = item.formula ? `${item.formula} = ${item.casesCount} Hòm` : item.name;
+      }
+      if (revealSubtitle) {
+        revealSubtitle.textContent = item.caseName ? `Hòm ${item.caseName} • ${item.subtitle || ''}` : (item.subtitle || 'Số Lượng Hòm');
+      }
       if (revealCasesWrap) revealCasesWrap.style.display = 'none';
-      if (revealBtnText) revealBtnText.textContent = 'XEM NHIỆM VỤ NGÀY HÔM NAY ➔';
+      if (revealBtnText) revealBtnText.textContent = 'XEM NHIỆM VỤ NGÀY HÔM NAY';
     }
     this.sendSyncState();
   }
 
   handleRevealContinue() {
+    if (this.currentStage === 3 && this.stage3IsShowingModifier) {
+      this.continueStage3Spin();
+      return;
+    }
     if (this.currentStage === 1) {
       const winner = this.lastWinnerStage1;
       if (!winner) return;
@@ -2050,7 +2123,10 @@ class CS2App {
         modal.style.display = 'none';
         modal.classList.remove('active', 'fading-out-backdrop');
       }
-      if (revealCard) revealCard.style.opacity = '1';
+      if (revealCard) {
+        revealCard.style.opacity = '1';
+        revealCard.classList.remove('wide-cases', 'multi-row-cases');
+      }
 
       // Slam impact on target slot
       targetSlotEl.classList.add('slot-impact-smash');
@@ -2135,8 +2211,12 @@ class CS2App {
       slotQuantityImg.src = qty.imageSrc || 'assets/Case/Dreams & Nightmares.png';
       slotQuantityImg.alt = qty.name;
     }
-    if (slotQuantityTitle) slotQuantityTitle.textContent = qty.name;
-    if (slotQuantitySub) slotQuantitySub.textContent = qty.caseName ? `Hòm ${qty.caseName}` : (qty.subtitle || qty.tag || 'Số Lượng Hòm');
+    if (slotQuantityTitle) {
+      slotQuantityTitle.textContent = qty.formula ? `${qty.formula} (${qty.casesCount} Hòm)` : qty.name;
+    }
+    if (slotQuantitySub) {
+      slotQuantitySub.textContent = qty.caseName ? `Hòm ${qty.caseName}` : (qty.subtitle || qty.tag || 'Số Lượng Hòm');
+    }
   }
 
   triggerFinalExplosionTransition() {
@@ -2218,9 +2298,10 @@ class CS2App {
         : '🔴 NHIỆM VỤ LIVESTREAM HÔM NAY';
     }
 
+    const formulaStr = qty?.formula ? `${qty.formula} (${qty.casesCount} Hòm)` : (qty?.name || '');
     const tmsMissionText = document.getElementById('tmsMissionText');
     if (tmsMissionText) {
-      tmsMissionText.textContent = `SĂN [${targetFullName}] TRONG [${qty?.name}]${caseNameStr}!`;
+      tmsMissionText.textContent = `SĂN [${targetFullName}] TRONG [${formulaStr}]${caseNameStr}!`;
     }
 
     const tmsTargetWeaponImg = document.getElementById('tmsTargetWeaponImg');
@@ -2252,7 +2333,7 @@ class CS2App {
       tmsTargetCaseImg.alt = qty?.name || 'Hòm';
     }
     if (tmsTargetCaseName) {
-      tmsTargetCaseName.textContent = `${qty?.name} (${qty?.caseName || 'Hòm Hợp Lệ'})`;
+      tmsTargetCaseName.textContent = `${formulaStr} (${qty?.caseName || 'Hòm Hợp Lệ'})`;
     }
     if (tmsPressureTag) {
       tmsPressureTag.textContent = qty?.tag || '⚡ THỬ THÁCH SĂN DAO';
@@ -2314,6 +2395,12 @@ class CS2App {
     this.lastWinnerStage2 = null;
     this.lastWinnerStage3 = null;
     this.openedCases = 0;
+    this.stage3Modifiers = [];
+    this.stage3IsShowingModifier = false;
+    if (this.stage3AutoContinueTimer) {
+      clearTimeout(this.stage3AutoContinueTimer);
+      this.stage3AutoContinueTimer = null;
+    }
 
     const slotKnife = document.getElementById('slotKnife');
     const slotKnifeStatus = document.getElementById('slotKnifeStatus');
@@ -2397,7 +2484,7 @@ class CS2App {
     const huntStartBar = document.getElementById('huntStartBar');
     const startBtnText = document.getElementById('startBtnText');
     if (huntStartBar) huntStartBar.style.display = 'flex';
-    if (startBtnText) startBtnText.textContent = 'BẮT ĐẦU SĂN MỤC TIÊU';
+    if (startBtnText) startBtnText.textContent = 'SĂN MỤC TIÊU';
 
     const todayMissionSection = document.getElementById('todayMissionSection');
     if (todayMissionSection) {
@@ -2415,6 +2502,183 @@ class CS2App {
     this.sendSyncState();
   }
 
+  /* =========================================================================
+   * STAGE 3 MODIFIERS & RE-SPIN LOGIC
+   * ========================================================================= */
+  getStage3ComboText() {
+    if (!this.stage3Modifiers || this.stage3Modifiers.length === 0) return '';
+    return this.stage3Modifiers.map(m => {
+      if (m.modifierType === 'multiply') return `x${m.modifierValue || 2}`;
+      if (m.modifierType === 'add') return `+${m.modifierValue || 3}`;
+      return m.name;
+    }).join(' ');
+  }
+
+  computeFinalStage3Result(baseQty, modifiers = []) {
+    const baseCount = baseQty.casesCount || parseInt(baseQty.name) || 10;
+    const multipliers = modifiers.filter(m => m.modifierType === 'multiply');
+    const additions = modifiers.filter(m => m.modifierType === 'add');
+
+    let multFactor = 1;
+    let multFormulaParts = '';
+    multipliers.forEach(m => {
+      const val = m.modifierValue || 2;
+      multFactor *= val;
+      multFormulaParts += `x${val}`;
+    });
+
+    let addSum = 0;
+    let addFormulaParts = '';
+    additions.forEach(m => {
+      const val = m.modifierValue || 3;
+      addSum += val;
+      addFormulaParts += `+${val}`;
+    });
+
+    const finalTotal = (baseCount * multFactor) + addSum;
+    const hasModifiers = modifiers.length > 0;
+    const formula = hasModifiers ? `${baseCount}${multFormulaParts}${addFormulaParts}` : null;
+
+    return {
+      ...baseQty,
+      isModifier: false,
+      casesCount: finalTotal,
+      formula: formula,
+      name: hasModifiers ? `${formula} (${finalTotal} Hòm)` : `${baseCount} Hòm`,
+      title: hasModifiers ? `${formula} = ${finalTotal} Hòm` : `${baseCount} Hòm`,
+      subtitle: hasModifiers 
+        ? `Đã tích lũy combo: ${modifiers.map(m => m.name).join(' + ')}` 
+        : (baseQty.caseName ? `Hòm ${baseQty.caseName}` : 'Số Lượng Hòm'),
+      tag: hasModifiers ? `🔥 COMBO ${formula}` : baseQty.tag
+    };
+  }
+
+  showStage3ModifierReveal(winnerQty) {
+    this.stage3IsShowingModifier = true;
+    const spinnerArea = document.getElementById('spotlightSpinnerArea');
+    const revealArea = document.getElementById('winnerRevealCardArea');
+    const revealCard = document.getElementById('revealCard');
+    const revealBadge = document.getElementById('revealBadge');
+    const revealCardImg = document.getElementById('revealCardImg');
+    const revealTitle = document.getElementById('revealTitle');
+    const revealSubtitle = document.getElementById('revealSubtitle');
+    const revealCasesWrap = document.getElementById('revealCasesWrap');
+    const revealBtnText = document.getElementById('revealBtnText');
+
+    if (spinnerArea) spinnerArea.style.display = 'none';
+    if (revealArea) revealArea.style.display = 'flex';
+    if (revealCard) revealCard.style.opacity = '1';
+
+    if (revealBadge) revealBadge.textContent = '⚡ Ô BỔ TRỢ ĐẶC BIỆT (VÒNG 3)';
+    if (revealCardImg) {
+      revealCardImg.src = winnerQty.imageSrc || 'assets/Case/Dreams & Nightmares.png';
+      revealCardImg.alt = winnerQty.name;
+    }
+    if (revealTitle) revealTitle.textContent = winnerQty.name;
+    const comboStr = this.getStage3ComboText();
+    if (revealSubtitle) {
+      revealSubtitle.innerHTML = `Trúng ô bổ trợ! Chuỗi đang tích lũy: <b style="color:#ffd700; font-size:16px;">[ ${comboStr} ]</b><br><span style="color:#aaa;">Quay tiếp một lần nữa cho đến khi ra số lượng hòm cụ thể!</span>`;
+    }
+    if (revealCasesWrap) revealCasesWrap.style.display = 'none';
+    if (revealBtnText) revealBtnText.textContent = `QUAY TIẾP SỐ LƯỢNG HÒM (${comboStr}) ➔`;
+
+    this.sendSyncState();
+
+    if (this.stage3AutoContinueTimer) clearTimeout(this.stage3AutoContinueTimer);
+    this.stage3AutoContinueTimer = setTimeout(() => {
+      if (this.stage3IsShowingModifier) {
+        this.continueStage3Spin();
+      }
+    }, 2600);
+  }
+
+  continueStage3Spin() {
+    this.stage3IsShowingModifier = false;
+    if (this.stage3AutoContinueTimer) {
+      clearTimeout(this.stage3AutoContinueTimer);
+      this.stage3AutoContinueTimer = null;
+    }
+
+    const spinnerArea = document.getElementById('spotlightSpinnerArea');
+    const revealArea = document.getElementById('winnerRevealCardArea');
+    if (revealArea) revealArea.style.display = 'none';
+    if (spinnerArea) spinnerArea.style.display = 'flex';
+
+    const stageTitle = document.getElementById('spotlightStageTitle');
+    if (stageTitle) {
+      stageTitle.textContent = `QUAY HÒM & SỐ LƯỢNG [Đang tích lũy: ${this.getStage3ComboText()}]`;
+    }
+    const stageDesc = document.getElementById('spotlightStageDesc');
+    if (stageDesc) {
+      stageDesc.textContent = `Chuỗi bổ trợ: ${this.getStage3ComboText()} • Đang quay tiếp để chốt số lượng...`;
+    }
+
+    this.sendSyncState();
+
+    setTimeout(() => {
+      this.handleSpotlightSpinExecution(3);
+    }, 450);
+  }
+
+  saveAllSettings() {
+    try {
+      const broadcastChecked = document.querySelector('input[name="broadcastRadio"]:checked');
+      if (broadcastChecked) {
+        localStorage.setItem('cs2_broadcast_mode', broadcastChecked.value);
+        this.broadcastMode = broadcastChecked.value;
+      }
+
+      const suspenseChecked = document.querySelector('input[name="suspenseRadio"]:checked');
+      if (suspenseChecked) {
+        localStorage.setItem('cs2_suspense_level', suspenseChecked.value);
+        if (this.engine) this.engine.setSuspenseLevel(suspenseChecked.value);
+      }
+
+      const oddsChecked = document.querySelector('input[name="oddsRadio"]:checked');
+      if (oddsChecked) {
+        localStorage.setItem('cs2_odds_mode', oddsChecked.value);
+        if (this.engine) this.engine.setOddsMode(oddsChecked.value);
+      }
+
+      if (this.engine?.mode) {
+        localStorage.setItem('cs2_spinner_mode', this.engine.mode);
+      }
+
+      if (window.cs2Sound) {
+        localStorage.setItem('cs2_audio_volume', String(window.cs2Sound.masterVolume));
+        localStorage.setItem('cs2_audio_muted', String(window.cs2Sound.isMuted));
+      }
+
+      if (this.enabledKnifeIds) {
+        localStorage.setItem('cs2_enabled_knives', JSON.stringify(Array.from(this.enabledKnifeIds)));
+      }
+
+      this.saveCollection();
+      this.sendSyncState();
+      window.cs2Sound?.playButtonClick();
+      this.showToast('✔ ĐÃ LƯU TOÀN BỘ CÀI ĐẶT & BỘ SƯU TẬP!');
+    } catch (e) {
+      console.error('Failed to save settings:', e);
+      this.showToast('❌ Lỗi khi lưu cài đặt!');
+    }
+  }
+
+  showToast(msg) {
+    let toast = document.getElementById('csAppToast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'csAppToast';
+      toast.className = 'cs-toast';
+      document.body.appendChild(toast);
+    }
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(this._toastTimer);
+    this._toastTimer = setTimeout(() => {
+      toast.classList.remove('show');
+    }, 2800);
+  }
+
   bindEvents() {
     // Mode Switcher (Roller vs Wheel)
     const modeTabs = document.querySelectorAll('.mode-tab');
@@ -2430,6 +2694,8 @@ class CS2App {
         document.getElementById('wheelContainer').style.display = mode === 'wheel' ? 'flex' : 'none';
 
         this.engine.setMode(mode);
+        localStorage.setItem('cs2_spinner_mode', mode);
+        this.sendSyncState();
       });
     });
 
@@ -2765,7 +3031,12 @@ class CS2App {
     };
 
     if (closeSettingsBtn) closeSettingsBtn.addEventListener('click', closeSettings);
-    if (saveSettingsBtn) saveSettingsBtn.addEventListener('click', closeSettings);
+    if (saveSettingsBtn) {
+      saveSettingsBtn.addEventListener('click', () => {
+        this.saveAllSettings();
+        closeSettings();
+      });
+    }
     if (settingsBackdrop) settingsBackdrop.addEventListener('click', closeSettings);
 
     // Global ESC to close open modals
@@ -2795,6 +3066,7 @@ class CS2App {
     document.querySelectorAll('input[name="broadcastRadio"]').forEach(radio => {
       radio.addEventListener('change', (e) => {
         this.setBroadcastMode(e.target.value);
+        localStorage.setItem('cs2_broadcast_mode', e.target.value);
         window.cs2Sound.playButtonClick();
       });
     });
@@ -2803,9 +3075,11 @@ class CS2App {
     document.querySelectorAll('input[name="suspenseRadio"]').forEach(radio => {
       radio.addEventListener('change', (e) => {
         this.engine.setSuspenseLevel(e.target.value);
+        localStorage.setItem('cs2_suspense_level', e.target.value);
         const labels = { 'ultra': '🔥 Cực Hồi Hộp', 'high': '⚡ Chuẩn CS2', 'normal': '⏱️ Mở Siêu Tốc' };
         const quickEl = document.getElementById('quickSuspenseLabel');
         if (quickEl) quickEl.textContent = labels[e.target.value] || e.target.value;
+        this.sendSyncState();
       });
     });
 
@@ -2813,10 +3087,12 @@ class CS2App {
     document.querySelectorAll('input[name="oddsRadio"]').forEach(radio => {
       radio.addEventListener('change', (e) => {
         this.engine.setOddsMode(e.target.value);
+        localStorage.setItem('cs2_odds_mode', e.target.value);
         this.renderKnivesManager();
         const labels = { 'realistic': '🎲 Chuẩn CS2', 'equal': '⚖️ Đồng Đều' };
         const quickEl = document.getElementById('quickOddsLabel');
         if (quickEl) quickEl.textContent = labels[e.target.value] || e.target.value;
+        this.sendSyncState();
       });
     });
 

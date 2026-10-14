@@ -245,11 +245,11 @@ if sss_target in content:
     print("Added sendSyncState() to startSpotlightSpin.")
 
 # 5. Add sendSyncState() to showWinnerReveal
-swr_target = """      if (revealBtnText) revealBtnText.textContent = 'XEM NHIỆM VỤ NGÀY HÔM NAY ➔';
+swr_target = """      if (revealBtnText) revealBtnText.textContent = 'XEM NHIỆM VỤ NGÀY HÔM NAY';
     }
   }"""
 
-swr_replacement = """      if (revealBtnText) revealBtnText.textContent = 'XEM NHIỆM VỤ NGÀY HÔM NAY ➔';
+swr_replacement = """      if (revealBtnText) revealBtnText.textContent = 'XEM NHIỆM VỤ NGÀY HÔM NAY';
     }
     this.sendSyncState();
   }"""
