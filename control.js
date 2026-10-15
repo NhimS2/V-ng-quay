@@ -591,13 +591,13 @@ class CS2ControlDeck {
 
     grid.innerHTML = this.knives.map(knife => {
       const isChecked = this.enabledKnifeIds.has(knife.id);
-      const vanillaImg = knife.vanillaImage || `assets/${knife.folder}/Vanilla.png`;
+      const vanillaImg = knife.vanillaImage || knife.image || '';
       const tierClass = `tier-${(knife.tier || 'a').toLowerCase().replace('+', '-plus')}`;
 
       return `
         <label class="km-card ${isChecked ? 'active' : 'disabled'}">
           <input type="checkbox" class="km-checkbox" data-id="${knife.id}" ${isChecked ? 'checked' : ''} />
-          <img class="km-thumb" src="${vanillaImg}" alt="${knife.name}" onerror="this.src='assets/Karambit/Vanilla.png'" />
+          <img class="km-thumb" src="${vanillaImg}" alt="${knife.name}"  />
           <div class="km-info">
             <div class="km-name">${knife.name} <span class="km-tier-badge ${tierClass}">${knife.tier}</span></div>
             <div class="km-sub">${knife.vnName || '★ Vanilla'} • ${knife.skinsCount || 13} Skins</div>
@@ -816,7 +816,7 @@ class CS2ControlDeck {
               <button class="cc-del-btn" data-index="${index}" title="Xóa dao này khỏi BST">✕</button>
             </div>
             <div class="cc-thumb-wrap">
-              <img class="cc-thumb" src="${item.imageSrc}" alt="${item.fullName}" onerror="this.src='assets/Karambit/Vanilla.png'" />
+              <img class="cc-thumb" src="${item.imageSrc}" alt="${item.fullName}"  />
             </div>
             <div class="cc-body">
               <div class="cc-knife-name">${item.knifeName}</div>
@@ -918,11 +918,11 @@ class CS2ControlDeck {
 
     grid.innerHTML = this.knives.map(knife => {
       const isOwned = ownedKnifeIds.has(knife.id);
-      const vanillaImg = knife.vanillaImage || `assets/${knife.folder}/Vanilla.png`;
+      const vanillaImg = knife.vanillaImage || knife.image || '';
 
       return `
         <div class="kcc-item ${isOwned ? 'owned' : 'unowned'}" title="${knife.name}: ${isOwned ? 'ĐÃ SỞ HỮU ✔' : 'Chưa sở hữu'}">
-          <img class="kcc-thumb" src="${vanillaImg}" alt="${knife.name}" onerror="this.src='assets/Karambit/Vanilla.png'" />
+          <img class="kcc-thumb" src="${vanillaImg}" alt="${knife.name}"  />
           <div class="kcc-name">${knife.name}</div>
           <div class="kcc-status">${isOwned ? '✔ ĐÃ CÓ' : '🔒 KHÓA'}</div>
         </div>
@@ -1006,7 +1006,7 @@ class CS2ControlDeck {
       const tier = selectedOption?.dataset.tier || 'A';
       const priceVND = selectedOption?.dataset.vnd || '5.500.000 ₫';
       const priceUSD = selectedOption?.dataset.usd || '$220';
-      const imageSrc = selectedOption?.dataset.img || knife?.vanillaImage || `assets/${knife?.folder}/Vanilla.png`;
+      const imageSrc = selectedOption?.dataset.img || knife?.vanillaImage || knife?.image || '';
 
       const wear = this.getWearInfo(floatVal);
       const newItem = {

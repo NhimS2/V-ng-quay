@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>CS2 Skin & Case Stash (CS2 Case Order & Delta Updater)</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: system-ui, -apple-system, sans-serif; background: #12151a; color: #e2e8f0; margin: 0; padding: 20px; }
+    
+    .toolbar { display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; align-items: center; background: #1e232b; padding: 14px; border-radius: 8px; border: 1px solid #2e3646; position: sticky; top: 10px; z-index: 100; box-shadow: 0 4px 12px rgba(0,0,0,0.4); }
+    button { background: #3b82f6; color: white; border: none; padding: 10px 15px; border-radius: 6px; cursor: pointer; font-weight: 600; transition: 0.15s; font-size: 13px; display: inline-flex; align-items: center; gap: 6px; }
+    button:hover { background: #2563eb; }
+    button:disabled { background: #475569; cursor: not-allowed; opacity: 0.7; }
+    
+    button.btn-delta { background: #0ea5e9; }
+    button.btn-delta:hover { background: #0284c7; }
+    button.btn-reload { background: #8b5cf6; }
+    button.btn-reload:hover { background: #7c3aed; }
+    button.btn-green { background: #10b981; }
+    button.btn-green:hover { background: #059669; }
+    button.btn-upload { background: #f59e0b; color: #111827; }
+    button.btn-upload:hover { background: #d97706; }
+    button.btn-danger { background: #ef4444; }
+    button.btn-danger:hover { background: #dc2626; }
+    button.btn-tab { background: #262d3b; color: #94a3b8; border: 1px solid #334155; }
+    button.btn-tab.active { background: #3b82f6; color: white; border-color: #3b82f6; }
+
+    button.btn-ready { background: #10b981; animation: pulse 2s infinite; }
+    button.btn-ready:hover { background: #059669; }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+      70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+
+    input, select { padding: 10px 12px; border-radius: 6px; border: 1px solid #334155; background: #12151a; color: white; font-size: 13px; }
+    input { min-width: 190px; flex: 1; }
+    select { min-width: 170px; }
+    optgroup { background: #1e232b; color: #38bdf8; font-weight: 700; }
+    option { background: #12151a; color: #e2e8f0; font-weight: 400; }
+    .status-bar { display: flex; justify-content: space-between; width: 100%; font-size: 13px; color: #94a3b8; margin-top: 4px; flex-wrap: wrap; gap: 8px; }
+    .queue-status { color: #fbbf24; font-weight: 600; }
+
+    /* Thanh tab chuyển đổi giữa Xem Skin và Quản lý Hòm */
+    .nav-tabs { display: flex; gap: 10px; margin-bottom: 20px; width: 100%; border-bottom: 2px solid #1e232b; padding-bottom: 12px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+    .tab-left { display: flex; gap: 8px; flex-wrap: wrap; }
+
+    /* Thanh điều khiển riêng của Kho Hòm */
+    .case-toolbar { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; background: #1e232b; padding: 12px 16px; border-radius: 8px; border: 1px solid #2e3646; margin-bottom: 20px; }
+    .chip { background: #12151a; color: #cbd5e1; border: 1px solid #334155; padding: 7px 14px; border-radius: 20px; font-size: 12px; cursor: pointer; font-weight: 600; transition: 0.15s; }
+    .chip.active { background: #3b82f6; color: white; border-color: #3b82f6; }
+
+    /* Giao diện UI Thẻ Hòm */
+    .case-section-header { display: flex; align-items: center; justify-content: space-between; margin: 26px 0 12px 0; border-left: 4px solid #3b82f6; padding-left: 12px; flex-wrap: wrap; gap: 10px; }
+    .case-section-title { font-size: 18px; font-weight: 700; color: #f8fafc; margin: 0; }
+    .btn-group-fetch { background: #262d3b; border: 1px solid #3b82f6; color: #60a5fa; padding: 6px 12px; font-size: 12px; border-radius: 6px; }
+    .btn-group-fetch:hover { background: #3b82f6; color: white; }
+
+    .case-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(225px, 1fr)); gap: 16px; margin-bottom: 24px; }
+    .case-card { background: #1e232b; border: 1px solid #2e3646; border-radius: 8px; padding: 16px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; cursor: pointer; transition: 0.2s; position: relative; }
+    .case-card:hover { border-color: #3b82f6; transform: translateY(-3px); box-shadow: 0 6px 16px rgba(59,130,246,0.2); }
+    .case-card img { width: 130px; height: 95px; object-fit: contain; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.4)); }
+    .case-card .case-name { font-weight: 700; font-size: 14px; color: #f1f5f9; line-height: 1.35; }
+    .case-card .case-meta { font-size: 11px; color: #94a3b8; }
+    
+    .case-price-wrap { display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: auto; width: 100%; }
+    .case-price { font-size: 13px; color: #4ade80; font-weight: 700; background: #151920; padding: 6px 12px; border-radius: 6px; border: 1px solid #262d3b; flex: 1; }
+    .btn-fetch-case { background: #f59e0b; color: #111827; border: none; padding: 7px 12px; border-radius: 6px; font-size: 12px; font-weight: 700; cursor: pointer; width: 100%; justify-content: center; }
+    .btn-fetch-case:hover { background: #d97706; }
+    .btn-refresh-mini { background: #262d3b; color: #94a3b8; padding: 6px 9px; border-radius: 6px; font-size: 12px; border: 1px solid #334155; }
+    .btn-refresh-mini:hover { background: #3b82f6; color: white; }
+
+    /* Banner chi tiết Hòm */
+    .case-banner { display: none; align-items: center; justify-content: space-between; gap: 20px; background: linear-gradient(90deg, #1e232b 0%, #171b22 100%); border: 1px solid #3b82f6; border-radius: 8px; padding: 16px 24px; margin-bottom: 20px; flex-wrap: wrap; }
+    .case-banner-left { display: flex; align-items: center; gap: 20px; }
+    .case-banner img { width: 130px; height: 100px; object-fit: contain; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5)); }
+    .case-banner-info h2 { margin: 0 0 6px 0; font-size: 20px; color: #f8fafc; }
+    .case-banner-price { font-size: 16px; color: #4ade80; font-weight: 700; margin-top: 6px; display: flex; align-items: center; gap: 10px; }
+
+    /* Phân tầng Độ hiếm chuẩn CS2 khi xem trong Hòm */
+    .rarity-tier-section { margin-bottom: 28px; }
+    .rarity-tier-header { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; border-radius: 8px; margin-bottom: 14px; background: #1a202c; font-weight: 700; font-size: 15px; }
+    .rare-special-banner { background: linear-gradient(90deg, rgba(234,179,8,0.18) 0%, #1e232b 100%); border: 1px solid #eab308; padding: 14px 20px; border-radius: 8px; margin: 24px 0 14px 0; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .rare-special-title { color: #facc15; font-weight: 800; font-size: 16px; display: flex; align-items: center; gap: 10px; }
+
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+    .card { background: #1e232b; border: 1px solid #2e3646; border-radius: 8px; padding: 14px; display: flex; flex-direction: column; gap: 8px; transition: 0.15s; }
+    .card:hover { border-color: #475569; }
+    .card img.skin-img { width: 100%; height: 150px; object-fit: contain; background: radial-gradient(circle, #2a3140 0%, #171b22 100%); border-radius: 6px; }
+    .title { font-weight: 700; font-size: 15px; }
+    .meta-row { display: flex; justify-content: space-between; align-items: center; font-size: 12px; }
+    .rarity-tag { font-weight: 700; }
+    .weapon-tag { background: #262d3b; color: #94a3b8; padding: 2px 8px; border-radius: 4px; }
+    .prices { font-size: 13px; background: #151920; padding: 8px 10px; border-radius: 6px; line-height: 1.65; min-height: 105px; display: flex; flex-direction: column; justify-content: center; }
+    .price-row { display: flex; justify-content: space-between; border-bottom: 1px dashed #262d3b; padding: 2px 0; }
+    .price-row:last-child { border-bottom: none; }
+    .price-val { color: #4ade80; font-weight: 600; }
+    .price-na { color: #475569; font-size: 12px; }
+
+    .cases { font-size: 12px; color: #cbd5e1; margin-top: auto; padding-top: 8px; border-top: 1px solid #2e3646; }
+    .case-list { display: flex; flex-direction: column; gap: 6px; margin-top: 6px; max-height: 130px; overflow-y: auto; }
+    .case-item { display: flex; align-items: center; gap: 8px; background: #151920; padding: 5px 8px; border-radius: 6px; border: 1px solid #262d3b; cursor: pointer; transition: 0.15s; }
+    .case-item:hover { border-color: #3b82f6; background: #1e2530; }
+    .case-item img { width: 42px; height: 32px; object-fit: contain; flex-shrink: 0; }
+    .case-item span { font-size: 12px; color: #e2e8f0; line-height: 1.3; }
+  </style>
+</head>
+<body>
+
+  <div class="toolbar">
+    <button class="btn-delta" onclick="checkNewCS2Updates()" title="Chỉ quét các Hòm mới hoặc Skin mới vừa được CS2 cập nhật (Nhanh 15 giây)">🆕 Check Hòm & Skin Mới</button>
+    <button class="btn-reload" onclick="startReloadData()" title="Kiểm tra cập nhật toàn bộ giá Skin & Hòm từ Steam">🔄 Reload Toàn Bộ</button>
+    <button id="btnUpload" class="btn-upload" onclick="document.getElementById('jsonFileInput').click()">📂 Chọn file JSON</button>
+    <input type="file" id="jsonFileInput" accept=".json" style="display:none" onchange="handleFileSelect(event)">
+
+    <select id="weaponSelect" onchange="switchTab('skins'); renderSkins()" disabled>
+      <option value="">🔫 Tất cả Vũ khí</option>
+    </select>
+
+    <select id="caseSelect" onchange="onSelectCaseDropdown()" disabled>
+      <option value="">📦 Tất cả các Hòm (Cases)</option>
+    </select>
+
+    <select id="sortOrderSelect" onchange="renderSkins()">
+      <option value="cs2_case_asc">🎮 Sắp xếp: Chuẩn CS2 (Mil-Spec ➔ Covert)</option>
+      <option value="cs2_case_desc">🌟 Độ hiếm: Covert ➔ Mil-Spec</option>
+      <option value="price_desc">💎 Giá: Cao ➔ Thấp</option>
+      <option value="price_asc">🪙 Giá: Thấp ➔ Cao</option>
+      <option value="name_asc">🔤 Tên: A ➔ Z</option>
+    </select>
+
+    <select id="currencySelect" onchange="renderSkins(); renderCasesUI()">
+      <option value="VND">🇻🇳 Đơn vị: VNĐ (₫)</option>
+      <option value="USD">💲 Đơn vị: USD ($)</option>
+    </select>
+
+    <input type="text" id="searchInput" placeholder="Tìm tên skin hoặc tên hòm..." oninput="onSearchInput()" disabled>
+    
+    <button id="btnExport" onclick="exportJSON()">💾 Xuất JSON</button>
+    <button class="btn-danger" onclick="clearCacheAndReload()" title="Xóa bộ nhớ đệm và tải lại">🧹 Xóa Cache</button>
+
+    <div class="status-bar">
+      <span id="statusText">⏳ Đang đọc dữ liệu...</span>
+      <span id="queueStatus" class="queue-status"></span>
+    </div>
+  </div>
+
+  <!-- Thanh tab chuyển đổi giao diện -->
+  <div class="nav-tabs">
+    <div class="tab-left">
+      <button class="btn-tab active" id="tabSkinsBtn" onclick="switchTab('skins')">🔫 Danh sách Skins (<span id="skinCountTab">0</span>)</button>
+      <button class="btn-tab" id="tabCasesBtn" onclick="switchTab('cases')">📦 Kho Hòm & Packages (<span id="caseCountTab">0</span>)</button>
+    </div>
+    <div style="display:flex; gap:8px; align-items:center;">
+      <button class="btn-green" id="btnFetchMissingCases" onclick="fetchAllMissingCasePrices()">💲 Lấy giá tất cả Hòm chưa có giá</button>
+      <button id="btnStopCaseQueue" class="btn-danger" style="display:none;" onclick="stopBackgroundQueues()">⏹️ Dừng quét</button>
+    </div>
+  </div>
+
+  <div class="case-banner" id="caseBanner">
+    <div class="case-banner-left">
+      <img id="bannerCaseImg" src="" alt="Case Image">
+      <div class="case-banner-info">
+        <h2 id="bannerCaseName">Tên Hòm</h2>
+        <div id="bannerCaseCount" style="font-size: 13px; color: #94a3b8;"></div>
+        <div class="case-banner-price" id="bannerCasePrice"></div>
+      </div>
+    </div>
+    <div style="display:flex; gap:8px; flex-wrap:wrap;">
+      <button onclick="switchTab('cases')" style="background:#334155;">🔙 Xem Kho Hòm</button>
+      <button class="btn-danger" onclick="clearSelectedCase()">✖ Bỏ chọn Hòm</button>
+    </div>
+  </div>
+
+  <!-- Khung hiển thị danh sách Skins -->
+  <div id="skinsView">
+    <div id="skinContentArea"></div>
+  </div>
+
+  <!-- Khung hiển thị Kho Hòm phân loại UI -->
+  <div id="casesView" style="display: none;">
+    <div class="case-toolbar">
+      <b style="font-size:13px;">Phân loại:</b>
+      <span class="chip active" id="chip-ALL" onclick="setCaseCategoryFilter('ALL')">Tất cả</span>
+      <span class="chip" id="chip-Cases" onclick="setCaseCategoryFilter('Cases')">📦 Cases (Hòm vũ khí)</span>
+      <span class="chip" id="chip-Packages" onclick="setCaseCategoryFilter('Packages & Souvenirs')">🎁 Packages & Souvenirs</span>
+      <span class="chip" id="chip-Terminals" onclick="setCaseCategoryFilter('Terminals & Khác')">🖥️ Terminals & Khác</span>
+
+      <select id="yearFilterSelect" onchange="renderCasesUI()" style="margin-left:auto;">
+        <option value="">📅 Tất cả các Năm</option>
+      </select>
+      <select id="priceFilterSelect" onchange="renderCasesUI()">
+        <option value="ALL">💲 Mọi trạng thái giá</option>
+        <option value="MISSING">⚠️ Chỉ hiện Hòm chưa có giá</option>
+        <option value="HAS_PRICE">✅ Chỉ hiện Hòm đã có giá</option>
+      </select>
+    </div>
+    <div id="casesContainer"></div>
+  </div>
+
+  <script src="data.js"></script>
+  <script>
+    let allSkins = [];
+    let caseMap = {};
+    let lowerPriceDict = {};
+    let currentFiltered = [];
+    let showRareSpecialInCase = false; // Mặc định thu gọn 60 mẫu Dao/Găng khi xem súng trong Hòm để gọn đúng chuẩn CS2
+    const USD_TO_VND = 25400;
+
+    let currentTab = 'skins';
+    let currentCaseCategory = 'ALL';
+    let caseBackgroundQueue = [];
+    let globalBackgroundQueue = [];
+    let isProcessingQueue = false;
+    let stopRequested = false;
+    let cachedPricesStore = {};
+    let fullyScannedSkins = new Set();
+
+    const WEARS = [
+      { key: "Factory New", short: "FN", min: 0.00, max: 0.07 },
+      { key: "Minimal Wear", short: "MW", min: 0.07, max: 0.15 },
+      { key: "Field-Tested", short: "FT", min: 0.15, max: 0.38 },
+      { key: "Well-Worn", short: "WW", min: 0.38, max: 0.45 },
+      { key: "Battle-Scarred", short: "BS", min: 0.45, max: 1.00 }
+    ];
+
+    // Thứ tự bậc độ hiếm chuẩn CS2 từ thấp (Mil-Spec) tới cao (Covert -> Dao/Găng)
+    const CS2_RARITY_ORDER = {
+      "Consumer Grade": 1,
+      "Industrial Grade": 2,
+      "Mil-Spec Grade": 3,
+      "Restricted": 4,
+      "Classified": 5,
+      "Covert": 6,
+      "Extraordinary": 7,
+      "Contraband": 8
+    };
+
+    const CS2_RARITY_COLORS = {
+      "Consumer Grade": "#b0c3d9",
+      "Industrial Grade": "#5e98d9",
+      "Mil-Spec Grade": "#4b69ff",
+      "Restricted": "#8847ff",
+      "Classified": "#d32ce6",
+      "Covert": "#eb4b4b",
+      "Extraordinary": "#eab308",
+      "Contraband": "#e4ae39"
+    };
+
+    window.addEventListener('DOMContentLoaded', async () => {
+      try {
+        const savedCache = localStorage.getItem('cs2_prices_cache_v7');
+        if (savedCache) cachedPricesStore = JSON.parse(savedCache);
+      } catch (e) {
+        cachedPricesStore = {};
+      }
+      await loadDataFromLocalFolder();
+    });
+
+    function saveCacheToLocalStorage() {
+      try {
+        localStorage.setItem('cs2_prices_cache_v7', JSON.stringify(cachedPricesStore));
+      } catch (e) {}
+    }
+
+    function clearCacheAndReload() {
+      localStorage.removeItem('cs2_prices_cache_v7');
+      localStorage.removeItem('cs2_uploaded_json_backup');
+      location.reload();
+    }
+
+    function parsePriceToUSD(entry) {
+      if (entry === null || entry === undefined) return null;
+      if (typeof entry === 'number') return entry > 0 ? entry : null;
+      if (typeof entry === 'string') {
+        const s = entry.trim();
+        if (!s) return null;
+        if (s.includes('₫') || s.toLowerCase().includes('vnd')) {
+          const vnd = parseFloat(s.replace(/[^0-9]/g, ''));
+          return (!isNaN(vnd) && vnd > 0) ? (vnd / USD_TO_VND) : null;
+        }
+        const usd = parseFloat(s.replace(/,/g, '').replace(/[^0-9.]/g, ''));
+        return (!isNaN(usd) && usd > 0) ? usd : null;
+      }
+      if (typeof entry === 'object') {
+        const candidates = [
+          entry.steam?.last_24h, entry.steam?.last_7d, entry.steam?.last_30d,
+          entry.steam?.last_90d, entry.price, entry.lowest_price,
+          entry.starting_at?.price, entry.csfloat?.price, entry.skinport?.starting_at
+        ];
+        for (const c of candidates) {
+          if (typeof c === 'number' && c > 0) return c;
+          if (typeof c === 'string') {
+            const p = parsePriceToUSD(c);
+            if (p && p > 0) return p;
+          }
+        }
+      }
+      return null;
+    }
+
+    function formatUSDToDisplay(usdNumber) {
+      if (usdNumber === null || usdNumber === undefined || isNaN(usdNumber) || usdNumber <= 0) return null;
+      const mode = document.getElementById('currencySelect').value;
+      if (mode === 'VND') {
+        const vnd = Math.round((usdNumber * USD_TO_VND) / 500) * 500;
+        return vnd.toLocaleString('vi-VN') + '₫';
+      }
+      return `$${usdNumber.toFixed(2)}`;
+    }
+
+    function getCaseDisplayPrice(caseName) {
+      const c = caseMap[caseName];
+      if (!c || !c.usdPrice) return null;
+      return formatUSDToDisplay(c.usdPrice);
+    }
+
+    function getSkinRankForCS2Sort(skin) {
+      // Nếu là Dao hoặc Găng tay (có dấu ★), luôn xếp vào bậc 99 (Vật phẩm Đặc biệt Hiếm ở cuối Hòm)
+      if (skin.isRareSpecial) return 99;
+      return CS2_RARITY_ORDER[skin.rarity] || 50;
+    }
+
+    function getSkinRepresentativePrice(skin) {
+      return skin.wearUSD["FN"] || skin.wearUSD["MW"] || skin.wearUSD["FT"] || skin.wearUSD["WW"] || skin.wearUSD["BS"] || skin.wearUSD["Giá"] || 0;
+    }
+
+    function switchTab(tab) {
+      currentTab = tab;
+      const skinsView = document.getElementById('skinsView');
+      const casesView = document.getElementById('casesView');
+      const tabSkinsBtn = document.getElementById('tabSkinsBtn');
+      const tabCasesBtn = document.getElementById('tabCasesBtn');
+
+      if (tab === 'skins') {
+        skinsView.style.display = 'block';
+        casesView.style.display = 'none';
+        tabSkinsBtn.classList.add('active');
+        tabCasesBtn.classList.remove('active');
+        renderSkins();
+      } else {
+        skinsView.style.display = 'none';
+        casesView.style.display = 'block';
+        document.getElementById('caseBanner').style.display = 'none';
+        tabCasesBtn.classList.add('active');
+        tabSkinsBtn.classList.remove('active');
+        renderCasesUI();
+      }
+    }
+
+    function onSearchInput() {
+      if (currentTab === 'cases') renderCasesUI();
+      else renderSkins();
+    }
+
+    function onSelectCaseDropdown() {
+      showRareSpecialInCase = false;
+      switchTab('skins');
+      renderSkins();
+    }
+
+    function clearSelectedCase() {
+      document.getElementById('caseSelect').value = "";
+      renderSkins();
+    }
+
+    async function loadBulkPriceDictionary(bypassCache = false) {
+      const normalized = {};
+      const qs = bypassCache ? `?t=${Date.now()}` : '';
+      const priceSources = [
+        `https://prices.csgotrader.app/latest/prices_v6.json${qs}`,
+        `https://raw.githubusercontent.com/ByMykel/counter-strike-price-tracker/main/static/prices/latest.json${qs}`
+      ];
+
+      await Promise.allSettled(priceSources.map(async (url) => {
+        try {
+          const res = await fetch(url);
+          if (!res.ok) return;
+          const data = await res.json();
+          if (data && typeof data === 'object') {
+            for (const [k, v] of Object.entries(data)) {
+              const lowerKey = k.toLowerCase().trim();
+              if (!normalized[lowerKey]) {
+                let usd = (typeof v === 'number' && v > 0) ? (v / 100) : parsePriceToUSD(v);
+                if (usd && usd > 0) normalized[lowerKey] = usd;
+              }
+            }
+          }
+        } catch (e) {}
+      }));
+      return normalized;
+    }
+
+    async function loadDataFromLocalFolder() {
+      const status = document.getElementById('statusText');
+      status.textContent = "⏳ Đang đọc file data.json...";
+
+      // 1. Kiểm tra data.js nạp sẵn
+      if (window.CS2_RAW_DATA && Array.isArray(window.CS2_RAW_DATA) && window.CS2_RAW_DATA.length > 0) {
+        await processLoadedData(window.CS2_RAW_DATA, false);
+        return;
+      }
+
+      try {
+        // 2. Thử fetch data.json
+        const jsonRes = await fetch('data.json').catch(() => null);
+        if (jsonRes && jsonRes.ok) {
+          const localData = await jsonRes.json();
+          await processLoadedData(localData, false);
+          return;
+        }
+
+        // 3. Fallback cs2_all_database_cached_prices.json
+        const localJsonRes = await fetch('cs2_all_database_cached_prices.json').catch(() => null);
+        if (localJsonRes && localJsonRes.ok) {
+          const localData = await localJsonRes.json();
+          await processLoadedData(localData, false);
+          return;
+        }
+
+        const backupStr = localStorage.getItem('cs2_uploaded_json_backup');
+        if (backupStr) {
+          await processLoadedData(JSON.parse(backupStr), false);
+          return;
+        }
+        await processLoadedData(null, false);
+      } catch (err) {
+        await processLoadedData(null, false);
+      }
+    }
+
+    function handleFileSelect(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = async function(e) {
+        try {
+          const localData = JSON.parse(e.target.result);
+          try { localStorage.setItem('cs2_uploaded_json_backup', e.target.result); } catch (err) {}
+          await processLoadedData(localData, false);
+        } catch (err) {
+          alert("Lỗi đọc file JSON: " + err.message);
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function getValidWearsForSkin(minFloat, maxFloat) {
+      if (minFloat === null || minFloat === undefined || maxFloat === null || maxFloat === undefined) return WEARS;
+      return WEARS.filter(w => maxFloat > w.min && minFloat < w.max);
+    }
+
+    async function processLoadedData(localData, bypassCDNCache = false) {
+      const status = document.getElementById('statusText');
+      status.textContent = "⏳ Đang đồng bộ danh sách Skin, thông tin Hòm (crates.json) và Bảng giá...";
+
+      try {
+        const skinUrl = bypassCDNCache
+          ? `https://raw.githubusercontent.com/ByMykel/CSGO-API/main/public/api/en/skins.json?t=${Date.now()}`
+          : 'https://cdn.jsdelivr.net/gh/ByMykel/CSGO-API@latest/public/api/en/skins.json';
+        const crateUrl = bypassCDNCache
+          ? `https://raw.githubusercontent.com/ByMykel/CSGO-API/main/public/api/en/crates.json?t=${Date.now()}`
+          : 'https://cdn.jsdelivr.net/gh/ByMykel/CSGO-API@latest/public/api/en/crates.json';
+
+        const [skinsRes, cratesRes, bulkPrices] = await Promise.all([
+          fetch(skinUrl),
+          fetch(crateUrl).catch(() => null),
+          loadBulkPriceDictionary(bypassCDNCache)
+        ]);
+
+        if (!skinsRes.ok) throw new Error("Không thể tải metadata CS2-API");
+        const skinsData = await skinsRes.json();
+        const cratesApiData = (cratesRes && cratesRes.ok) ? await cratesRes.json() : [];
+        lowerPriceDict = bulkPrices || {};
+
+        const crateInfoByName = {};
+        cratesApiData.forEach(c => {
+          if (c.name) crateInfoByName[c.name] = c;
+        });
+
+        let localSkinsList = Array.isArray(localData) ? localData : (localData?.skins || []);
+        let localCasesMap = localData?.cases || {};
+
+        const localSkinsMap = {};
+        const extractedCaseUSDFromSkins = {};
+
+        localSkinsList.forEach(s => {
+          if (s.id) localSkinsMap[s.id] = s;
+          if (s.name) localSkinsMap[s.name.toLowerCase()] = s;
+          if (Array.isArray(s.crates)) {
+            s.crates.forEach(cr => {
+              if (cr && typeof cr === 'object' && cr.name && cr.price) {
+                const usd = parsePriceToUSD(cr.price);
+                if (usd) extractedCaseUSDFromSkins[cr.name.toLowerCase()] = usd;
+              }
+            });
+          }
+        });
+
+        for (const [cName, cObj] of Object.entries(localCasesMap)) {
+          const usd = parsePriceToUSD(cObj?.price);
+          if (usd) extractedCaseUSDFromSkins[cName.toLowerCase()] = usd;
+        }
+
+        caseMap = {};
+        fullyScannedSkins.clear();
+        const weaponGroups = {};
+
+        allSkins = skinsData.map(skin => {
+          const savedSkin = localSkinsMap[skin.id] || localSkinsMap[skin.name.toLowerCase()] || {};
+          const skinName = skin.name || savedSkin.name || "";
+          const weaponName = skin.weapon?.name || savedSkin.weapon || skinName.split('|')[0].replace('★', '').trim();
+
+          const catRaw = (skin.category?.id || '').toLowerCase();
+          let categoryName = "Rifles";
+          if (catRaw.includes('pistol')) categoryName = "Pistols";
+          else if (catRaw.includes('smg')) categoryName = "SMGs";
+          else if (catRaw.includes('heavy') || catRaw.includes('shotgun') || catRaw.includes('machinegun')) categoryName = "Heavy";
+          else if (catRaw.includes('glove') || skin.category?.name === "Gloves") categoryName = "Gloves";
+          else if (catRaw.includes('knife') || catRaw.includes('melee') || skinName.includes('★')) categoryName = "Knives";
+
+          const isRareSpecial = skinName.includes('★') || categoryName === "Knives" || categoryName === "Gloves";
+
+          if (!weaponGroups[categoryName]) weaponGroups[categoryName] = {};
+          weaponGroups[categoryName][weaponName] = (weaponGroups[categoryName][weaponName] || 0) + 1;
+
+          const crates = (skin.crates || []).map(c => {
+            if (!caseMap[c.name]) {
+              const lowerName = c.name.toLowerCase();
+              const usdPrice =
+                cachedPricesStore['case_' + lowerName] ||
+                extractedCaseUSDFromSkins[lowerName] ||
+                lowerPriceDict[lowerName] ||
+                null;
+
+              const apiCrate = crateInfoByName[c.name];
+              let typeGroup = "Cases";
+              if (lowerName.includes('terminal')) {
+                typeGroup = "Terminals & Khác";
+              } else if (lowerName.includes('package') || lowerName.includes('souvenir') || lowerName.includes('parcel')) {
+                typeGroup = "Packages & Souvenirs";
+              }
+
+              let year = "Khác / Cổ điển";
+              if (apiCrate?.first_sale_date) {
+                const y = apiCrate.first_sale_date.substring(0, 4);
+                if (/^20\d{2}$/.test(y)) year = y;
+              }
+              if (year === "Khác / Cổ điển") {
+                const matchY = c.name.match(/20(13|14|15|16|17|18|19|20|21|22|23|24|25|26)/);
+                if (matchY) year = matchY[0];
+              }
+
+              caseMap[c.name] = {
+                id: c.id,
+                name: c.name,
+                image: c.image,
+                usdPrice: usdPrice,
+                typeGroup: typeGroup,
+                year: year,
+                skinCount: 0,
+                normalSkinCount: 0,
+                rareSkinCount: 0
+              };
+              if (usdPrice) cachedPricesStore['case_' + lowerName] = usdPrice;
+            }
+            caseMap[c.name].skinCount++;
+            if (isRareSpecial) caseMap[c.name].rareSkinCount++;
+            else caseMap[c.name].normalSkinCount++;
+            return { id: c.id, name: c.name, image: c.image };
+          });
+
+          const collections = (skin.collections || []).map(col => ({
+            id: col.id || col.name, name: col.name || col, image: col.image || ""
+          }));
+
+          const validWears = getValidWearsForSkin(skin.min_float, skin.max_float);
+          const wearUSD = {};
+
+          if (savedSkin.prices && typeof savedSkin.prices === 'object') {
+            for (const [k, v] of Object.entries(savedSkin.prices)) {
+              const usd = parsePriceToUSD(v);
+              if (usd) wearUSD[k] = usd;
+            }
+          }
+
+          const cachedSkin = cachedPricesStore['skin_' + skin.id];
+          if (cachedSkin && typeof cachedSkin === 'object') {
+            for (const [k, v] of Object.entries(cachedSkin)) {
+              if (v && v > 0) wearUSD[k] = v;
+            }
+          }
+
+          WEARS.forEach(w => {
+            if (!wearUSD[w.short]) {
+              const fullHash = `${skinName} (${w.key})`.toLowerCase();
+              const noStarHash = fullHash.replace('★ ', '').trim();
+              const usd = lowerPriceDict[fullHash] || lowerPriceDict[noStarHash];
+              if (usd) wearUSD[w.short] = usd;
+            }
+          });
+
+          if (Object.keys(wearUSD).length > 0) {
+            fullyScannedSkins.add(skin.id);
+          }
+
+          const rName = skin.rarity?.name || savedSkin.rarity || "Unknown";
+
+          return {
+            id: skin.id,
+            name: skinName,
+            weapon: weaponName,
+            category: categoryName,
+            isRareSpecial: isRareSpecial,
+            rarity: rName,
+            color: skin.rarity?.color || CS2_RARITY_COLORS[rName] || "#94a3b8",
+            image: skin.image || savedSkin.image || "",
+            crates: crates,
+            collections: collections,
+            validWears: validWears,
+            wearUSD: wearUSD,
+            isFromLocalFile: !!localSkinsMap[skin.id]
+          };
+        });
+
+        saveCacheToLocalStorage();
+
+        // Đổ bộ lọc Vũ khí
+        const weaponSelect = document.getElementById('weaponSelect');
+        weaponSelect.innerHTML = `<option value="">🔫 Tất cả Vũ khí (${allSkins.length} skin)</option>`;
+        ["Rifles", "Pistols", "SMGs", "Heavy", "Knives", "Gloves"].forEach(cat => {
+          if (weaponGroups[cat]) {
+            const groupEl = document.createElement('optgroup');
+            groupEl.label = `── ${cat} ──`;
+            Object.keys(weaponGroups[cat]).sort().forEach(wName => {
+              const opt = document.createElement('option');
+              opt.value = wName;
+              opt.textContent = `${wName} (${weaponGroups[cat][wName]})`;
+              groupEl.appendChild(opt);
+            });
+            weaponSelect.appendChild(groupEl);
+          }
+        });
+
+        // Đổ bộ lọc Hòm
+        const caseSelect = document.getElementById('caseSelect');
+        const caseNames = Object.keys(caseMap).sort();
+        caseSelect.innerHTML = `<option value="">📦 Tất cả các Hòm (${caseNames.length} hòm)</option>`;
+        caseNames.forEach(caseName => {
+          const opt = document.createElement('option');
+          opt.value = caseName;
+          opt.textContent = `${caseName} (${caseMap[caseName].normalSkinCount} súng)`;
+          caseSelect.appendChild(opt);
+        });
+
+        // Đổ bộ lọc Năm trong Kho Hòm
+        const yearSelect = document.getElementById('yearFilterSelect');
+        const allYears = Array.from(new Set(Object.values(caseMap).map(c => c.year))).sort().reverse();
+        yearSelect.innerHTML = `<option value="">📅 Tất cả các Năm (${allYears.length})</option>`;
+        allYears.forEach(y => {
+          const opt = document.createElement('option');
+          opt.value = y;
+          opt.textContent = `Năm ${y}`;
+          yearSelect.appendChild(opt);
+        });
+
+        document.getElementById('skinCountTab').textContent = allSkins.length;
+        document.getElementById('caseCountTab').textContent = caseNames.length;
+        updateMissingCaseButtonText();
+
+        status.textContent = `✅ Đã load thành công ${allSkins.length} skin và ${caseNames.length} hòm (Sắp xếp chuẩn CS2: Mil-Spec ➔ Covert)!`;
+        weaponSelect.disabled = false;
+        caseSelect.disabled = false;
+        document.getElementById('searchInput').disabled = false;
+
+        renderSkins();
+        renderCasesUI();
+      } catch (err) {
+        status.textContent = "❌ Lỗi: " + err.message;
+      }
+    }
+
+    // ==================== TÍNH NĂNG MỚI: CHECK HÒM & SKIN MỚI KHI CS2 UPDATE ====================
+    async function checkNewCS2Updates() {
+      if (isProcessingQueue) return;
+      const status = document.getElementById('statusText');
+      status.textContent = "🆕 Đang kiểm tra bản cập nhật mới nhất từ kho dữ liệu CS2 (GitHub Main)...";
+
+      const oldSkinCount = allSkins.length;
+      let existingData = null;
+      try {
+        const res = await fetch('cs2_all_database_cached_prices.json').catch(() => null);
+        if (res && res.ok) existingData = await res.json();
+      } catch (e) {}
+
+      await processLoadedData(existingData, true);
+
+      // Chỉ lọc ra những Skin mới chưa có trong file JSON cũ hoặc chưa có giá
+      const newOrUnpricedSkins = allSkins.filter(s => !s.isFromLocalFile || Object.keys(s.wearUSD).length === 0);
+      const missingCases = Object.values(caseMap).filter(c => !c.usdPrice).map(c => c.name);
+
+      if (newOrUnpricedSkins.length === 0 && missingCases.length === 0) {
+        status.textContent = `✨ Dữ liệu của bạn đã là bản mới nhất (${allSkins.length} skin, không phát hiện hòm/skin mới thiếu giá)!`;
+        alert("✨ Dữ liệu của bạn đã đầy đủ và mới nhất!");
+        return;
+      }
+
+      status.textContent = `🆕 Phát hiện ${newOrUnpricedSkins.length} skin mới/thiếu giá và ${missingCases.length} hòm chưa có giá. Đang tự động lấy giá...`;
+      caseBackgroundQueue = missingCases;
+      globalBackgroundQueue = newOrUnpricedSkins;
+      await runDeltaUpdateQueue();
+    }
+
+    async function runDeltaUpdateQueue() {
+      if (isProcessingQueue) return;
+      isProcessingQueue = true;
+      stopRequested = false;
+
+      const queueEl = document.getElementById('queueStatus');
+      const status = document.getElementById('statusText');
+      const stopBtn = document.getElementById('btnStopCaseQueue');
+      stopBtn.style.display = 'inline-flex';
+
+      while (caseBackgroundQueue.length > 0 && !stopRequested) {
+        const cName = caseBackgroundQueue.shift();
+        queueEl.textContent = `📦 Đang lấy giá Hòm mới (${caseBackgroundQueue.length} còn lại): ${cName}...`;
+        await fetchSingleCasePrice(cName, null);
+        await new Promise(r => setTimeout(r, 280));
+      }
+
+      while (globalBackgroundQueue.length > 0 && !stopRequested) {
+        const skin = globalBackgroundQueue.shift();
+        queueEl.textContent = `🆕 Đang lấy giá Skin mới (${globalBackgroundQueue.length} còn lại): ${skin.name}...`;
+        await autoFetchSkinDirectSteam(skin);
+        await new Promise(r => setTimeout(r, 300));
+      }
+
+      stopBtn.style.display = 'none';
+      isProcessingQueue = false;
+      queueEl.textContent = "";
+      status.textContent = "✨ Đã cập nhật xong toàn bộ Hòm & Skin mới! Hãy bấm '💾 Xuất JSON' để lưu đè vào file của bạn.";
+      document.getElementById('btnExport').className = "btn-ready";
+      renderSkins();
+      renderCasesUI();
+    }
+
+    function updateMissingCaseButtonText() {
+      const missingCount = Object.values(caseMap).filter(c => !c.usdPrice).length;
+      const btn = document.getElementById('btnFetchMissingCases');
+      if (missingCount === 0) {
+        btn.textContent = `✅ Toàn bộ ${Object.keys(caseMap).length} Hòm đã có đủ giá!`;
+      } else {
+        btn.textContent = `💲 Lấy giá tất cả Hòm chưa có giá (${missingCount} hòm)`;
+      }
+    }
+
+    // ==================== LẤY GIÁ HÒM TRỰC TIẾP TỪ STEAM ====================
+    async function SmartSteamFetch(targetUrl) {
+      try {
+        const directRes = await fetch(targetUrl);
+        if (directRes.status === 429) {
+          await new Promise(r => setTimeout(r, 2200));
+        } else if (directRes.ok) {
+          const d = await directRes.json();
+          if (d && (d.success || (Array.isArray(d.results) && d.results.length > 0))) return d;
+        }
+      } catch (e) {}
+
+      const proxies = [
+        { url: `https://api.allorigins.win/get?url=${encodeURIComponent(targetUrl)}`, wrapped: true },
+        { url: `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(targetUrl)}`, wrapped: false }
+      ];
+
+      for (const p of proxies) {
+        try {
+          const res = await fetch(p.url);
+          if (!res.ok) continue;
+          const raw = await res.json();
+          const data = p.wrapped ? JSON.parse(raw.contents) : raw;
+          if (data && (data.success || (Array.isArray(data.results) && data.results.length > 0))) return data;
+        } catch (e) {}
+      }
+      return null;
+    }
+
+    async function fetchSingleCasePrice(caseName, event) {
+      if (event) event.stopPropagation();
+      const cObj = caseMap[caseName];
+      if (!cObj) return false;
+
+      const btnEl = document.getElementById(`case-price-box-${cObj.id}`);
+      if (btnEl) {
+        btnEl.innerHTML = `<span style="color:#fbbf24; font-size:12px;">⏳ Đang lấy giá Steam...</span>`;
+      }
+
+      const lowerName = caseName.toLowerCase();
+      if (!cObj.usdPrice && lowerPriceDict[lowerName]) {
+        cObj.usdPrice = lowerPriceDict[lowerName];
+      }
+
+      if (!cObj.usdPrice) {
+        const poUrl = `https://steamcommunity.com/market/priceoverview/?appid=730&currency=1&market_hash_name=${encodeURIComponent(caseName)}`;
+        const poData = await SmartSteamFetch(poUrl);
+        if (poData && poData.success && (poData.lowest_price || poData.median_price)) {
+          const usd = parsePriceToUSD(poData.lowest_price || poData.median_price);
+          if (usd) cObj.usdPrice = usd;
+        }
+      }
+
+      if (!cObj.usdPrice) {
+        const searchUrl = `https://steamcommunity.com/market/search/render/?appid=730&norender=1&count=15&query=${encodeURIComponent(caseName)}`;
+        const searchData = await SmartSteamFetch(searchUrl);
+        if (searchData && Array.isArray(searchData.results) && searchData.results.length > 0) {
+          const exact = searchData.results.find(i =>
+            (i.hash_name || '').toLowerCase() === lowerName ||
+            (i.name || '').toLowerCase() === lowerName
+          ) || searchData.results[0];
+          if (exact && exact.sell_price > 0) {
+            cObj.usdPrice = exact.sell_price / 100;
+          }
+        }
+      }
+
+      if (cObj.usdPrice) {
+        cachedPricesStore['case_' + lowerName] = cObj.usdPrice;
+        saveCacheToLocalStorage();
+        updateSingleCaseCardDOM(cObj);
+        updateMissingCaseButtonText();
+        return true;
+      } else {
+        if (btnEl) {
+          btnEl.innerHTML = `
+            <button class="btn-fetch-case" onclick="fetchSingleCasePrice('${caseName.replace(/'/g, "\\'")}', event)">
+              ⚠️ Thử lấy lại giá
+            </button>
+          `;
+        }
+        return false;
+      }
+    }
+
+    function updateSingleCaseCardDOM(cObj) {
+      const box = document.getElementById(`case-price-box-${cObj.id}`);
+      const priceStr = getCaseDisplayPrice(cObj.name);
+      if (box && priceStr) {
+        box.innerHTML = `
+          <div class="case-price">${priceStr}</div>
+          <button class="btn-refresh-mini" title="Cập nhật lại giá mới từ Steam" onclick="refreshSingleCaseLive('${cObj.name.replace(/'/g, "\\'")}', event)">🔄</button>
+        `;
+      }
+      const selectedCase = document.getElementById('caseSelect').value;
+      if (selectedCase === cObj.name) {
+        const bannerPriceEl = document.getElementById('bannerCasePrice');
+        if (bannerPriceEl && priceStr) {
+          bannerPriceEl.innerHTML = `💲 Giá Hòm trên Steam: ${priceStr}`;
+        }
+      }
+    }
+
+    async function refreshSingleCaseLive(caseName, event) {
+      if (event) event.stopPropagation();
+      if (caseMap[caseName]) {
+        caseMap[caseName].usdPrice = null;
+        delete lowerPriceDict[caseName.toLowerCase()];
+        await fetchSingleCasePrice(caseName, null);
+      }
+    }
+
+    async function fetchGroupCasePrices(groupKey) {
+      const list = getCasesByGroupKey(groupKey).filter(c => !c.usdPrice);
+      if (list.length === 0) {
+        alert("Tất cả các hòm trong nhóm này đều đã có giá!");
+        return;
+      }
+      caseBackgroundQueue = list.map(c => c.name);
+      processCaseQueueOnly();
+    }
+
+    async function fetchAllMissingCasePrices() {
+      const missingList = Object.values(caseMap).filter(c => !c.usdPrice).map(c => c.name);
+      if (missingList.length === 0) {
+        if (!confirm("Tất cả các hòm đều đã có giá! Bạn có muốn quét kiểm tra lại toàn bộ giá hòm từ Steam không?")) return;
+        caseBackgroundQueue = Object.keys(caseMap);
+        Object.values(caseMap).forEach(c => { c.usdPrice = null; });
+      } else {
+        caseBackgroundQueue = missingList;
+      }
+      processCaseQueueOnly();
+    }
+
+    async function processCaseQueueOnly() {
+      if (isProcessingQueue) return;
+      isProcessingQueue = true;
+      stopRequested = false;
+
+      const queueEl = document.getElementById('queueStatus');
+      const status = document.getElementById('statusText');
+      const stopBtn = document.getElementById('btnStopCaseQueue');
+      stopBtn.style.display = 'inline-flex';
+
+      const totalToFetch = caseBackgroundQueue.length;
+      let done = 0;
+
+      while (caseBackgroundQueue.length > 0 && !stopRequested) {
+        const cName = caseBackgroundQueue.shift();
+        done++;
+        queueEl.textContent = `📦 Đang lấy giá Hòm (${done}/${totalToFetch}): ${cName}...`;
+        await fetchSingleCasePrice(cName, null);
+        await new Promise(r => setTimeout(r, 320));
+      }
+
+      stopBtn.style.display = 'none';
+      isProcessingQueue = false;
+      queueEl.textContent = stopRequested ? "⏹️ Đã dừng quét giá hòm." : "✨ Đã lấy xong giá các hòm!";
+      status.textContent = "✅ Đã cập nhật giá Hòm vào bộ nhớ đệm! Bạn có thể bấm '💾 Xuất JSON' để lưu lại.";
+      updateMissingCaseButtonText();
+      renderSkins();
+    }
+
+    function stopBackgroundQueues() {
+      stopRequested = true;
+      caseBackgroundQueue = [];
+      globalBackgroundQueue = [];
+    }
+
+    async function autoFetchSkinDirectSteam(skin) {
+      const cleanQuery = skin.name.replace(/★/g, ' ').replace(/\|/g, ' ').replace(/\s+/g, ' ').trim();
+      const searchUrl = `https://steamcommunity.com/market/search/render/?appid=730&norender=1&count=40&query=${encodeURIComponent(cleanQuery)}`;
+
+      const data = await SmartSteamFetch(searchUrl);
+      if (data && Array.isArray(data.results) && data.results.length > 0) {
+        WEARS.forEach(w => {
+          const exactLower = `${skin.name} (${w.key})`.toLowerCase();
+          const noStarLower = exactLower.replace('★ ', '').trim();
+          const found = data.results.find(item => {
+            const h = (item.hash_name || item.name || '').toLowerCase();
+            return h === exactLower || h === noStarLower;
+          });
+          if (found && typeof found.sell_price === 'number' && found.sell_price > 0) {
+            skin.wearUSD[w.short] = found.sell_price / 100;
+          }
+        });
+      }
+
+      fullyScannedSkins.add(skin.id);
+      cachedPricesStore['skin_' + skin.id] = skin.wearUSD;
+      saveCacheToLocalStorage();
+
+      const priceBox = document.getElementById(`price-${skin.id}`);
+      if (priceBox) priceBox.innerHTML = buildPriceBoxHTML(skin);
+    }
+
+    async function startReloadData() {
+      if (isProcessingQueue) return;
+      isProcessingQueue = true;
+      stopRequested = false;
+
+      const status = document.getElementById('statusText');
+      const queueEl = document.getElementById('queueStatus');
+      const stopBtn = document.getElementById('btnStopCaseQueue');
+      stopBtn.style.display = 'inline-flex';
+
+      status.textContent = "🔄 Đang kiểm tra cập nhật toàn bộ giá Hòm và Skin từ Steam...";
+
+      caseBackgroundQueue = Object.keys(caseMap);
+      globalBackgroundQueue = [...allSkins];
+
+      while (caseBackgroundQueue.length > 0 && !stopRequested) {
+        const cName = caseBackgroundQueue.shift();
+        queueEl.textContent = `📦 Đang check giá Hòm (${caseBackgroundQueue.length} còn lại): ${cName}...`;
+        await fetchSingleCasePrice(cName, null);
+        await new Promise(r => setTimeout(r, 280));
+      }
+
+      while (globalBackgroundQueue.length > 0 && !stopRequested) {
+        const skin = globalBackgroundQueue.shift();
+        queueEl.textContent = `⚡ Đang check giá Skin (${globalBackgroundQueue.length} còn lại): ${skin.name}...`;
+        await autoFetchSkinDirectSteam(skin);
+        await new Promise(r => setTimeout(r, 300));
+      }
+
+      stopBtn.style.display = 'none';
+      isProcessingQueue = false;
+      queueEl.textContent = "";
+      status.textContent = stopRequested ? "⏹️ Đã dừng kiểm tra." : "✨ Đã check xong toàn bộ skin!";
+      if (!stopRequested) alert("✨ Đã check xong toàn bộ skin!");
+      renderSkins();
+      renderCasesUI();
+    }
+
+    // ==================== HIỂN THỊ KHO HÒM PHÂN LOẠI THEO NĂM & LOẠI ====================
+    function setCaseCategoryFilter(cat) {
+      currentCaseCategory = cat;
+      document.getElementById('chip-ALL').classList.toggle('active', cat === 'ALL');
+      document.getElementById('chip-Cases').classList.toggle('active', cat === 'Cases');
+      document.getElementById('chip-Packages').classList.toggle('active', cat === 'Packages & Souvenirs');
+      document.getElementById('chip-Terminals').classList.toggle('active', cat === 'Terminals & Khác');
+      renderCasesUI();
+    }
+
+    function getCasesByGroupKey(groupKey) {
+      return Object.values(caseMap).filter(c => `${c.typeGroup} — Năm ${c.year}` === groupKey);
+    }
+
+    function renderCasesUI() {
+      const container = document.getElementById('casesContainer');
+      const query = document.getElementById('searchInput').value.toLowerCase().trim();
+      const selectedYear = document.getElementById('yearFilterSelect').value;
+      const priceFilter = document.getElementById('priceFilterSelect').value;
+
+      const casesArr = Object.values(caseMap).filter(c => {
+        const matchCat = currentCaseCategory === 'ALL' || c.typeGroup === currentCaseCategory;
+        const matchYear = !selectedYear || c.year === selectedYear;
+        const matchSearch = !query || c.name.toLowerCase().includes(query);
+        const matchPrice =
+          priceFilter === 'ALL' ||
+          (priceFilter === 'MISSING' && !c.usdPrice) ||
+          (priceFilter === 'HAS_PRICE' && !!c.usdPrice);
+        return matchCat && matchYear && matchSearch && matchPrice;
+      });
+
+      const groups = {};
+      casesArr.forEach(c => {
+        const key = `${c.typeGroup} — Năm ${c.year}`;
+        if (!groups[key]) groups[key] = [];
+        groups[key].push(c);
+      });
+
+      const sortedKeys = Object.keys(groups).sort().reverse();
+
+      if (sortedKeys.length === 0) {
+        container.innerHTML = `<div style="text-align:center; color:#64748b; padding:40px;">Không có hòm nào khớp với bộ lọc hiện tại.</div>`;
+        return;
+      }
+
+      container.innerHTML = sortedKeys.map(groupKey => {
+        const items = groups[groupKey];
+        const missingInGroup = items.filter(i => !i.usdPrice).length;
+
+        const cardsHtml = items.map(c => {
+          const priceStr = getCaseDisplayPrice(c.name);
+          const priceBoxHtml = priceStr
+            ? `<div class="case-price">${priceStr}</div>
+               <button class="btn-refresh-mini" title="Cập nhật lại giá Hòm này" onclick="refreshSingleCaseLive('${c.name.replace(/'/g, "\\'")}', event)">🔄</button>`
+            : `<button class="btn-fetch-case" onclick="fetchSingleCasePrice('${c.name.replace(/'/g, "\\'")}', event)">💲 Lấy giá Hòm này</button>`;
+
+          return `
+            <div class="case-card" onclick="selectCaseByName('${c.name.replace(/'/g, "\\'")}')" title="Bấm để xem ${c.normalSkinCount} súng trong ${c.name}">
+              <img src="${c.image}" alt="${c.name}" loading="lazy">
+              <div class="case-name">${c.name}</div>
+              <div class="case-meta">${c.normalSkinCount} súng chính${c.rareSkinCount > 0 ? ` + ${c.rareSkinCount} Dao/Găng` : ''}</div>
+              <div class="case-price-wrap" id="case-price-box-${c.id}">
+                ${priceBoxHtml}
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        const groupBtnHtml = missingInGroup > 0
+          ? `<button class="btn-group-fetch" onclick="fetchGroupCasePrices('${groupKey.replace(/'/g, "\\'")}')">⚡ Lấy giá nhóm này (${missingInGroup} hòm chưa có giá)</button>`
+          : `<span style="font-size:12px; color:#4ade80; font-weight:600;">✅ Đã đủ giá cả nhóm</span>`;
+
+        return `
+          <div class="case-section-header">
+            <h3 class="case-section-title">${groupKey} (${items.length})</h3>
+            ${groupBtnHtml}
+          </div>
+          <div class="case-grid">${cardsHtml}</div>
+        `;
+      }).join('');
+    }
+
+    // ==================== HIỂN THỊ SKINS CHUẨN THỨ TỰ HÒM CS2 (MIL-SPEC ➔ COVERT) ====================
+    function buildPriceBoxHTML(skin) {
+      if (skin.wearUSD["Giá"]) {
+        return `<div class="price-row"><span>Giá Steam:</span><span class="price-val">${formatUSDToDisplay(skin.wearUSD["Giá"])}</span></div>`;
+      }
+      const validShortSet = new Set(skin.validWears.map(w => w.short));
+      return WEARS.map(w => {
+        if (!validShortSet.has(w.short)) {
+          return `<div class="price-row"><span>${w.short}:</span><span class="price-na">Không có Float này</span></div>`;
+        }
+        const usd = skin.wearUSD[w.short];
+        if (usd) {
+          return `<div class="price-row"><span>${w.short}:</span><span class="price-val">${formatUSDToDisplay(usd)}</span></div>`;
+        }
+        return `<div class="price-row"><span>${w.short}:</span><span class="price-na">Chưa có giá</span></div>`;
+      }).join('');
+    }
+
+    function buildSingleSkinCardHTML(s) {
+      let sourceHtml = '';
+      if (s.crates.length > 0) {
+        sourceHtml = `📦 <b>Hòm chứa (${s.crates.length}):</b><div class="case-list">` + s.crates.map(c => {
+          const cp = getCaseDisplayPrice(c.name);
+          const cPriceHtml = cp ? ` <b style="color:#4ade80">(${cp})</b>` : ` <span style="color:#64748b">(Chưa có giá)</span>`;
+          return `
+            <div class="case-item" onclick="selectCaseByName('${c.name.replace(/'/g, "\\'")}')" title="Bấm để lọc theo hòm ${c.name}">
+              <img src="${c.image}" alt="${c.name}" loading="lazy">
+              <span>${c.name}${cPriceHtml}</span>
+            </div>
+          `;
+        }).join('') + `</div>`;
+      } else if (s.collections && s.collections.length > 0) {
+        sourceHtml = `🏛️ <b>Bộ sưu tập (Collection):</b><div class="case-list">` + s.collections.map(col => `
+          <div class="case-item" style="cursor:default;">
+            <img src="${col.image}" alt="${col.name}" loading="lazy">
+            <span>${col.name}</span>
+          </div>
+        `).join('') + `</div>`;
+      } else {
+        sourceHtml = `<div style="color:#64748b; margin-top:4px;">Không mở từ hòm</div>`;
+      }
+
+      return `
+        <div class="card" style="border-top: 4px solid ${s.color}">
+          <img class="skin-img" src="${s.image}" alt="${s.name}" loading="lazy">
+          <div class="title">${s.name}</div>
+          <div class="meta-row">
+            <span class="rarity-tag" style="color: ${s.color}">${s.rarity}</span>
+            <span class="weapon-tag">${s.weapon}</span>
+          </div>
+          <div class="prices" id="price-${s.id}">${buildPriceBoxHTML(s)}</div>
+          <div class="cases">${sourceHtml}</div>
+        </div>
+      `;
+    }
+
+    function selectCaseByName(caseName) {
+      showRareSpecialInCase = false;
+      document.getElementById('caseSelect').value = caseName;
+      document.getElementById('sortOrderSelect').value = 'cs2_case_asc'; // Tự động đưa về sắp xếp chuẩn CS2: Mil-Spec -> Covert
+      switchTab('skins');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function toggleRareSpecialItems() {
+      showRareSpecialInCase = !showRareSpecialInCase;
+      renderSkins();
+    }
+
+    function sortSkinsList(list, sortMode) {
+      return [...list].sort((a, b) => {
+        if (sortMode === 'cs2_case_asc') {
+          const rankDiff = getSkinRankForCS2Sort(a) - getSkinRankForCS2Sort(b);
+          if (rankDiff !== 0) return rankDiff;
+          return a.name.localeCompare(b.name);
+        }
+        if (sortMode === 'cs2_case_desc') {
+          if (a.isRareSpecial !== b.isRareSpecial) return a.isRareSpecial ? 1 : -1;
+          const rankDiff = getSkinRankForCS2Sort(b) - getSkinRankForCS2Sort(a);
+          if (rankDiff !== 0) return rankDiff;
+          return a.name.localeCompare(b.name);
+        }
+        if (sortMode === 'price_desc' || sortMode === 'price_asc') {
+          const pa = getSkinRepresentativePrice(a);
+          const pb = getSkinRepresentativePrice(b);
+          return sortMode === 'price_desc' ? (pb - pa) : (pa - pb);
+        }
+        return a.name.localeCompare(b.name);
+      });
+    }
+
+    function renderSkins() {
+      const query = document.getElementById('searchInput').value.toLowerCase().trim();
+      const selectedWeapon = document.getElementById('weaponSelect').value;
+      const selectedCase = document.getElementById('caseSelect').value;
+      const sortMode = document.getElementById('sortOrderSelect').value;
+      const contentArea = document.getElementById('skinContentArea');
+      const banner = document.getElementById('caseBanner');
+
+      const matched = allSkins.filter(s => {
+        const matchName = !query || s.name.toLowerCase().includes(query) || s.crates.some(c => c.name.toLowerCase().includes(query));
+        const matchWeapon = !selectedWeapon || s.weapon === selectedWeapon;
+        const matchCase = !selectedCase || s.crates.some(c => c.name === selectedCase);
+        return matchName && matchWeapon && matchCase;
+      });
+
+      const sortedMatched = sortSkinsList(matched, sortMode);
+
+      // TRƯỜNG HỢP 1: Đang xem bên trong 1 Hòm cụ thể -> Hiển thị chia tầng từ Mil-Spec Grade tới Covert chuẩn CS2
+      if (selectedCase && caseMap[selectedCase]) {
+        const cInfo = caseMap[selectedCase];
+        const cPrice = getCaseDisplayPrice(selectedCase);
+        const normalGuns = sortedMatched.filter(s => !s.isRareSpecial);
+        const rareSpecials = sortedMatched.filter(s => s.isRareSpecial);
+
+        banner.style.display = 'flex';
+        document.getElementById('bannerCaseImg').src = cInfo.image || "";
+        document.getElementById('bannerCaseName').textContent = `${cInfo.name} (${cInfo.year})`;
+        document.getElementById('bannerCaseCount').textContent =
+          `Phân loại: ${cInfo.typeGroup} • Gồm ${normalGuns.length} skin súng (Mil-Spec ➔ Covert)` +
+          (rareSpecials.length > 0 ? ` và ${rareSpecials.length} Vật phẩm Đặc biệt (★ Dao/Găng)` : '');
+        document.getElementById('bannerCasePrice').innerHTML = cPrice
+          ? `💲 Giá Hòm trên Steam: ${cPrice} <button class="btn-refresh-mini" onclick="refreshSingleCaseLive('${selectedCase.replace(/'/g, "\\'")}', event)">🔄 Cập nhật lại</button>`
+          : `<button class="btn-fetch-case" style="width:auto;" onclick="fetchSingleCasePrice('${selectedCase.replace(/'/g, "\\'")}', event)">💲 Lấy giá Hòm này từ Steam</button>`;
+
+        // Nếu đang để chế độ Chuẩn CS2, gom nhóm theo từng bậc Rarity từ Mil-Spec -> Covert
+        const tierOrder = sortMode === 'cs2_case_desc'
+          ? ["Contraband", "Covert", "Classified", "Restricted", "Mil-Spec Grade", "Industrial Grade", "Consumer Grade"]
+          : ["Consumer Grade", "Industrial Grade", "Mil-Spec Grade", "Restricted", "Classified", "Covert", "Contraband"];
+
+        let htmlOut = '';
+        if (sortMode === 'cs2_case_asc' || sortMode === 'cs2_case_desc') {
+          tierOrder.forEach(tierName => {
+            const tierItems = normalGuns.filter(s => s.rarity === tierName);
+            if (tierItems.length > 0) {
+              const tierColor = CS2_RARITY_COLORS[tierName] || "#3b82f6";
+              htmlOut += `
+                <div class="rarity-tier-section">
+                  <div class="rarity-tier-header" style="border-left: 6px solid ${tierColor}; color: ${tierColor};">
+                    <span>◆ ${tierName}</span>
+                    <span style="font-size:13px; color:#cbd5e1;">${tierItems.length} skin</span>
+                  </div>
+                  <div class="grid">
+                    ${tierItems.map(s => buildSingleSkinCardHTML(s)).join('')}
+                  </div>
+                </div>
+              `;
+            }
+          });
+        } else {
+          htmlOut += `<div class="grid">${normalGuns.map(s => buildSingleSkinCardHTML(s)).join('')}</div>`;
+        }
+
+        // Khu vực ★ Vật phẩm Đặc biệt Hiếm (Dao / Găng tay) đặt ở cuối Hòm giống CS2
+        if (rareSpecials.length > 0) {
+          htmlOut += `
+            <div class="rare-special-banner">
+              <div class="rare-special-title">
+                <span>★ Vật phẩm Đặc biệt Hiếm (Knives / Gloves mở ra từ ${cInfo.name})</span>
+                <span style="font-size:13px; color:#fef08a; font-weight:600;">(${rareSpecials.length} vật phẩm)</span>
+              </div>
+              <button class="btn-upload" onclick="toggleRareSpecialItems()">
+                ${showRareSpecialInCase ? '🔼 Thu gọn Dao / Găng tay' : `🔽 Xem danh sách ${rareSpecials.length} Dao / Găng tay`}
+              </button>
+            </div>
+            ${showRareSpecialInCase ? `<div class="grid">${rareSpecials.map(s => buildSingleSkinCardHTML(s)).join('')}</div>` : ''}
+          `;
+        }
+
+        contentArea.innerHTML = htmlOut;
+        return;
+      }
+
+      // TRƯỜNG HỢP 2: Xem tất cả vũ khí (Không lọc riêng 1 Hòm)
+      banner.style.display = 'none';
+      currentFiltered = sortedMatched.slice(0, 100);
+      contentArea.innerHTML = `<div class="grid">${currentFiltered.map(s => buildSingleSkinCardHTML(s)).join('')}</div>`;
+    }
+
+    function exportJSON() {
+      const dataToExport = allSkins.map(s => {
+        const pricesFormatted = {};
+        WEARS.forEach(w => {
+          if (s.wearUSD[w.short]) pricesFormatted[w.short] = formatUSDToDisplay(s.wearUSD[w.short]);
+        });
+        if (s.wearUSD["Giá"]) pricesFormatted["Giá"] = formatUSDToDisplay(s.wearUSD["Giá"]);
+
+        return {
+          id: s.id,
+          name: s.name,
+          weapon: s.weapon,
+          rarity: s.rarity,
+          image: s.image,
+          prices: pricesFormatted,
+          crates: s.crates.map(c => ({
+            name: c.name,
+            image: c.image,
+            price: getCaseDisplayPrice(c.name)
+          })),
+          collections: s.collections
+        };
+      });
+
+      const blob = new Blob([JSON.stringify(dataToExport, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = "cs2_all_database_cached_prices.json";
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+  </script>
+</body>
+</html>

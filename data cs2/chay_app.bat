@@ -1,0 +1,1 @@
+start chrome --disable-web-security --allow-file-access-from-files --user-data-dir="%TEMP%\cs2_app" "%~dp0index2.html"

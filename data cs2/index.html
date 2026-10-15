@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>CS2 Skin & Case Stash (Full Database Cache)</title>
+  <style>
+    body { font-family: system-ui, sans-serif; background: #12151a; color: #e2e8f0; margin: 0; padding: 20px; }
+    .toolbar { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; background: #1e232b; padding: 14px; border-radius: 8px; border: 1px solid #2e3646; position: sticky; top: 10px; z-index: 100; box-shadow: 0 4px 12px rgba(0,0,0,0.4); }
+    button { background: #3b82f6; color: white; border: none; padding: 10px 16px; border-radius: 6px; cursor: pointer; font-weight: 600; transition: 0.15s; }
+    button:hover { background: #2563eb; }
+    button:disabled { background: #475569; cursor: not-allowed; }
+    
+    button.btn-ready { background: #10b981; animation: pulse 2s infinite; }
+    button.btn-ready:hover { background: #059669; }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+      70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+
+    input, select { padding: 10px 14px; border-radius: 6px; border: 1px solid #334155; background: #12151a; color: white; }
+    input { min-width: 220px; flex: 1; }
+    select { min-width: 190px; }
+    optgroup { background: #1e232b; color: #38bdf8; font-weight: 700; }
+    option { background: #12151a; color: #e2e8f0; font-weight: 400; }
+    .status-bar { display: flex; justify-content: space-between; width: 100%; font-size: 13px; color: #94a3b8; margin-top: 4px; }
+    .queue-status { color: #fbbf24; font-weight: 600; }
+
+    .case-banner { display: none; align-items: center; gap: 20px; background: linear-gradient(90deg, #1e232b 0%, #171b22 100%); border: 1px solid #334155; border-radius: 8px; padding: 16px 24px; margin-bottom: 20px; }
+    .case-banner img { width: 130px; height: 100px; object-fit: contain; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5)); }
+    .case-banner-info h2 { margin: 0 0 6px 0; font-size: 20px; color: #f8fafc; }
+    .case-banner-price { font-size: 16px; color: #4ade80; font-weight: 700; margin-top: 6px; }
+
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+    .card { background: #1e232b; border: 1px solid #2e3646; border-radius: 8px; padding: 14px; display: flex; flex-direction: column; gap: 8px; }
+    .card img.skin-img { width: 100%; height: 150px; object-fit: contain; background: radial-gradient(circle, #2a3140 0%, #171b22 100%); border-radius: 6px; }
+    .title { font-weight: 700; font-size: 15px; }
+    .meta-row { display: flex; justify-content: space-between; align-items: center; font-size: 12px; }
+    .rarity-tag { font-weight: 600; }
+    .weapon-tag { background: #262d3b; color: #94a3b8; padding: 2px 8px; border-radius: 4px; }
+    .prices { font-size: 13px; background: #151920; padding: 8px 10px; border-radius: 6px; line-height: 1.65; min-height: 105px; display: flex; flex-direction: column; justify-content: center; }
+    .price-row { display: flex; justify-content: space-between; border-bottom: 1px dashed #262d3b; padding: 2px 0; }
+    .price-row:last-child { border-bottom: none; }
+    .price-val { color: #4ade80; font-weight: 600; }
+    .price-na { color: #475569; font-size: 12px; }
+
+    .cases { font-size: 12px; color: #cbd5e1; margin-top: auto; padding-top: 8px; border-top: 1px solid #2e3646; }
+    .case-list { display: flex; flex-direction: column; gap: 6px; margin-top: 6px; max-height: 130px; overflow-y: auto; }
+    .case-item { display: flex; align-items: center; gap: 8px; background: #151920; padding: 5px 8px; border-radius: 6px; border: 1px solid #262d3b; cursor: pointer; transition: 0.15s; }
+    .case-item:hover { border-color: #3b82f6; background: #1e2530; }
+    .case-item img { width: 42px; height: 32px; object-fit: contain; flex-shrink: 0; }
+    .case-item span { font-size: 12px; color: #e2e8f0; line-height: 1.3; }
+  </style>
+</head>
+<body>
+
+  <div class="toolbar">
+    <button onclick="clearCacheAndReload()" title="Xóa bộ nhớ đệm và tải mới hoàn toàn">🧹 Xóa Cache & Tải lại</button>
+
+    <select id="weaponSelect" onchange="renderSkins()" disabled>
+      <option value="">🔫 Tất cả Vũ khí</option>
+    </select>
+
+    <select id="caseSelect" onchange="renderSkins()" disabled>
+      <option value="">📦 Tất cả các Hòm (Cases)</option>
+    </select>
+
+    <select id="currencySelect" onchange="renderSkins()">
+      <option value="VND">🇻🇳 Đơn vị: VNĐ (₫)</option>
+      <option value="USD">💲 Đơn vị: USD ($)</option>
+    </select>
+
+    <input type="text" id="searchInput" placeholder="Tìm tên skin (VD: AUTOEXEC, Overprint, Asiimov)..." oninput="renderSkins()" disabled>
+    
+    <button id="btnExport" onclick="exportJSON()" disabled>💾 Đang đồng bộ toàn bộ...</button>
+
+    <div class="status-bar">
+      <span id="statusText">⏳ Đang khởi tạo bộ nhớ...</span>
+      <span id="queueStatus" class="queue-status"></span>
+    </div>
+  </div>
+
+  <div class="case-banner" id="caseBanner">
+    <img id="bannerCaseImg" src="" alt="Case Image">
+    <div class="case-banner-info">
+      <h2 id="bannerCaseName">Tên Hòm</h2>
+      <div id="bannerCaseCount" style="font-size: 13px; color: #94a3b8;"></div>
+      <div class="case-banner-price" id="bannerCasePrice"></div>
+    </div>
+  </div>
+
+  <div class="grid" id="skinGrid"></div>
+
+  <script>
+    let allSkins = [];
+    let caseMap = {};
+    let lowerPriceDict = {};
+    let currentFiltered = [];
+    const USD_TO_VND = 25400;
+
+    let globalBackgroundQueue = [];
+    let isProcessingQueue = false;
+    let fullyScannedSkins = new Set();
+    let totalSkinsCount = 0;
+    let cachedPricesStore = {};
+
+    const WEARS = [
+      { key: "Factory New", short: "FN", min: 0.00, max: 0.07 },
+      { key: "Minimal Wear", short: "MW", min: 0.07, max: 0.15 },
+      { key: "Field-Tested", short: "FT", min: 0.15, max: 0.38 },
+      { key: "Well-Worn", short: "WW", min: 0.38, max: 0.45 },
+      { key: "Battle-Scarred", short: "BS", min: 0.45, max: 1.00 }
+    ];
+
+    window.addEventListener('DOMContentLoaded', () => {
+      try {
+        const savedCache = localStorage.getItem('cs2_prices_cache_v3');
+        if (savedCache) cachedPricesStore = JSON.parse(savedCache);
+      } catch (e) {
+        cachedPricesStore = {};
+      }
+      fetchAllCS2Data();
+    });
+
+    function saveCacheToLocalStorage() {
+      try {
+        localStorage.setItem('cs2_prices_cache_v3', JSON.stringify(cachedPricesStore));
+      } catch (e) {}
+    }
+
+    function clearCacheAndReload() {
+      localStorage.removeItem('cs2_prices_cache_v3');
+      location.reload();
+    }
+
+    function formatCurrency(usdNumber) {
+      if (usdNumber === null || usdNumber === undefined || isNaN(usdNumber) || usdNumber <= 0) return null;
+      const mode = document.getElementById('currencySelect').value;
+      if (mode === 'VND') {
+        const vnd = Math.round((usdNumber * USD_TO_VND) / 500) * 500;
+        return vnd.toLocaleString('vi-VN') + '₫';
+      }
+      return `$${usdNumber.toFixed(2)}`;
+    }
+
+    function extractUSDNumber(entry) {
+      if (entry === null || entry === undefined) return null;
+      if (typeof entry === 'number' && entry > 0) return entry / 100;
+      if (typeof entry === 'string') {
+        const num = parseFloat(entry.replace(/[^0-9.]/g, ''));
+        return (!isNaN(num) && num > 0) ? num : null;
+      }
+      if (typeof entry === 'object') {
+        const candidates = [
+          entry.steam?.last_24h, entry.steam?.last_7d, entry.steam?.last_30d,
+          entry.steam?.last_90d, entry.price, entry.lowest_price,
+          entry.starting_at?.price, entry.csfloat?.price, entry.skinport?.starting_at
+        ];
+        for (const c of candidates) {
+          if (typeof c === 'number' && c > 0) return c;
+          if (typeof c === 'string') {
+            const num = parseFloat(c.replace(/[^0-9.]/g, ''));
+            if (!isNaN(num) && num > 0) return num;
+          }
+        }
+      }
+      return null;
+    }
+
+    async function loadBulkPriceDictionary() {
+      const normalized = {};
+      const priceSources = [
+        'https://prices.csgotrader.app/latest/prices_v6.json',
+        'https://cdn.jsdelivr.net/gh/ByMykel/counter-strike-price-tracker@main/static/prices/latest.json'
+      ];
+
+      await Promise.allSettled(priceSources.map(async (url) => {
+        try {
+          const res = await fetch(url);
+          if (!res.ok) return;
+          const data = await res.json();
+          if (data && typeof data === 'object') {
+            for (const [k, v] of Object.entries(data)) {
+              const lowerKey = k.toLowerCase().trim();
+              if (!normalized[lowerKey]) {
+                const usd = extractUSDNumber(v);
+                if (usd && usd > 0) normalized[lowerKey] = usd;
+              }
+            }
+          }
+        } catch (e) {}
+      }));
+      return normalized;
+    }
+
+    function getValidWearsForSkin(minFloat, maxFloat) {
+      if (minFloat === null || minFloat === undefined || maxFloat === null || maxFloat === undefined) {
+        return WEARS;
+      }
+      return WEARS.filter(w => maxFloat > w.min && minFloat < w.max);
+    }
+
+    async function fetchAllCS2Data() {
+      const status = document.getElementById('statusText');
+      status.textContent = "⏳ Đang tải toàn bộ dữ liệu game và bộ nhớ đệm...";
+
+      try {
+        const [skinsRes, priceDict] = await Promise.all([
+          fetch('https://cdn.jsdelivr.net/gh/ByMykel/CSGO-API@latest/public/api/en/skins.json'),
+          loadBulkPriceDictionary()
+        ]);
+
+        if (!skinsRes.ok) throw new Error("HTTP " + skinsRes.status);
+        const skinsData = await skinsRes.json();
+        lowerPriceDict = priceDict || {};
+
+        caseMap = {};
+        fullyScannedSkins.clear();
+        const weaponGroups = {};
+        totalSkinsCount = skinsData.length;
+
+        allSkins = skinsData.map(skin => {
+          const catRaw = skin.category?.id || '';
+          let categoryName = "Rifles";
+          if (catRaw.includes('pistol')) categoryName = "Pistols";
+          else if (catRaw.includes('smg')) categoryName = "SMGs";
+          else if (catRaw.includes('heavy') || catRaw.includes('shotgun') || catRaw.includes('machinegun')) categoryName = "Heavy";
+          else if (catRaw.includes('knife') || skin.name.includes('★')) categoryName = "Knives";
+          else if (catRaw.includes('glove')) categoryName = "Gloves";
+          else if (skin.category?.name) categoryName = skin.category.name;
+
+          const weaponName = skin.weapon?.name || skin.name.split('|')[0].replace('★', '').trim();
+
+          if (!weaponGroups[categoryName]) weaponGroups[categoryName] = {};
+          weaponGroups[categoryName][weaponName] = (weaponGroups[categoryName][weaponName] || 0) + 1;
+
+          const crates = (skin.crates || []).map(c => {
+            if (!caseMap[c.name]) {
+              const cachedCaseUSD = cachedPricesStore['case_' + c.name.toLowerCase()];
+              const usdPrice = cachedCaseUSD || lowerPriceDict[c.name.toLowerCase()] || null;
+              caseMap[c.name] = { id: c.id, name: c.name, image: c.image, usdPrice: usdPrice };
+              if (usdPrice) cachedPricesStore['case_' + c.name.toLowerCase()] = usdPrice;
+            }
+            return { id: c.id, name: c.name, image: c.image };
+          });
+
+          const collections = (skin.collections || []).map(col => ({
+            id: col.id, name: col.name, image: col.image
+          }));
+
+          const validWears = getValidWearsForSkin(skin.min_float, skin.max_float);
+          const wearUSD = {};
+
+          const cachedSkinObj = cachedPricesStore['skin_' + skin.id];
+          if (cachedSkinObj) {
+            Object.assign(wearUSD, cachedSkinObj);
+            fullyScannedSkins.add(skin.id);
+          } else {
+            WEARS.forEach(w => {
+              const fullHash = `${skin.name} (${w.key})`.toLowerCase();
+              const noStarHash = fullHash.replace('★ ', '').trim();
+              const usd = lowerPriceDict[fullHash] || lowerPriceDict[noStarHash];
+              if (usd) wearUSD[w.short] = usd;
+            });
+
+            if (Object.keys(wearUSD).length === 0) {
+              const vanillaUSD = lowerPriceDict[skin.name.toLowerCase()];
+              if (vanillaUSD) wearUSD["Giá"] = vanillaUSD;
+            }
+          }
+
+          return {
+            id: skin.id, name: skin.name, weapon: weaponName, category: categoryName,
+            rarity: skin.rarity?.name || "Unknown", color: skin.rarity?.color || "#94a3b8",
+            image: skin.image, crates: crates, collections: collections,
+            validWears: validWears, wearUSD: wearUSD
+          };
+        });
+
+        // Đổ bộ lọc Vũ khí theo đúng thứ tự nhóm
+        const weaponSelect = document.getElementById('weaponSelect');
+        weaponSelect.innerHTML = `<option value="">🔫 Tất cả Vũ khí (${allSkins.length} skin)</option>`;
+        const categoryOrder = ["Rifles", "Pistols", "SMGs", "Heavy", "Knives", "Gloves"];
+        categoryOrder.forEach(cat => {
+          if (weaponGroups[cat]) {
+            const groupEl = document.createElement('optgroup');
+            groupEl.label = `── ${cat} ──`;
+            Object.keys(weaponGroups[cat]).sort().forEach(wName => {
+              const opt = document.createElement('option');
+              opt.value = wName;
+              opt.textContent = `${wName} (${weaponGroups[cat][wName]})`;
+              groupEl.appendChild(opt);
+            });
+            weaponSelect.appendChild(groupEl);
+          }
+        });
+
+        const caseSelect = document.getElementById('caseSelect');
+        const caseNames = Object.keys(caseMap).sort();
+        caseSelect.innerHTML = `<option value="">📦 Tất cả các Hòm (${caseNames.length} hòm)</option>`;
+        caseNames.forEach(caseName => {
+          const opt = document.createElement('option');
+          opt.value = caseName;
+          opt.textContent = caseName;
+          caseSelect.appendChild(opt);
+        });
+
+        status.textContent = `✅ Đã tải xong danh sách (${allSkins.length} skin). Đang quét ngầm toàn bộ giá Steam...`;
+        weaponSelect.disabled = false;
+        caseSelect.disabled = false;
+        document.getElementById('searchInput').disabled = false;
+
+        // Bắt đầu đưa toàn bộ skin chưa đủ giá vào hàng đợi quét ngầm toàn cục
+        initGlobalBackgroundQueue();
+        updateDownloadButtonState();
+        renderSkins();
+      } catch (err) {
+        status.textContent = "❌ Lỗi kết nối: " + err.message;
+      }
+    }
+
+    function initGlobalBackgroundQueue() {
+      globalBackgroundQueue = allSkins.filter(s => {
+        const missingCount = s.validWears.filter(w => !s.wearUSD[w.short]).length;
+        return missingCount > 0 && !s.wearUSD["Giá"] && !fullyScannedSkins.has(s.id);
+      });
+      if (globalBackgroundQueue.length > 0) {
+        processGlobalBackgroundQueue();
+      }
+    }
+
+    function selectCaseByName(caseName) {
+      document.getElementById('caseSelect').value = caseName;
+      renderSkins();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function getCaseDisplayPrice(caseName) {
+      const c = caseMap[caseName];
+      if (!c) return null;
+      return formatCurrency(c.usdPrice);
+    }
+
+    async function SmartSteamFetch(targetUrl) {
+      try {
+        const directRes = await fetch(targetUrl);
+        if (directRes.status === 429) {
+          await new Promise(r => setTimeout(r, 2500));
+        } else if (directRes.ok) {
+          const d = await directRes.json();
+          if (d && (d.success || (Array.isArray(d.results) && d.results.length > 0))) return d;
+        }
+      } catch (e) {}
+
+      const proxies = [
+        { url: `https://api.allorigins.win/get?url=${encodeURIComponent(targetUrl)}`, wrapped: true },
+        { url: `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(targetUrl)}`, wrapped: false }
+      ];
+
+      for (const p of proxies) {
+        try {
+          const res = await fetch(p.url);
+          if (!res.ok) continue;
+          const raw = await res.json();
+          const data = p.wrapped ? JSON.parse(raw.contents) : raw;
+          if (data && (data.success || (Array.isArray(data.results) && data.results.length > 0))) return data;
+        } catch (e) {}
+      }
+      return null;
+    }
+
+    async function autoFetchSkinDirectSteam(skin) {
+      const cleanQuery = skin.name.replace(/★/g, ' ').replace(/\|/g, ' ').replace(/\s+/g, ' ').trim();
+      const searchUrl = `https://steamcommunity.com/market/search/render/?appid=730&norender=1&count=40&query=${encodeURIComponent(cleanQuery)}`;
+
+      const data = await SmartSteamFetch(searchUrl);
+      if (data && Array.isArray(data.results) && data.results.length > 0) {
+        skin.validWears.forEach(w => {
+          if (skin.wearUSD[w.short]) return;
+          const exactLower = `${skin.name} (${w.key})`.toLowerCase();
+          const noStarLower = exactLower.replace('★ ', '').trim();
+          const found = data.results.find(item => {
+            const h = (item.hash_name || item.name || '').toLowerCase();
+            return h === exactLower || h === noStarLower;
+          });
+          if (found && typeof found.sell_price === 'number' && found.sell_price > 0) {
+            skin.wearUSD[w.short] = found.sell_price / 100;
+          }
+        });
+      }
+
+      const missingWears = skin.validWears.filter(w => !skin.wearUSD[w.short]);
+      for (const w of missingWears) {
+        const fullHashName = `${skin.name} (${w.key})`;
+        const poUrl = `https://steamcommunity.com/market/priceoverview/?appid=730&currency=1&market_hash_name=${encodeURIComponent(fullHashName)}`;
+        const poData = await SmartSteamFetch(poUrl);
+        if (poData && poData.success) {
+          const rawStr = poData.lowest_price || poData.median_price;
+          const usd = extractUSDNumber(rawStr);
+          if (usd) skin.wearUSD[w.short] = usd;
+        }
+        await new Promise(r => setTimeout(r, 250));
+      }
+
+      fullyScannedSkins.add(skin.id);
+      cachedPricesStore['skin_' + skin.id] = skin.wearUSD;
+      saveCacheToLocalStorage();
+
+      // Cập nhật DOM trực tiếp nếu thẻ skin đó đang hiển thị trên màn hình
+      const priceBox = document.getElementById(`price-${skin.id}`);
+      if (priceBox) {
+        priceBox.innerHTML = buildPriceBoxHTML(skin);
+      }
+      updateDownloadButtonState();
+    }
+
+    // Tiến trình chạy ngầm toàn cục (Quét toàn bộ 2126 skin trong cơ sở dữ liệu)
+    async function processGlobalBackgroundQueue() {
+      if (isProcessingQueue) return;
+      isProcessingQueue = true;
+      const queueEl = document.getElementById('queueStatus');
+
+      while (globalBackgroundQueue.length > 0) {
+        const skin = globalBackgroundQueue.shift();
+        const scannedCount = allSkins.filter(s => fullyScannedSkins.has(s.id) || Object.keys(s.wearUSD).length > 0).length;
+        queueEl.textContent = `⚡ Quét ngầm toàn bộ: ${scannedCount}/${totalSkinsCount} skin (Còn ${globalBackgroundQueue.length})...`;
+        
+        await autoFetchSkinDirectSteam(skin);
+        await new Promise(r => setTimeout(r, 350));
+      }
+
+      queueEl.textContent = "✨ Đã quét hoàn tất toàn bộ cơ sở dữ liệu!";
+      isProcessingQueue = false;
+      updateDownloadButtonState();
+    }
+
+    async function autoEnsureCasePrice(caseName) {
+      if (!caseName || !caseMap[caseName] || caseMap[caseName].usdPrice) return;
+      const searchUrl = `https://steamcommunity.com/market/search/render/?appid=730&norender=1&count=10&query=${encodeURIComponent(caseName)}`;
+      const data = await SmartSteamFetch(searchUrl);
+      if (data && Array.isArray(data.results)) {
+        const exact = data.results.find(i => (i.hash_name || '').toLowerCase() === caseName.toLowerCase()) || data.results[0];
+        if (exact && exact.sell_price > 0) {
+          caseMap[caseName].usdPrice = exact.sell_price / 100;
+          cachedPricesStore['case_' + caseName.toLowerCase()] = caseMap[caseName].usdPrice;
+          saveCacheToLocalStorage();
+          const priceEl = document.getElementById('bannerCasePrice');
+          if (priceEl) priceEl.innerHTML = `💲 Giá Hòm trên Steam: ${getCaseDisplayPrice(caseName)}`;
+        }
+      }
+    }
+
+    function buildPriceBoxHTML(skin) {
+      if (skin.wearUSD["Giá"]) {
+        return `<div class="price-row"><span>Giá Steam:</span><span class="price-val">${formatCurrency(skin.wearUSD["Giá"])}</span></div>`;
+      }
+
+      const validShortSet = new Set(skin.validWears.map(w => w.short));
+      const isFullyScanned = fullyScannedSkins.has(skin.id);
+
+      return WEARS.map(w => {
+        if (!validShortSet.has(w.short)) {
+          return `<div class="price-row"><span>${w.short}:</span><span class="price-na">Không có Float này</span></div>`;
+        }
+        const usd = skin.wearUSD[w.short];
+        if (usd) {
+          return `<div class="price-row"><span>${w.short}:</span><span class="price-val">${formatCurrency(usd)}</span></div>`;
+        }
+        if (!isFullyScanned) {
+          return `<div class="price-row"><span>${w.short}:</span><span style="color:#fbbf24;font-size:12px;">⏳ Đang quét...</span></div>`;
+        }
+        return `<div class="price-row"><span>${w.short}:</span><span class="price-na">Hết hàng</span></div>`;
+      }).join('');
+    }
+
+    function updateDownloadButtonState() {
+      const btn = document.getElementById('btnExport');
+      const scannedCount = allSkins.filter(s => fullyScannedSkins.has(s.id) || Object.keys(s.wearUSD).length > 0).length;
+      
+      if (scannedCount >= totalSkinsCount && totalSkinsCount > 0) {
+        btn.disabled = false;
+        btn.className = "btn-ready";
+        btn.textContent = "💾 Tải xuống JSON hoàn tất!";
+      } else {
+        btn.disabled = false;
+        btn.className = "";
+        btn.textContent = `💾 Tải JSON (${scannedCount}/${totalSkinsCount})`;
+      }
+    }
+
+    function renderSkins() {
+      const query = document.getElementById('searchInput').value.toLowerCase().trim();
+      const selectedWeapon = document.getElementById('weaponSelect').value;
+      const selectedCase = document.getElementById('caseSelect').value;
+      const grid = document.getElementById('skinGrid');
+      const banner = document.getElementById('caseBanner');
+
+      const matched = allSkins.filter(s => {
+        const matchName = !query || s.name.toLowerCase().includes(query);
+        const matchWeapon = !selectedWeapon || s.weapon === selectedWeapon;
+        const matchCase = !selectedCase || s.crates.some(c => c.name === selectedCase);
+        return matchName && matchWeapon && matchCase;
+      });
+
+      if (selectedCase && caseMap[selectedCase]) {
+        const cInfo = caseMap[selectedCase];
+        const cPrice = getCaseDisplayPrice(selectedCase);
+        banner.style.display = 'flex';
+        document.getElementById('bannerCaseImg').src = cInfo.image;
+        document.getElementById('bannerCaseName').textContent = cInfo.name;
+        document.getElementById('bannerCaseCount').textContent = `Hiển thị ${matched.length} vật phẩm thuộc hòm này`;
+        document.getElementById('bannerCasePrice').innerHTML = cPrice
+          ? `💲 Giá Hòm trên Steam: ${cPrice}`
+          : `<span style="color:#fbbf24;font-size:14px;">⏳ Đang tự động lấy giá Hòm...</span>`;
+        if (!cPrice) autoEnsureCasePrice(selectedCase);
+      } else {
+        banner.style.display = 'none';
+      }
+
+      currentFiltered = matched.slice(0, 80);
+
+      grid.innerHTML = currentFiltered.map(s => {
+        let sourceHtml = '';
+        if (s.crates.length > 0) {
+          sourceHtml = `📦 <b>Hòm chứa (${s.crates.length}):</b><div class="case-list">` + s.crates.map(c => {
+            const cp = getCaseDisplayPrice(c.name);
+            const cPriceHtml = cp ? ` <b style="color:#4ade80">(${cp})</b>` : '';
+            return `
+              <div class="case-item" onclick="selectCaseByName('${c.name.replace(/'/g, "\\'")}')" title="Bấm để lọc theo hòm ${c.name}">
+                <img src="${c.image}" alt="${c.name}" loading="lazy">
+                <span>${c.name}${cPriceHtml}</span>
+              </div>
+            `;
+          }).join('') + `</div>`;
+        } else if (s.collections && s.collections.length > 0) {
+          sourceHtml = `🏛️ <b>Bộ sưu tập (Collection):</b><div class="case-list">` + s.collections.map(col => `
+            <div class="case-item" style="cursor:default;">
+              <img src="${col.image}" alt="${col.name}" loading="lazy">
+              <span>${col.name}</span>
+            </div>
+          `).join('') + `</div>`;
+        } else {
+          sourceHtml = `<div style="color:#64748b; margin-top:4px;">Không mở từ hòm</div>`;
+        }
+
+        return `
+          <div class="card" style="border-top: 4px solid ${s.color}">
+            <img class="skin-img" src="${s.image}" alt="${s.name}" loading="lazy">
+            <div class="title">${s.name}</div>
+            <div class="meta-row">
+              <span class="rarity-tag" style="color: ${s.color}">${s.rarity}</span>
+              <span class="weapon-tag">${s.weapon}</span>
+            </div>
+            <div class="prices" id="price-${s.id}">${buildPriceBoxHTML(s)}</div>
+            <div class="cases">${sourceHtml}</div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function exportJSON() {
+      const dataToExport = allSkins.map(s => {
+        const pricesFormatted = {};
+        WEARS.forEach(w => {
+          if (s.wearUSD[w.short]) pricesFormatted[w.short] = formatCurrency(s.wearUSD[w.short]);
+        });
+        if (s.wearUSD["Giá"]) pricesFormatted["Giá"] = formatCurrency(s.wearUSD["Giá"]);
+
+        return {
+          id: s.id,
+          name: s.name,
+          weapon: s.weapon,
+          rarity: s.rarity,
+          image: s.image,
+          prices: pricesFormatted,
+          crates: s.crates.map(c => ({
+            name: c.name,
+            image: c.image,
+            price: getCaseDisplayPrice(c.name)
+          })),
+          collections: s.collections
+        };
+      });
+
+      const blob = new Blob([JSON.stringify(dataToExport, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = "cs2_all_database_cached_prices.json";
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+  </script>
+</body>
+</html>

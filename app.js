@@ -5,26 +5,26 @@
 
 // Fallback knife catalog for offline / file:// protocol
 const FALLBACK_KNIVES = [
-  { id: "butterfly", folder: "Butterfly", name: "Butterfly Knife", vnName: "Dao Butterfly", tier: "S+", accent: "#00ff88", weight: 3, skinsCount: 25, vanillaImage: "assets/Butterfly/Vanilla.png" },
-  { id: "karambit", folder: "Karambit", name: "Karambit", vnName: "Dao Karambit", tier: "S+", accent: "#ff2a85", weight: 4, skinsCount: 25, vanillaImage: "assets/Karambit/Vanilla.png" },
-  { id: "m9_bayonet", folder: "M9 Bayonet", name: "M9 Bayonet", vnName: "Dao M9 Bayonet", tier: "S+", accent: "#ffc83b", weight: 5, skinsCount: 25, vanillaImage: "assets/M9 Bayonet/Vanilla.png" },
-  { id: "skeleton", folder: "Skeleton", name: "Skeleton Knife", vnName: "Dao Skeleton", tier: "S", accent: "#d946ef", weight: 6, skinsCount: 19, vanillaImage: "assets/Skeleton/Vanilla.png" },
-  { id: "talon", folder: "Talon", name: "Talon Knife", vnName: "Dao Talon", tier: "S", accent: "#00f0ff", weight: 7, skinsCount: 19, vanillaImage: "assets/Talon/Vanilla.png" },
-  { id: "kukri", folder: "Kukri", name: "Kukri Knife", vnName: "Dao Kukri", tier: "A", accent: "#f59e0b", weight: 10, skinsCount: 13, vanillaImage: "assets/Kukri/Vanilla.png" },
-  { id: "stiletto", folder: "Stiletto", name: "Stiletto Knife", vnName: "Dao Stiletto", tier: "A", accent: "#06b6d4", weight: 10, skinsCount: 19, vanillaImage: "assets/Stiletto/Vanilla.png" },
-  { id: "nomad", folder: "Nomad", name: "Nomad Knife", vnName: "Dao Nomad", tier: "A", accent: "#ec4899", weight: 10, skinsCount: 19, vanillaImage: "assets/Nomad/Vanilla.png" },
-  { id: "ursus", folder: "Ursus", name: "Ursus Knife", vnName: "Dao Ursus", tier: "A", accent: "#3b82f6", weight: 10, skinsCount: 19, vanillaImage: "assets/Ursus/Vanilla.png" },
-  { id: "bayonet", folder: "Bayonet", name: "Bayonet", vnName: "Dao Bayonet", tier: "A", accent: "#a855f7", weight: 12, skinsCount: 25, vanillaImage: "assets/Bayonet/Vanilla.png" },
-  { id: "classic", folder: "Classic", name: "Classic Knife", vnName: "Dao Classic", tier: "B", accent: "#ef4444", weight: 15, skinsCount: 13, vanillaImage: "assets/Classic/Vanilla.png" },
-  { id: "flip", folder: "Flip", name: "Flip Knife", vnName: "Dao Flip", tier: "B", accent: "#eab308", weight: 15, skinsCount: 25, vanillaImage: "assets/Flip/Vanilla.png" },
-  { id: "paracord", folder: "Paracord", name: "Paracord Knife", vnName: "Dao Paracord", tier: "B", accent: "#dc2626", weight: 15, skinsCount: 19, vanillaImage: "assets/Paracord/Vanilla.png" },
-  { id: "bowie", folder: "Bowie", name: "Bowie Knife", vnName: "Dao Bowie", tier: "B", accent: "#f43f5e", weight: 15, skinsCount: 25, vanillaImage: "assets/Bowie/Vanilla.png" },
-  { id: "huntsman", folder: "Huntsman", name: "Huntsman Knife", vnName: "Dao Huntsman", tier: "B", accent: "#e11d48", weight: 15, skinsCount: 25, vanillaImage: "assets/Huntsman/Vanilla.png" },
-  { id: "falchion", folder: "Falchion", name: "Falchion Knife", vnName: "Dao Falchion", tier: "B", accent: "#10b981", weight: 15, skinsCount: 25, vanillaImage: "assets/Falchion/Vanilla.png" },
-  { id: "survival", folder: "Survival", name: "Survival Knife", vnName: "Dao Survival", tier: "C", accent: "#84cc16", weight: 22, skinsCount: 19, vanillaImage: "assets/Survival/Vanilla.png" },
-  { id: "gut", folder: "Gut", name: "Gut Knife", vnName: "Dao Gut", tier: "C", accent: "#64748b", weight: 25, skinsCount: 25, vanillaImage: "assets/Gut/Vanilla.png" },
-  { id: "navaja", folder: "Navaja", name: "Navaja Knife", vnName: "Dao Navaja", tier: "C", accent: "#78716c", weight: 25, skinsCount: 19, vanillaImage: "assets/Navaja/Vanilla.png" },
-  { id: "shadow_daggers", folder: "Shadow Daggers", name: "Shadow Daggers", vnName: "Dao Shadow Daggers", tier: "C", accent: "#6b7280", weight: 25, skinsCount: 25, vanillaImage: "assets/Shadow Daggers/Vanilla.png" }
+  { id: "butterfly", folder: "Butterfly", name: "Butterfly Knife", vnName: "Dao Butterfly", tier: "S+", accent: "#00ff88", weight: 3, skinsCount: 25, vanillaImage: "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGJKz2lu_XuWbwcuyMESA4Fdl-4nnpU7iQA3-kKnr8ytd6s2sfbB5JeKVAn7elO8l6LRoF3_hzBsmtWSDzt-rcy3BP1AnXsR4FOJZskG6xtDkM7627xue1dy94mNpNQ" },
+  { id: "karambit", folder: "Karambit", name: "Karambit", vnName: "Dao Karambit", tier: "S+", accent: "#ff2a85", weight: 4, skinsCount: 25, vanillaImage: "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGJKz2lu_XuWbwcuyMESA4Fdl-4nnpU7iQA3-kKnr8ytd6s2labZsLfKaGinEx-0u5LhqGHrjlElz52jRmN2sd3yfb1NzWZVwRbNeu0S5k9WxMuvh-UWA3ObnwJvj" },
+  { id: "m9_bayonet", folder: "M9 Bayonet", name: "M9 Bayonet", vnName: "Dao M9 Bayonet", tier: "S+", accent: "#ffc83b", weight: 5, skinsCount: 25, vanillaImage: "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGJKz2lu_XuWbwcuyMESA4Fdl-4nnpU7iQA3-kKnr8ytd6s2jMZtvIemcAGKEj7ojtOIwSnrrkEt25WiEw438cXuUaQB0WcBxFrUItxa6lNezMOKzsVPAy9USYWigJ8Q" },
+  { id: "skeleton", folder: "Skeleton", name: "Skeleton Knife", vnName: "Dao Skeleton", tier: "S", accent: "#d946ef", weight: 6, skinsCount: 19, vanillaImage: "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGJKz2lu_XuWbwcuyMESA4Fdl-4nnpU7iQA3-kKnr8ytd6s29Y6FhJeScACnDkL8j6LU8GS3mwUh24G-Bno2tIymeblMgC5R3F-ECsBK6k4XuN-Lh-UWA3P3GyEv9" },
+  { id: "talon", folder: "Talon", name: "Talon Knife", vnName: "Dao Talon", tier: "S", accent: "#00f0ff", weight: 7, skinsCount: 19, vanillaImage: "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGJKz2lu_XuWbwcuyMESA4Fdl-4nnpU7iQA3-kKnr8ytd6s25YaBiN_2SBWKCj7ghsrRrTHDnzB8h4mTRw9iudC_DPFVyCsF3R-Zc4xK_ldXgNb7qsgDAy9USS1NPX9M" },
+  { id: "kukri", folder: "Kukri", name: "Kukri Knife", vnName: "Dao Kukri", tier: "A", accent: "#f59e0b", weight: 10, skinsCount: 13, vanillaImage: "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGJKz2lu_XuWbwcuyMESA4Fdl-4nnpU7iQA3-kKnr8ytd6s2lfa9_Kb6VXmPGwuogsbNvSyi3zR4jsTnQztyqdS6QP1IoXpoiEeAC5Be5l9CxKaq8sIvgdE5J" },
+  { id: "stiletto", folder: "Stiletto", name: "Stiletto Knife", vnName: "Dao Stiletto", tier: "A", accent: "#06b6d4", weight: 10, skinsCount: 19, vanillaImage: "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGJKz2lu_XuWbwcuyMESA4Fdl-4nnpU7iQA3-kKnr8ytd6s29fK1hJeSHASnCmO8v4bc_HCjilkkismTWyNutciqealMhDsR5F7MM4UWwlYC1Zr7n-UWA3E6ZCYCt" },
+  { id: "nomad", folder: "Nomad", name: "Nomad Knife", vnName: "Dao Nomad", tier: "A", accent: "#ec4899", weight: 10, skinsCount: 19, vanillaImage: "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGJKz2lu_XuWbwcuyMESA4Fdl-4nnpU7iQA3-kKnr8ytd6s2hfbBpL_-BQDPEw-hz57cxTnCxkEh_5jnVzor8dymXbgAiAsFyEOEMsBW8l9O1Ne38p1uJmh0Kkm0" },
+  { id: "ursus", folder: "Ursus", name: "Ursus Knife", vnName: "Dao Ursus", tier: "A", accent: "#3b82f6", weight: 10, skinsCount: 19, vanillaImage: "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGJKz2lu_XuWbwcuyMESA4Fdl-4nnpU7iQA3-kKnr8ytd6s27erd4M77AXWWWx7h3tOA5SyvilEkj5WuGw42qc3zEOg4iDJEjQu9b4xa6w4DgKaq8sDVgNcPY" },
+  { id: "bayonet", folder: "Bayonet", name: "Bayonet", vnName: "Dao Bayonet", tier: "A", accent: "#a855f7", weight: 12, skinsCount: 25, vanillaImage: "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGJKz2lu_XuWbwcuyMESA4Fdl-4nnpU7iQA3-kKni_DtU4fe6Jv07IfTDDT_JkL4htLI7HCvmwE9z42_Vzov4ci2Wa1IgWMN3R7IMuxCm0oqwYUAZNBA" },
+  { id: "classic", folder: "Classic", name: "Classic Knife", vnName: "Dao Classic", tier: "B", accent: "#ef4444", weight: 15, skinsCount: 13, vanillaImage: "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGJKz2lu_XuWbwcuyMESA4Fdl-4nnpU7iQA3-kKnr8ytd6s2te7cjd6HHXmHBxep157VtTi_rzUR-5WiHnt39c3_EZg4pW5UjQOZbsBCxw8qnab32FBG7RA" },
+  { id: "flip", folder: "Flip", name: "Flip Knife", vnName: "Dao Flip", tier: "B", accent: "#eab308", weight: 15, skinsCount: 25, vanillaImage: "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGJKz2lu_XuWbwcuyMESA4Fdl-4nnpU7iQA3-kKnr8ytd6s2oZK19bqjKVjbDkbtwtbU4S3jhwElw4DvVzomhd3_CblV1CZd2TO5f4RG4lID5d7S15Y9TpQQ" },
+  { id: "paracord", folder: "Paracord", name: "Paracord Knife", vnName: "Dao Paracord", tier: "B", accent: "#dc2626", weight: 15, skinsCount: 19, vanillaImage: "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGJKz2lu_XuWbwcuyMESA4Fdl-4nnpU7iQA3-kKnr8ytd6s2tZ7ZpbqWRXmWTmbsm5bU5TXu3lkR_5j_Swor8JC_BPFVxWJd1FuID4RW7w9b5d7S1z-U4Rao" },
+  { id: "bowie", folder: "Bowie", name: "Bowie Knife", vnName: "Dao Bowie", tier: "B", accent: "#f43f5e", weight: 15, skinsCount: 25, vanillaImage: "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGJKz2lu_XuWbwcuyMESA4Fdl-4nnpU7iQA3-kKnr8ytd6s29fbZ7KeaSAliSzvl_ta88TX61xExyt2nTz9eveHjEPQRzXMcjFuYIuhHtkIKyNLnmtACLg4sX02yg2XbF4Kcv" },
+  { id: "huntsman", folder: "Huntsman", name: "Huntsman Knife", vnName: "Dao Huntsman", tier: "B", accent: "#e11d48", weight: 15, skinsCount: 25, vanillaImage: "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGJKz2lu_XuWbwcuyMESA4Fdl-4nnpU7iQA3-kKnr8ytd6s26aad5KfOSAimVlugu47U5HSrmzEp14zncz4ygICiealIiAsF2EOdYtkTpwNXuYbjk-UWA3JpY_ZDP" },
+  { id: "falchion", folder: "Falchion", name: "Falchion Knife", vnName: "Dao Falchion", tier: "B", accent: "#10b981", weight: 15, skinsCount: 25, vanillaImage: "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGJKz2lu_XuWbwcuyMESA4Fdl-4nnpU7iQA3-kKnr8ytd6s2oaahuKPmcACmSlL4u5uVqG37klhh24DnUytaqJXKQbgcmX5RyF-4Puha8xofmZejg-UWA3FLkEz9H" },
+  { id: "survival", folder: "Survival", name: "Survival Knife", vnName: "Dao Survival", tier: "C", accent: "#84cc16", weight: 22, skinsCount: 19, vanillaImage: "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGJKz2lu_XuWbwcuyMESA4Fdl-4nnpU7iQA3-kKnr8ytd6s2taapkM77CDzbIlrsms-NsHHGxzUwj5G6En4yuIy_BbQAjC5VxQLRc5hm8x4HvKaq8sEukLuHu" },
+  { id: "gut", folder: "Gut", name: "Gut Knife", vnName: "Dao Gut", tier: "C", accent: "#64748b", weight: 25, skinsCount: 25, vanillaImage: "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGJKz2lu_XuWbwcuyMESA4Fdl-4nnpU7iQA3-kKnr8ytd6s2pfbAjd6TAXDSSkeh3trdtTCy1zUV2t2vTyoyrIHzDalAgCsN1ROcO40O6wMqnab0rKy1qHw" },
+  { id: "navaja", folder: "Navaja", name: "Navaja Knife", vnName: "Dao Navaja", tier: "C", accent: "#78716c", weight: 25, skinsCount: 19, vanillaImage: "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGJKz2lu_XuWbwcuyMESA4Fdl-4nnpU7iQA3-kKnr8ytd6s2pcbR-Oc-ZD2SbyuB_tuQnGXu1kBxw62_dwtird3qXZwQgXJV0E-4PtESxl4ezYr6x4FaMjI4UyzK-0H1iy36efQ" },
+  { id: "shadow_daggers", folder: "Shadow Daggers", name: "Shadow Daggers", vnName: "Dao Shadow Daggers", tier: "C", accent: "#6b7280", weight: 25, skinsCount: 25, vanillaImage: "https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGJKz2lu_XuWbwcuyMESA4Fdl-4nnpU7iQA3-kKnr8ytd6s2-fbdlbvXKWWXIlbh15bdrTnvmwkt34z_Qz46hdnjFbAIkCJdzR-Zctxi5kNb5d7S1mgn3amY" }
 ];
 
 // =========================================================================
@@ -110,7 +110,7 @@ class CS2App {
       this.enabledKnifeIds = new Set(this.knives.map(k => k.id));
     } else {
       try {
-        const res = await fetch('assets/knives_data.json');
+        const res = await fetch('data cs2/cs2_all_database_cached_prices.json');
         if (res.ok) {
           const data = await res.json();
           if (Array.isArray(data) && data.length > 0) {
@@ -246,7 +246,7 @@ class CS2App {
           name: this.selectedKnife.name,
           vnName: this.selectedKnife.vnName,
           tier: this.selectedKnife.tier,
-          image: this.selectedKnife.vanillaImage || `assets/${this.selectedKnife.folder}/Vanilla.png`
+          image: this.selectedKnife.vanillaImage || ``
         } : null,
         selectedSkin: this.selectedSkin ? {
           name: this.selectedSkin.name,
@@ -386,7 +386,7 @@ class CS2App {
     }
 
     if (rawCases.length === 0) {
-      rawCases = [{ name: 'Fracture Case', file: 'Fracture.png', imageSrc: 'assets/Case/Fracture.png' }];
+      rawCases = [{ name: 'Fracture Case', file: 'Fracture.png', imageSrc: 'https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGJKz2lu_XsnXwtmkJjSU91dh8bj35VTqVBP4io_fr3QV7aD7OP01IfbGDzPCmbsm4LU5GnvkzUsi4WvUmIqtci_CPQNyApsjE_lK7EfrhW545A' }];
     }
 
     return rawCases.map(c => {
@@ -396,7 +396,7 @@ class CS2App {
         name: c.name,
         shortName: c.name.replace(/ Weapon Case$/i, '').replace(/ Case$/i, ''),
         file: fileName,
-        imageSrc: c.imageSrc || `assets/Case/${fileName}`
+        imageSrc: c.imageSrc || c.image || 'https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGJKz2lu_XsnXwtmkJjSU91dh8bj35VTqVBP4io_fr3QV7aD7OP01IfbGDzPCmbsm4LU5GnvkzUsi4WvUmIqtci_CPQNyApsjE_lK7EfrhW545A'
       };
     });
   }
@@ -407,7 +407,7 @@ class CS2App {
     const validCases = this.getValidCasesForSelection(knife, skin);
 
     const safeCases = validCases.length > 0 ? validCases : [
-      { id: 'fracture', name: 'Fracture Case', shortName: 'Fracture', file: 'Fracture.png', imageSrc: 'assets/Case/Fracture.png' }
+      { id: 'fracture', name: 'Fracture Case', shortName: 'Fracture', file: 'Fracture.png', imageSrc: 'https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGJKz2lu_XsnXwtmkJjSU91dh8bj35VTqVBP4io_fr3QV7aD7OP01IfbGDzPCmbsm4LU5GnvkzUsi4WvUmIqtci_CPQNyApsjE_lK7EfrhW545A' }
     ];
 
     const createItem = (c, tmpl, keySuffix) => {
@@ -902,7 +902,7 @@ class CS2App {
             : '';
           return `
             <span class="hmt-case-chip ${isChosen ? 'chosen-case-badge' : ''}" ${highlightStyle}>
-              <img src="${c.imageSrc || `assets/Case/${c.file}`}" alt="${c.name}" />
+              <img src="${c.imageSrc || c.image || ''}" alt="${c.name}" />
               <span>${c.name}${isChosen ? ' ★ (ĐÃ CHỌN)' : ''}</span>
             </span>
           `;
@@ -1108,7 +1108,7 @@ class CS2App {
       if (casesGrid) {
         casesGrid.innerHTML = cases.map(c => `
           <div class="case-card">
-            <img class="case-img" src="${c.imageSrc || `assets/Case/${c.file}`}" alt="${c.name}" />
+            <img class="case-img" src="${c.imageSrc || c.image || ''}" alt="${c.name}" />
             <span class="case-name">${c.name}</span>
           </div>
         `).join('');
@@ -1557,7 +1557,7 @@ class CS2App {
       checklistGrid.innerHTML = this.knives.map(k => {
         const isOwned = distinctKnives.has(k.id);
         const countOwned = this.collection.filter(i => i.knifeId === k.id).length;
-        const vanillaImg = k.vanillaImage || `assets/${k.folder}/Vanilla.png`;
+        const vanillaImg = k.vanillaImage || k.image || '';
 
         return `
           <div class="kcc-item ${isOwned ? 'owned' : ''}" title="${k.name}: ${isOwned ? `Đã có ${countOwned} con` : 'Chưa sở hữu'}">
@@ -1631,7 +1631,7 @@ class CS2App {
                 <span style="font-size: 10px; color: #64748b;">Hòm:</span>
                 ${item.cases.map(c => `
                   <div class="cc-case-pill" title="${c.name}">
-                    <img class="cc-case-thumb" src="${c.imageSrc || `assets/Case/${c.file}`}" alt="${c.name}" />
+                    <img class="cc-case-thumb" src="${c.imageSrc || c.image || ''}" alt="${c.name}" />
                     <span>${c.name.replace(' Case', '').replace(' Weapon', '')}</span>
                   </div>
                 `).join('')}
@@ -1685,7 +1685,7 @@ class CS2App {
                     <td>
                       <div style="display: flex; gap: 4px; flex-wrap: wrap;">
                         ${(item.cases || []).map(c => `
-                          <img style="width: 22px; height: 16px; object-fit: contain;" src="${c.imageSrc || `assets/Case/${c.file}`}" alt="${c.name}" title="${c.name}" />
+                          <img style="width: 22px; height: 16px; object-fit: contain;" src="${c.imageSrc || c.image || ''}" alt="${c.name}" title="${c.name}" />
                         `).join('')}
                       </div>
                     </td>
@@ -1922,7 +1922,7 @@ class CS2App {
         revealCasesBadges.innerHTML = validCases.map(c => `
           <div class="rc-case-card">
             <div class="rc-case-img-wrap">
-              <img src="${c.imageSrc}" alt="${c.name}" onerror="this.src='assets/Case/Dreams & Nightmares.png'" />
+              <img src="${c.imageSrc}" alt="${c.name}"  />
             </div>
             <div class="rc-case-name">${c.name}</div>
           </div>
@@ -1933,7 +1933,7 @@ class CS2App {
     } else if (stage === 3) {
       if (revealBadge) revealBadge.textContent = '★ NGÂN SÁCH ĐÃ CHỐT (VÒNG 3)';
       if (revealCardImg) {
-        revealCardImg.src = item.imageSrc || 'assets/Case/Dreams & Nightmares.png';
+        revealCardImg.src = item.imageSrc || 'https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGJKz2lu_XsnXwtmkJjSU91dh8bj35VTqVBP4io_frnIV7Kb5OaU-JqfHDzXFle0u4LY8Gy_kkRgisGzcm4v4J3vDOAQmDMdyRvlK7EcmeCU3yw';
         revealCardImg.alt = item.name;
       }
       if (revealTitle) {
@@ -2208,7 +2208,7 @@ class CS2App {
     if (slotQuantityMystery) slotQuantityMystery.style.display = 'none';
     if (slotQuantityImgWrap) slotQuantityImgWrap.style.display = 'flex';
     if (slotQuantityImg) {
-      slotQuantityImg.src = qty.imageSrc || 'assets/Case/Dreams & Nightmares.png';
+      slotQuantityImg.src = qty.imageSrc || 'https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGJKz2lu_XsnXwtmkJjSU91dh8bj35VTqVBP4io_frnIV7Kb5OaU-JqfHDzXFle0u4LY8Gy_kkRgisGzcm4v4J3vDOAQmDMdyRvlK7EcmeCU3yw';
       slotQuantityImg.alt = qty.name;
     }
     if (slotQuantityTitle) {
@@ -2571,7 +2571,7 @@ class CS2App {
 
     if (revealBadge) revealBadge.textContent = '⚡ Ô BỔ TRỢ ĐẶC BIỆT (VÒNG 3)';
     if (revealCardImg) {
-      revealCardImg.src = winnerQty.imageSrc || 'assets/Case/Dreams & Nightmares.png';
+      revealCardImg.src = winnerQty.imageSrc || 'https://community.akamai.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGJKz2lu_XsnXwtmkJjSU91dh8bj35VTqVBP4io_frnIV7Kb5OaU-JqfHDzXFle0u4LY8Gy_kkRgisGzcm4v4J3vDOAQmDMdyRvlK7EcmeCU3yw';
       revealCardImg.alt = winnerQty.name;
     }
     if (revealTitle) revealTitle.textContent = winnerQty.name;
@@ -3330,7 +3330,7 @@ class CS2App {
     if (!grid) return;
 
     grid.innerHTML = this.knives.map(knife => {
-      const vanillaImg = knife.vanillaImage || `assets/${knife.folder}/Vanilla.png`;
+      const vanillaImg = knife.vanillaImage || knife.image || '';
       const skinsCount = knife.skinsCount || (knife.skins ? knife.skins.length : 13);
 
       return `
@@ -3373,7 +3373,7 @@ class CS2App {
       const isChecked = this.enabledKnifeIds.has(knife.id);
       const weight = this.engine.getKnifeWeight(knife);
       const percent = isChecked && totalWeight > 0 ? ((weight / totalWeight) * 100).toFixed(2) : '0.00';
-      const vanillaImg = knife.vanillaImage || `assets/${knife.folder}/Vanilla.png`;
+      const vanillaImg = knife.vanillaImage || knife.image || '';
 
       return `
         <div class="knife-manage-row ${isChecked ? 'active' : 'disabled'}">
@@ -3412,7 +3412,11 @@ class CS2App {
   }
 }
 
+// Expose CS2App globally
+window.CS2App = CS2App;
+
 // Bootstrap on DOM Ready
 window.addEventListener('DOMContentLoaded', () => {
   window.app = new CS2App();
 });
+
